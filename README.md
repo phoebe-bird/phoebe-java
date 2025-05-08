@@ -1,1 +1,555 @@
-# phoebe-java
+# Phoebe Java API Library
+
+[![Maven Central](https://img.shields.io/maven-central/v/com.phoebe.api/phoebe-java)](https://central.sonatype.com/artifact/com.phoebe.api/phoebe-java/0.0.1-alpha.0)
+[![javadoc](https://javadoc.io/badge2/com.phoebe.api/phoebe-java/0.0.1-alpha.0/javadoc.svg)](https://javadoc.io/doc/com.phoebe.api/phoebe-java/0.0.1-alpha.0)
+
+The Phoebe Java SDK provides convenient access to the [Phoebe REST API](https://science.ebird.org/en/use-ebird-data/download-ebird-data-products) from applications written in Java.
+
+It is generated with [Stainless](https://www.stainless.com/).
+
+The REST API documentation can be found on [science.ebird.org](https://science.ebird.org/en/use-ebird-data/download-ebird-data-products). Javadocs are available on [javadoc.io](https://javadoc.io/doc/com.phoebe.api/phoebe-java/0.0.1-alpha.0).
+
+## Installation
+
+### Gradle
+
+```kotlin
+implementation("com.phoebe.api:phoebe-java:0.0.1-alpha.0")
+```
+
+### Maven
+
+```xml
+<dependency>
+  <groupId>com.phoebe.api</groupId>
+  <artifactId>phoebe-java</artifactId>
+  <version>0.0.1-alpha.0</version>
+</dependency>
+```
+
+## Requirements
+
+This library requires Java 8 or later.
+
+## Usage
+
+```java
+import com.phoebe.api.client.PhoebeClient;
+import com.phoebe.api.client.okhttp.PhoebeOkHttpClient;
+import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveParams;
+import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveResponse;
+
+// Configures using the `EBIRD_API_KEY` and `PHOEBE_BASE_URL` environment variables
+PhoebeClient client = PhoebeOkHttpClient.fromEnv();
+
+InfoRetrieveParams params = InfoRetrieveParams.builder()
+    .locId("L99381")
+    .build();
+InfoRetrieveResponse info = client.ref().hotspot().info().retrieve(params);
+```
+
+## Client configuration
+
+Configure the client using environment variables:
+
+```java
+import com.phoebe.api.client.PhoebeClient;
+import com.phoebe.api.client.okhttp.PhoebeOkHttpClient;
+
+// Configures using the `EBIRD_API_KEY` and `PHOEBE_BASE_URL` environment variables
+PhoebeClient client = PhoebeOkHttpClient.fromEnv();
+```
+
+Or manually:
+
+```java
+import com.phoebe.api.client.PhoebeClient;
+import com.phoebe.api.client.okhttp.PhoebeOkHttpClient;
+
+PhoebeClient client = PhoebeOkHttpClient.builder()
+    .apiKey("My API Key")
+    .build();
+```
+
+Or using a combination of the two approaches:
+
+```java
+import com.phoebe.api.client.PhoebeClient;
+import com.phoebe.api.client.okhttp.PhoebeOkHttpClient;
+
+PhoebeClient client = PhoebeOkHttpClient.builder()
+    // Configures using the `EBIRD_API_KEY` and `PHOEBE_BASE_URL` environment variables
+    .fromEnv()
+    .apiKey("My API Key")
+    .build();
+```
+
+See this table for the available options:
+
+| Setter    | Environment variable | Required | Default value                |
+| --------- | -------------------- | -------- | ---------------------------- |
+| `apiKey`  | `EBIRD_API_KEY`      | true     | -                            |
+| `baseUrl` | `PHOEBE_BASE_URL`    | true     | `"https://api.ebird.org/v2"` |
+
+> [!TIP]
+> Don't create more than one client in the same application. Each client has a connection pool and
+> thread pools, which are more efficient to share between requests.
+
+## Requests and responses
+
+To send a request to the Phoebe API, build an instance of some `Params` class and pass it to the corresponding client method. When the response is received, it will be deserialized into an instance of a Java class.
+
+For example, `client.ref().hotspot().info().retrieve(...)` should be called with an instance of `InfoRetrieveParams`, and it will return an instance of `InfoRetrieveResponse`.
+
+## Immutability
+
+Each class in the SDK has an associated [builder](https://blogs.oracle.com/javamagazine/post/exploring-joshua-blochs-builder-design-pattern-in-java) or factory method for constructing it.
+
+Each class is [immutable](https://docs.oracle.com/javase/tutorial/essential/concurrency/immutable.html) once constructed. If the class has an associated builder, then it has a `toBuilder()` method, which can be used to convert it back to a builder for making a modified copy.
+
+Because each class is immutable, builder modification will _never_ affect already built class instances.
+
+## Asynchronous execution
+
+The default client is synchronous. To switch to asynchronous execution, call the `async()` method:
+
+```java
+import com.phoebe.api.client.PhoebeClient;
+import com.phoebe.api.client.okhttp.PhoebeOkHttpClient;
+import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveParams;
+import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveResponse;
+import java.util.concurrent.CompletableFuture;
+
+// Configures using the `EBIRD_API_KEY` and `PHOEBE_BASE_URL` environment variables
+PhoebeClient client = PhoebeOkHttpClient.fromEnv();
+
+InfoRetrieveParams params = InfoRetrieveParams.builder()
+    .locId("L99381")
+    .build();
+CompletableFuture<InfoRetrieveResponse> info = client.async().ref().hotspot().info().retrieve(params);
+```
+
+Or create an asynchronous client from the beginning:
+
+```java
+import com.phoebe.api.client.PhoebeClientAsync;
+import com.phoebe.api.client.okhttp.PhoebeOkHttpClientAsync;
+import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveParams;
+import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveResponse;
+import java.util.concurrent.CompletableFuture;
+
+// Configures using the `EBIRD_API_KEY` and `PHOEBE_BASE_URL` environment variables
+PhoebeClientAsync client = PhoebeOkHttpClientAsync.fromEnv();
+
+InfoRetrieveParams params = InfoRetrieveParams.builder()
+    .locId("L99381")
+    .build();
+CompletableFuture<InfoRetrieveResponse> info = client.ref().hotspot().info().retrieve(params);
+```
+
+The asynchronous client supports the same options as the synchronous one, except most methods return `CompletableFuture`s.
+
+## Raw responses
+
+The SDK defines methods that deserialize responses into instances of Java classes. However, these methods don't provide access to the response headers, status code, or the raw response body.
+
+To access this data, prefix any HTTP method call on a client or service with `withRawResponse()`:
+
+```java
+import com.phoebe.api.core.http.Headers;
+import com.phoebe.api.core.http.HttpResponseFor;
+import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveParams;
+import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveResponse;
+
+InfoRetrieveParams params = InfoRetrieveParams.builder()
+    .locId("L99381")
+    .build();
+HttpResponseFor<InfoRetrieveResponse> info = client.ref().hotspot().info().withRawResponse().retrieve(params);
+
+int statusCode = info.statusCode();
+Headers headers = info.headers();
+```
+
+You can still deserialize the response into an instance of a Java class if needed:
+
+```java
+import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveResponse;
+
+InfoRetrieveResponse parsedInfo = info.parse();
+```
+
+## Error handling
+
+The SDK throws custom unchecked exception types:
+
+- [`PhoebeServiceException`](phoebe-java-core/src/main/kotlin/com/phoebe/api/errors/PhoebeServiceException.kt): Base class for HTTP errors. See this table for which exception subclass is thrown for each HTTP status code:
+
+  | Status | Exception                                                                                                                  |
+  | ------ | -------------------------------------------------------------------------------------------------------------------------- |
+  | 400    | [`BadRequestException`](phoebe-java-core/src/main/kotlin/com/phoebe/api/errors/BadRequestException.kt)                     |
+  | 401    | [`UnauthorizedException`](phoebe-java-core/src/main/kotlin/com/phoebe/api/errors/UnauthorizedException.kt)                 |
+  | 403    | [`PermissionDeniedException`](phoebe-java-core/src/main/kotlin/com/phoebe/api/errors/PermissionDeniedException.kt)         |
+  | 404    | [`NotFoundException`](phoebe-java-core/src/main/kotlin/com/phoebe/api/errors/NotFoundException.kt)                         |
+  | 422    | [`UnprocessableEntityException`](phoebe-java-core/src/main/kotlin/com/phoebe/api/errors/UnprocessableEntityException.kt)   |
+  | 429    | [`RateLimitException`](phoebe-java-core/src/main/kotlin/com/phoebe/api/errors/RateLimitException.kt)                       |
+  | 5xx    | [`InternalServerException`](phoebe-java-core/src/main/kotlin/com/phoebe/api/errors/InternalServerException.kt)             |
+  | others | [`UnexpectedStatusCodeException`](phoebe-java-core/src/main/kotlin/com/phoebe/api/errors/UnexpectedStatusCodeException.kt) |
+
+- [`PhoebeIoException`](phoebe-java-core/src/main/kotlin/com/phoebe/api/errors/PhoebeIoException.kt): I/O networking errors.
+
+- [`PhoebeInvalidDataException`](phoebe-java-core/src/main/kotlin/com/phoebe/api/errors/PhoebeInvalidDataException.kt): Failure to interpret successfully parsed data. For example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it from the response.
+
+- [`PhoebeException`](phoebe-java-core/src/main/kotlin/com/phoebe/api/errors/PhoebeException.kt): Base class for all exceptions. Most errors will result in one of the previously mentioned ones, but completely generic errors may be thrown using the base class.
+
+## Logging
+
+The SDK uses the standard [OkHttp logging interceptor](https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor).
+
+Enable logging by setting the `PHOEBE_LOG` environment variable to `info`:
+
+```sh
+$ export PHOEBE_LOG=info
+```
+
+Or to `debug` for more verbose logging:
+
+```sh
+$ export PHOEBE_LOG=debug
+```
+
+## Jackson
+
+The SDK depends on [Jackson](https://github.com/FasterXML/jackson) for JSON serialization/deserialization. It is compatible with version 2.13.4 or higher, but depends on version 2.18.2 by default.
+
+The SDK throws an exception if it detects an incompatible Jackson version at runtime (e.g. if the default version was overridden in your Maven or Gradle config).
+
+If the SDK threw an exception, but you're _certain_ the version is compatible, then disable the version check using the `checkJacksonVersionCompatibility` on [`PhoebeOkHttpClient`](phoebe-java-client-okhttp/src/main/kotlin/com/phoebe/api/client/okhttp/PhoebeOkHttpClient.kt) or [`PhoebeOkHttpClientAsync`](phoebe-java-client-okhttp/src/main/kotlin/com/phoebe/api/client/okhttp/PhoebeOkHttpClientAsync.kt).
+
+> [!CAUTION]
+> We make no guarantee that the SDK works correctly when the Jackson version check is disabled.
+
+## Network options
+
+### Retries
+
+The SDK automatically retries 2 times by default, with a short exponential backoff.
+
+Only the following error types are retried:
+
+- Connection errors (for example, due to a network connectivity problem)
+- 408 Request Timeout
+- 409 Conflict
+- 429 Rate Limit
+- 5xx Internal
+
+The API may also explicitly instruct the SDK to retry or not retry a response.
+
+To set a custom number of retries, configure the client using the `maxRetries` method:
+
+```java
+import com.phoebe.api.client.PhoebeClient;
+import com.phoebe.api.client.okhttp.PhoebeOkHttpClient;
+
+PhoebeClient client = PhoebeOkHttpClient.builder()
+    .fromEnv()
+    .maxRetries(4)
+    .build();
+```
+
+### Timeouts
+
+Requests time out after 1 minute by default.
+
+To set a custom timeout, configure the method call using the `timeout` method:
+
+```java
+import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveParams;
+import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveResponse;
+
+InfoRetrieveResponse info = client.ref().hotspot().info().retrieve(
+  params, RequestOptions.builder().timeout(Duration.ofSeconds(30)).build()
+);
+```
+
+Or configure the default for all method calls at the client level:
+
+```java
+import com.phoebe.api.client.PhoebeClient;
+import com.phoebe.api.client.okhttp.PhoebeOkHttpClient;
+import java.time.Duration;
+
+PhoebeClient client = PhoebeOkHttpClient.builder()
+    .fromEnv()
+    .timeout(Duration.ofSeconds(30))
+    .build();
+```
+
+### Proxies
+
+To route requests through a proxy, configure the client using the `proxy` method:
+
+```java
+import com.phoebe.api.client.PhoebeClient;
+import com.phoebe.api.client.okhttp.PhoebeOkHttpClient;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
+
+PhoebeClient client = PhoebeOkHttpClient.builder()
+    .fromEnv()
+    .proxy(new Proxy(
+      Proxy.Type.HTTP, new InetSocketAddress(
+        "https://example.com", 8080
+      )
+    ))
+    .build();
+```
+
+### Custom HTTP client
+
+The SDK consists of three artifacts:
+
+- `phoebe-java-core`
+  - Contains core SDK logic
+  - Does not depend on [OkHttp](https://square.github.io/okhttp)
+  - Exposes [`PhoebeClient`](phoebe-java-core/src/main/kotlin/com/phoebe/api/client/PhoebeClient.kt), [`PhoebeClientAsync`](phoebe-java-core/src/main/kotlin/com/phoebe/api/client/PhoebeClientAsync.kt), [`PhoebeClientImpl`](phoebe-java-core/src/main/kotlin/com/phoebe/api/client/PhoebeClientImpl.kt), and [`PhoebeClientAsyncImpl`](phoebe-java-core/src/main/kotlin/com/phoebe/api/client/PhoebeClientAsyncImpl.kt), all of which can work with any HTTP client
+- `phoebe-java-client-okhttp`
+  - Depends on [OkHttp](https://square.github.io/okhttp)
+  - Exposes [`PhoebeOkHttpClient`](phoebe-java-client-okhttp/src/main/kotlin/com/phoebe/api/client/okhttp/PhoebeOkHttpClient.kt) and [`PhoebeOkHttpClientAsync`](phoebe-java-client-okhttp/src/main/kotlin/com/phoebe/api/client/okhttp/PhoebeOkHttpClientAsync.kt), which provide a way to construct [`PhoebeClientImpl`](phoebe-java-core/src/main/kotlin/com/phoebe/api/client/PhoebeClientImpl.kt) and [`PhoebeClientAsyncImpl`](phoebe-java-core/src/main/kotlin/com/phoebe/api/client/PhoebeClientAsyncImpl.kt), respectively, using OkHttp
+- `phoebe-java`
+  - Depends on and exposes the APIs of both `phoebe-java-core` and `phoebe-java-client-okhttp`
+  - Does not have its own logic
+
+This structure allows replacing the SDK's default HTTP client without pulling in unnecessary dependencies.
+
+#### Customized [`OkHttpClient`](https://square.github.io/okhttp/3.x/okhttp/okhttp3/OkHttpClient.html)
+
+> [!TIP]
+> Try the available [network options](#network-options) before replacing the default client.
+
+To use a customized `OkHttpClient`:
+
+1. Replace your [`phoebe-java` dependency](#installation) with `phoebe-java-core`
+2. Copy `phoebe-java-client-okhttp`'s [`OkHttpClient`](phoebe-java-client-okhttp/src/main/kotlin/com/phoebe/api/client/okhttp/OkHttpClient.kt) class into your code and customize it
+3. Construct [`PhoebeClientImpl`](phoebe-java-core/src/main/kotlin/com/phoebe/api/client/PhoebeClientImpl.kt) or [`PhoebeClientAsyncImpl`](phoebe-java-core/src/main/kotlin/com/phoebe/api/client/PhoebeClientAsyncImpl.kt), similarly to [`PhoebeOkHttpClient`](phoebe-java-client-okhttp/src/main/kotlin/com/phoebe/api/client/okhttp/PhoebeOkHttpClient.kt) or [`PhoebeOkHttpClientAsync`](phoebe-java-client-okhttp/src/main/kotlin/com/phoebe/api/client/okhttp/PhoebeOkHttpClientAsync.kt), using your customized client
+
+### Completely custom HTTP client
+
+To use a completely custom HTTP client:
+
+1. Replace your [`phoebe-java` dependency](#installation) with `phoebe-java-core`
+2. Write a class that implements the [`HttpClient`](phoebe-java-core/src/main/kotlin/com/phoebe/api/core/http/HttpClient.kt) interface
+3. Construct [`PhoebeClientImpl`](phoebe-java-core/src/main/kotlin/com/phoebe/api/client/PhoebeClientImpl.kt) or [`PhoebeClientAsyncImpl`](phoebe-java-core/src/main/kotlin/com/phoebe/api/client/PhoebeClientAsyncImpl.kt), similarly to [`PhoebeOkHttpClient`](phoebe-java-client-okhttp/src/main/kotlin/com/phoebe/api/client/okhttp/PhoebeOkHttpClient.kt) or [`PhoebeOkHttpClientAsync`](phoebe-java-client-okhttp/src/main/kotlin/com/phoebe/api/client/okhttp/PhoebeOkHttpClientAsync.kt), using your new client class
+
+## Undocumented API functionality
+
+The SDK is typed for convenient usage of the documented API. However, it also supports working with undocumented or not yet supported parts of the API.
+
+### Parameters
+
+To set undocumented parameters, call the `putAdditionalHeader`, `putAdditionalQueryParam`, or `putAdditionalBodyProperty` methods on any `Params` class:
+
+```java
+import com.phoebe.api.core.JsonValue;
+import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveParams;
+
+InfoRetrieveParams params = InfoRetrieveParams.builder()
+    .putAdditionalHeader("Secret-Header", "42")
+    .putAdditionalQueryParam("secret_query_param", "42")
+    .putAdditionalBodyProperty("secretProperty", JsonValue.from("42"))
+    .build();
+```
+
+These can be accessed on the built object later using the `_additionalHeaders()`, `_additionalQueryParams()`, and `_additionalBodyProperties()` methods.
+
+To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](phoebe-java-core/src/main/kotlin/com/phoebe/api/core/Values.kt) object to its setter:
+
+```java
+import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveParams;
+
+InfoRetrieveParams params = InfoRetrieveParams.builder()
+    .locId("L99381")
+    .build();
+```
+
+The most straightforward way to create a [`JsonValue`](phoebe-java-core/src/main/kotlin/com/phoebe/api/core/Values.kt) is using its `from(...)` method:
+
+```java
+import com.phoebe.api.core.JsonValue;
+import java.util.List;
+import java.util.Map;
+
+// Create primitive JSON values
+JsonValue nullValue = JsonValue.from(null);
+JsonValue booleanValue = JsonValue.from(true);
+JsonValue numberValue = JsonValue.from(42);
+JsonValue stringValue = JsonValue.from("Hello World!");
+
+// Create a JSON array value equivalent to `["Hello", "World"]`
+JsonValue arrayValue = JsonValue.from(List.of(
+  "Hello", "World"
+));
+
+// Create a JSON object value equivalent to `{ "a": 1, "b": 2 }`
+JsonValue objectValue = JsonValue.from(Map.of(
+  "a", 1,
+  "b", 2
+));
+
+// Create an arbitrarily nested JSON equivalent to:
+// {
+//   "a": [1, 2],
+//   "b": [3, 4]
+// }
+JsonValue complexValue = JsonValue.from(Map.of(
+  "a", List.of(
+    1, 2
+  ),
+  "b", List.of(
+    3, 4
+  )
+));
+```
+
+Normally a `Builder` class's `build` method will throw [`IllegalStateException`](https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html) if any required parameter or property is unset.
+
+To forcibly omit a required parameter or property, pass [`JsonMissing`](phoebe-java-core/src/main/kotlin/com/phoebe/api/core/Values.kt):
+
+```java
+import com.phoebe.api.core.JsonMissing;
+import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveParams;
+
+InfoRetrieveParams params = InfoRetrieveParams.builder()
+    .locId(JsonMissing.of())
+    .build();
+```
+
+### Response properties
+
+To access undocumented response properties, call the `_additionalProperties()` method:
+
+```java
+import com.phoebe.api.core.JsonValue;
+import java.util.Map;
+
+Map<String, JsonValue> additionalProperties = client.ref().hotspot().info().retrieve(params)._additionalProperties();
+JsonValue secretPropertyValue = additionalProperties.get("secretProperty");
+
+String result = secretPropertyValue.accept(new JsonValue.Visitor<>() {
+    @Override
+    public String visitNull() {
+        return "It's null!";
+    }
+
+    @Override
+    public String visitBoolean(boolean value) {
+        return "It's a boolean!";
+    }
+
+    @Override
+    public String visitNumber(Number value) {
+        return "It's a number!";
+    }
+
+    // Other methods include `visitMissing`, `visitString`, `visitArray`, and `visitObject`
+    // The default implementation of each unimplemented method delegates to `visitDefault`, which throws by default, but can also be overridden
+});
+```
+
+To access a property's raw JSON value, which may be undocumented, call its `_` prefixed method:
+
+```java
+import com.phoebe.api.core.JsonField;
+import java.util.Optional;
+
+JsonField<Object> field = client.ref().hotspot().info().retrieve(params)._field();
+
+if (field.isMissing()) {
+  // The property is absent from the JSON response
+} else if (field.isNull()) {
+  // The property was set to literal null
+} else {
+  // Check if value was provided as a string
+  // Other methods include `asNumber()`, `asBoolean()`, etc.
+  Optional<String> jsonString = field.asString();
+
+  // Try to deserialize into a custom type
+  MyClass myObject = field.asUnknown().orElseThrow().convert(MyClass.class);
+}
+```
+
+### Response validation
+
+In rare cases, the API may return a response that doesn't match the expected type. For example, the SDK may expect a property to contain a `String`, but the API could return something else.
+
+By default, the SDK will not throw an exception in this case. It will throw [`PhoebeInvalidDataException`](phoebe-java-core/src/main/kotlin/com/phoebe/api/errors/PhoebeInvalidDataException.kt) only if you directly access the property.
+
+If you would prefer to check that the response is completely well-typed upfront, then either call `validate()`:
+
+```java
+import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveResponse;
+
+InfoRetrieveResponse info = client.ref().hotspot().info().retrieve(params).validate();
+```
+
+Or configure the method call to validate the response using the `responseValidation` method:
+
+```java
+import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveParams;
+import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveResponse;
+
+InfoRetrieveResponse info = client.ref().hotspot().info().retrieve(
+  params, RequestOptions.builder().responseValidation(true).build()
+);
+```
+
+Or configure the default for all method calls at the client level:
+
+```java
+import com.phoebe.api.client.PhoebeClient;
+import com.phoebe.api.client.okhttp.PhoebeOkHttpClient;
+
+PhoebeClient client = PhoebeOkHttpClient.builder()
+    .fromEnv()
+    .responseValidation(true)
+    .build();
+```
+
+## FAQ
+
+### Why don't you use plain `enum` classes?
+
+Java `enum` classes are not trivially [forwards compatible](https://www.stainless.com/blog/making-java-enums-forwards-compatible). Using them in the SDK could cause runtime exceptions if the API is updated to respond with a new enum value.
+
+### Why do you represent fields using `JsonField<T>` instead of just plain `T`?
+
+Using `JsonField<T>` enables a few features:
+
+- Allowing usage of [undocumented API functionality](#undocumented-api-functionality)
+- Lazily [validating the API response against the expected shape](#response-validation)
+- Representing absent vs explicitly null values
+
+### Why don't you use [`data` classes](https://kotlinlang.org/docs/data-classes.html)?
+
+It is not [backwards compatible to add new fields to a data class](https://kotlinlang.org/docs/api-guidelines-backward-compatibility.html#avoid-using-data-classes-in-your-api) and we don't want to introduce a breaking change every time we add a field to a class.
+
+### Why don't you use checked exceptions?
+
+Checked exceptions are widely considered a mistake in the Java programming language. In fact, they were omitted from Kotlin for this reason.
+
+Checked exceptions:
+
+- Are verbose to handle
+- Encourage error handling at the wrong level of abstraction, where nothing can be done about the error
+- Are tedious to propagate due to the [function coloring problem](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function)
+- Don't play well with lambdas (also due to the function coloring problem)
+
+## Semantic versioning
+
+This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:
+
+1. Changes to library internals which are technically public but not intended or documented for external use. _(Please open a GitHub issue to let us know if you are relying on such internals.)_
+2. Changes that we do not expect to impact the vast majority of users in practice.
+
+We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
+
+We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/phoebe-java/issues) with questions, bugs, or suggestions.
