@@ -28,6 +28,20 @@ interface SpecieServiceAsync {
      *
      * When using the _r_ query parameter set the _regionCode_ URL parameter to an empty string.
      */
+    fun retrieve(
+        speciesCode: String,
+        params: SpecieRetrieveParams,
+    ): CompletableFuture<List<Observation>> = retrieve(speciesCode, params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        speciesCode: String,
+        params: SpecieRetrieveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<List<Observation>> =
+        retrieve(params.toBuilder().speciesCode(speciesCode).build(), requestOptions)
+
+    /** @see [retrieve] */
     fun retrieve(params: SpecieRetrieveParams): CompletableFuture<List<Observation>> =
         retrieve(params, RequestOptions.none())
 
@@ -46,6 +60,23 @@ interface SpecieServiceAsync {
          * Returns a raw HTTP response for `get /data/obs/{regionCode}/recent/{speciesCode}`, but is
          * otherwise the same as [SpecieServiceAsync.retrieve].
          */
+        @MustBeClosed
+        fun retrieve(
+            speciesCode: String,
+            params: SpecieRetrieveParams,
+        ): CompletableFuture<HttpResponseFor<List<Observation>>> =
+            retrieve(speciesCode, params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            speciesCode: String,
+            params: SpecieRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<List<Observation>>> =
+            retrieve(params.toBuilder().speciesCode(speciesCode).build(), requestOptions)
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: SpecieRetrieveParams

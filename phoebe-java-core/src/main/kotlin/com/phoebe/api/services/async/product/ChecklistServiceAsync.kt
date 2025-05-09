@@ -24,14 +24,39 @@ interface ChecklistServiceAsync {
      * be removed at a future date: _howManyAtleast_, _howManyAtmost_, _hideFlags_, _projId_,
      * _subId_, _subnational1Code_ and _present_.
      */
-    fun view(params: ChecklistViewParams): CompletableFuture<ChecklistViewResponse> =
-        view(params, RequestOptions.none())
+    fun view(subId: String): CompletableFuture<ChecklistViewResponse> =
+        view(subId, ChecklistViewParams.none())
+
+    /** @see [view] */
+    fun view(
+        subId: String,
+        params: ChecklistViewParams = ChecklistViewParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ChecklistViewResponse> =
+        view(params.toBuilder().subId(subId).build(), requestOptions)
+
+    /** @see [view] */
+    fun view(
+        subId: String,
+        params: ChecklistViewParams = ChecklistViewParams.none(),
+    ): CompletableFuture<ChecklistViewResponse> = view(subId, params, RequestOptions.none())
 
     /** @see [view] */
     fun view(
         params: ChecklistViewParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ChecklistViewResponse>
+
+    /** @see [view] */
+    fun view(params: ChecklistViewParams): CompletableFuture<ChecklistViewResponse> =
+        view(params, RequestOptions.none())
+
+    /** @see [view] */
+    fun view(
+        subId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ChecklistViewResponse> =
+        view(subId, ChecklistViewParams.none(), requestOptions)
 
     /**
      * A view of [ChecklistServiceAsync] that provides access to raw HTTP responses for each method.
@@ -43,6 +68,35 @@ interface ChecklistServiceAsync {
          * the same as [ChecklistServiceAsync.view].
          */
         @MustBeClosed
+        fun view(subId: String): CompletableFuture<HttpResponseFor<ChecklistViewResponse>> =
+            view(subId, ChecklistViewParams.none())
+
+        /** @see [view] */
+        @MustBeClosed
+        fun view(
+            subId: String,
+            params: ChecklistViewParams = ChecklistViewParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ChecklistViewResponse>> =
+            view(params.toBuilder().subId(subId).build(), requestOptions)
+
+        /** @see [view] */
+        @MustBeClosed
+        fun view(
+            subId: String,
+            params: ChecklistViewParams = ChecklistViewParams.none(),
+        ): CompletableFuture<HttpResponseFor<ChecklistViewResponse>> =
+            view(subId, params, RequestOptions.none())
+
+        /** @see [view] */
+        @MustBeClosed
+        fun view(
+            params: ChecklistViewParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ChecklistViewResponse>>
+
+        /** @see [view] */
+        @MustBeClosed
         fun view(
             params: ChecklistViewParams
         ): CompletableFuture<HttpResponseFor<ChecklistViewResponse>> =
@@ -51,8 +105,9 @@ interface ChecklistServiceAsync {
         /** @see [view] */
         @MustBeClosed
         fun view(
-            params: ChecklistViewParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ChecklistViewResponse>>
+            subId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ChecklistViewResponse>> =
+            view(subId, ChecklistViewParams.none(), requestOptions)
     }
 }

@@ -27,7 +27,7 @@ private constructor(
     private val regionCode: String,
     private val y: Long,
     private val m: Long,
-    private val d: Long,
+    private val d: Long?,
     private val cat: Cat?,
     private val detail: Detail?,
     private val hotspot: Boolean?,
@@ -46,7 +46,7 @@ private constructor(
 
     fun m(): Long = m
 
-    fun d(): Long = d
+    fun d(): Optional<Long> = Optional.ofNullable(d)
 
     /** Only fetch observations from these taxonomic categories */
     fun cat(): Optional<Cat> = Optional.ofNullable(cat)
@@ -88,7 +88,6 @@ private constructor(
          * .regionCode()
          * .y()
          * .m()
-         * .d()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -136,7 +135,17 @@ private constructor(
 
         fun m(m: Long) = apply { this.m = m }
 
-        fun d(d: Long) = apply { this.d = d }
+        fun d(d: Long?) = apply { this.d = d }
+
+        /**
+         * Alias for [Builder.d].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun d(d: Long) = d(d as Long?)
+
+        /** Alias for calling [Builder.d] with `d.orElse(null)`. */
+        fun d(d: Optional<Long>) = d(d.getOrNull())
 
         /** Only fetch observations from these taxonomic categories */
         fun cat(cat: Cat?) = apply { this.cat = cat }
@@ -328,7 +337,6 @@ private constructor(
          * .regionCode()
          * .y()
          * .m()
-         * .d()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -338,7 +346,7 @@ private constructor(
                 checkRequired("regionCode", regionCode),
                 checkRequired("y", y),
                 checkRequired("m", m),
-                checkRequired("d", d),
+                d,
                 cat,
                 detail,
                 hotspot,
@@ -357,7 +365,7 @@ private constructor(
             0 -> regionCode
             1 -> y.toString()
             2 -> m.toString()
-            3 -> d.toString()
+            3 -> d?.toString() ?: ""
             else -> ""
         }
 

@@ -23,7 +23,7 @@ import kotlin.jvm.optionals.getOrNull
 class ListListParams
 private constructor(
     private val regionType: String,
-    private val parentRegionCode: String,
+    private val parentRegionCode: String?,
     private val fmt: Fmt?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -31,7 +31,7 @@ private constructor(
 
     fun regionType(): String = regionType
 
-    fun parentRegionCode(): String = parentRegionCode
+    fun parentRegionCode(): Optional<String> = Optional.ofNullable(parentRegionCode)
 
     /** Fetch the records in CSV or JSON format. */
     fun fmt(): Optional<Fmt> = Optional.ofNullable(fmt)
@@ -50,7 +50,6 @@ private constructor(
          * The following fields are required:
          * ```java
          * .regionType()
-         * .parentRegionCode()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -76,9 +75,13 @@ private constructor(
 
         fun regionType(regionType: String) = apply { this.regionType = regionType }
 
-        fun parentRegionCode(parentRegionCode: String) = apply {
+        fun parentRegionCode(parentRegionCode: String?) = apply {
             this.parentRegionCode = parentRegionCode
         }
+
+        /** Alias for calling [Builder.parentRegionCode] with `parentRegionCode.orElse(null)`. */
+        fun parentRegionCode(parentRegionCode: Optional<String>) =
+            parentRegionCode(parentRegionCode.getOrNull())
 
         /** Fetch the records in CSV or JSON format. */
         fun fmt(fmt: Fmt?) = apply { this.fmt = fmt }
@@ -192,7 +195,6 @@ private constructor(
          * The following fields are required:
          * ```java
          * .regionType()
-         * .parentRegionCode()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -200,7 +202,7 @@ private constructor(
         fun build(): ListListParams =
             ListListParams(
                 checkRequired("regionType", regionType),
-                checkRequired("parentRegionCode", parentRegionCode),
+                parentRegionCode,
                 fmt,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -210,7 +212,7 @@ private constructor(
     fun _pathParam(index: Int): String =
         when (index) {
             0 -> regionType
-            1 -> parentRegionCode
+            1 -> parentRegionCode ?: ""
             else -> ""
         }
 

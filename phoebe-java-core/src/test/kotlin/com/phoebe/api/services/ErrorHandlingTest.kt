@@ -22,7 +22,6 @@ import com.phoebe.api.errors.RateLimitException
 import com.phoebe.api.errors.UnauthorizedException
 import com.phoebe.api.errors.UnexpectedStatusCodeException
 import com.phoebe.api.errors.UnprocessableEntityException
-import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveParams
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.entry
 import org.junit.jupiter.api.BeforeEach
@@ -68,10 +67,7 @@ internal class ErrorHandlingTest {
                 )
         )
 
-        val e =
-            assertThrows<BadRequestException> {
-                infoService.retrieve(InfoRetrieveParams.builder().locId("locId").build())
-            }
+        val e = assertThrows<BadRequestException> { infoService.retrieve("locId") }
 
         assertThat(e.statusCode()).isEqualTo(400)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -88,10 +84,7 @@ internal class ErrorHandlingTest {
                 )
         )
 
-        val e =
-            assertThrows<UnauthorizedException> {
-                infoService.retrieve(InfoRetrieveParams.builder().locId("locId").build())
-            }
+        val e = assertThrows<UnauthorizedException> { infoService.retrieve("locId") }
 
         assertThat(e.statusCode()).isEqualTo(401)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -108,10 +101,7 @@ internal class ErrorHandlingTest {
                 )
         )
 
-        val e =
-            assertThrows<PermissionDeniedException> {
-                infoService.retrieve(InfoRetrieveParams.builder().locId("locId").build())
-            }
+        val e = assertThrows<PermissionDeniedException> { infoService.retrieve("locId") }
 
         assertThat(e.statusCode()).isEqualTo(403)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -128,10 +118,7 @@ internal class ErrorHandlingTest {
                 )
         )
 
-        val e =
-            assertThrows<NotFoundException> {
-                infoService.retrieve(InfoRetrieveParams.builder().locId("locId").build())
-            }
+        val e = assertThrows<NotFoundException> { infoService.retrieve("locId") }
 
         assertThat(e.statusCode()).isEqualTo(404)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -148,10 +135,7 @@ internal class ErrorHandlingTest {
                 )
         )
 
-        val e =
-            assertThrows<UnprocessableEntityException> {
-                infoService.retrieve(InfoRetrieveParams.builder().locId("locId").build())
-            }
+        val e = assertThrows<UnprocessableEntityException> { infoService.retrieve("locId") }
 
         assertThat(e.statusCode()).isEqualTo(422)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -168,10 +152,7 @@ internal class ErrorHandlingTest {
                 )
         )
 
-        val e =
-            assertThrows<RateLimitException> {
-                infoService.retrieve(InfoRetrieveParams.builder().locId("locId").build())
-            }
+        val e = assertThrows<RateLimitException> { infoService.retrieve("locId") }
 
         assertThat(e.statusCode()).isEqualTo(429)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -188,10 +169,7 @@ internal class ErrorHandlingTest {
                 )
         )
 
-        val e =
-            assertThrows<InternalServerException> {
-                infoService.retrieve(InfoRetrieveParams.builder().locId("locId").build())
-            }
+        val e = assertThrows<InternalServerException> { infoService.retrieve("locId") }
 
         assertThat(e.statusCode()).isEqualTo(500)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -208,10 +186,7 @@ internal class ErrorHandlingTest {
                 )
         )
 
-        val e =
-            assertThrows<UnexpectedStatusCodeException> {
-                infoService.retrieve(InfoRetrieveParams.builder().locId("locId").build())
-            }
+        val e = assertThrows<UnexpectedStatusCodeException> { infoService.retrieve("locId") }
 
         assertThat(e.statusCode()).isEqualTo(999)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -226,10 +201,7 @@ internal class ErrorHandlingTest {
                 .willReturn(status(200).withHeader(HEADER_NAME, HEADER_VALUE).withBody(NOT_JSON))
         )
 
-        val e =
-            assertThrows<PhoebeException> {
-                infoService.retrieve(InfoRetrieveParams.builder().locId("locId").build())
-            }
+        val e = assertThrows<PhoebeException> { infoService.retrieve("locId") }
 
         assertThat(e).hasMessage("Error reading response")
     }

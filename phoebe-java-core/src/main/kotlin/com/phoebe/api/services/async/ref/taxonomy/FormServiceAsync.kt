@@ -19,14 +19,36 @@ interface FormServiceAsync {
      * For a species, get the list of subspecies recognised in the taxonomy. The results include the
      * species that was passed in.
      */
-    fun list(params: FormListParams): CompletableFuture<List<String>> =
-        list(params, RequestOptions.none())
+    fun list(speciesCode: String): CompletableFuture<List<String>> =
+        list(speciesCode, FormListParams.none())
+
+    /** @see [list] */
+    fun list(
+        speciesCode: String,
+        params: FormListParams = FormListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<List<String>> =
+        list(params.toBuilder().speciesCode(speciesCode).build(), requestOptions)
+
+    /** @see [list] */
+    fun list(
+        speciesCode: String,
+        params: FormListParams = FormListParams.none(),
+    ): CompletableFuture<List<String>> = list(speciesCode, params, RequestOptions.none())
 
     /** @see [list] */
     fun list(
         params: FormListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<List<String>>
+
+    /** @see [list] */
+    fun list(params: FormListParams): CompletableFuture<List<String>> =
+        list(params, RequestOptions.none())
+
+    /** @see [list] */
+    fun list(speciesCode: String, requestOptions: RequestOptions): CompletableFuture<List<String>> =
+        list(speciesCode, FormListParams.none(), requestOptions)
 
     /** A view of [FormServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -36,8 +58,25 @@ interface FormServiceAsync {
          * the same as [FormServiceAsync.list].
          */
         @MustBeClosed
-        fun list(params: FormListParams): CompletableFuture<HttpResponseFor<List<String>>> =
-            list(params, RequestOptions.none())
+        fun list(speciesCode: String): CompletableFuture<HttpResponseFor<List<String>>> =
+            list(speciesCode, FormListParams.none())
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            speciesCode: String,
+            params: FormListParams = FormListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<List<String>>> =
+            list(params.toBuilder().speciesCode(speciesCode).build(), requestOptions)
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            speciesCode: String,
+            params: FormListParams = FormListParams.none(),
+        ): CompletableFuture<HttpResponseFor<List<String>>> =
+            list(speciesCode, params, RequestOptions.none())
 
         /** @see [list] */
         @MustBeClosed
@@ -45,5 +84,18 @@ interface FormServiceAsync {
             params: FormListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<List<String>>>
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(params: FormListParams): CompletableFuture<HttpResponseFor<List<String>>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            speciesCode: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<List<String>>> =
+            list(speciesCode, FormListParams.none(), requestOptions)
     }
 }

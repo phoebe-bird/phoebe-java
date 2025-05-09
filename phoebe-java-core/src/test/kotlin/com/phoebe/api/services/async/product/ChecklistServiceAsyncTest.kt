@@ -4,7 +4,6 @@ package com.phoebe.api.services.async.product
 
 import com.phoebe.api.TestServerExtension
 import com.phoebe.api.client.okhttp.PhoebeOkHttpClientAsync
-import com.phoebe.api.models.product.checklist.ChecklistViewParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -20,8 +19,7 @@ internal class ChecklistServiceAsyncTest {
                 .build()
         val checklistServiceAsync = client.product().checklist()
 
-        val responseFuture =
-            checklistServiceAsync.view(ChecklistViewParams.builder().subId("subId").build())
+        val responseFuture = checklistServiceAsync.view("subId")
 
         val response = responseFuture.get()
         response.validate()

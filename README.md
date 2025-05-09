@@ -42,10 +42,7 @@ import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveResponse;
 // Configures using the `EBIRD_API_KEY` and `PHOEBE_BASE_URL` environment variables
 PhoebeClient client = PhoebeOkHttpClient.fromEnv();
 
-InfoRetrieveParams params = InfoRetrieveParams.builder()
-    .locId("L99381")
-    .build();
-InfoRetrieveResponse info = client.ref().hotspot().info().retrieve(params);
+InfoRetrieveResponse info = client.ref().hotspot().info().retrieve("L99381");
 ```
 
 ## Client configuration
@@ -123,10 +120,7 @@ import java.util.concurrent.CompletableFuture;
 // Configures using the `EBIRD_API_KEY` and `PHOEBE_BASE_URL` environment variables
 PhoebeClient client = PhoebeOkHttpClient.fromEnv();
 
-InfoRetrieveParams params = InfoRetrieveParams.builder()
-    .locId("L99381")
-    .build();
-CompletableFuture<InfoRetrieveResponse> info = client.async().ref().hotspot().info().retrieve(params);
+CompletableFuture<InfoRetrieveResponse> info = client.async().ref().hotspot().info().retrieve("L99381");
 ```
 
 Or create an asynchronous client from the beginning:
@@ -141,10 +135,7 @@ import java.util.concurrent.CompletableFuture;
 // Configures using the `EBIRD_API_KEY` and `PHOEBE_BASE_URL` environment variables
 PhoebeClientAsync client = PhoebeOkHttpClientAsync.fromEnv();
 
-InfoRetrieveParams params = InfoRetrieveParams.builder()
-    .locId("L99381")
-    .build();
-CompletableFuture<InfoRetrieveResponse> info = client.ref().hotspot().info().retrieve(params);
+CompletableFuture<InfoRetrieveResponse> info = client.ref().hotspot().info().retrieve("L99381");
 ```
 
 The asynchronous client supports the same options as the synchronous one, except most methods return `CompletableFuture`s.
@@ -161,10 +152,7 @@ import com.phoebe.api.core.http.HttpResponseFor;
 import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveParams;
 import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveResponse;
 
-InfoRetrieveParams params = InfoRetrieveParams.builder()
-    .locId("L99381")
-    .build();
-HttpResponseFor<InfoRetrieveResponse> info = client.ref().hotspot().info().withRawResponse().retrieve(params);
+HttpResponseFor<InfoRetrieveResponse> info = client.ref().hotspot().info().withRawResponse().retrieve("L99381");
 
 int statusCode = info.statusCode();
 Headers headers = info.headers();
@@ -267,7 +255,7 @@ import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveParams;
 import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveResponse;
 
 InfoRetrieveResponse info = client.ref().hotspot().info().retrieve(
-  params, RequestOptions.builder().timeout(Duration.ofSeconds(30)).build()
+  "L99381", RequestOptions.builder().timeout(Duration.ofSeconds(30)).build()
 );
 ```
 
@@ -366,9 +354,7 @@ To set a documented parameter or property to an undocumented or not yet supporte
 ```java
 import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveParams;
 
-InfoRetrieveParams params = InfoRetrieveParams.builder()
-    .locId("L99381")
-    .build();
+InfoRetrieveParams params = InfoRetrieveParams.builder().build();
 ```
 
 The most straightforward way to create a [`JsonValue`](phoebe-java-core/src/main/kotlin/com/phoebe/api/core/Values.kt) is using its `from(...)` method:
@@ -498,7 +484,7 @@ import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveParams;
 import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveResponse;
 
 InfoRetrieveResponse info = client.ref().hotspot().info().retrieve(
-  params, RequestOptions.builder().responseValidation(true).build()
+  "L99381", RequestOptions.builder().responseValidation(true).build()
 );
 ```
 

@@ -21,14 +21,39 @@ interface InfoServiceAsync {
      * hotspots. If you pass the location code for a private location or an invalid location code
      * then an HTTP 410 (Gone) error is returned.
      */
-    fun retrieve(params: InfoRetrieveParams): CompletableFuture<InfoRetrieveResponse> =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(locId: String): CompletableFuture<InfoRetrieveResponse> =
+        retrieve(locId, InfoRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        locId: String,
+        params: InfoRetrieveParams = InfoRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<InfoRetrieveResponse> =
+        retrieve(params.toBuilder().locId(locId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        locId: String,
+        params: InfoRetrieveParams = InfoRetrieveParams.none(),
+    ): CompletableFuture<InfoRetrieveResponse> = retrieve(locId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: InfoRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InfoRetrieveResponse>
+
+    /** @see [retrieve] */
+    fun retrieve(params: InfoRetrieveParams): CompletableFuture<InfoRetrieveResponse> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        locId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<InfoRetrieveResponse> =
+        retrieve(locId, InfoRetrieveParams.none(), requestOptions)
 
     /** A view of [InfoServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -38,6 +63,35 @@ interface InfoServiceAsync {
          * same as [InfoServiceAsync.retrieve].
          */
         @MustBeClosed
+        fun retrieve(locId: String): CompletableFuture<HttpResponseFor<InfoRetrieveResponse>> =
+            retrieve(locId, InfoRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            locId: String,
+            params: InfoRetrieveParams = InfoRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<InfoRetrieveResponse>> =
+            retrieve(params.toBuilder().locId(locId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            locId: String,
+            params: InfoRetrieveParams = InfoRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<InfoRetrieveResponse>> =
+            retrieve(locId, params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: InfoRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<InfoRetrieveResponse>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
         fun retrieve(
             params: InfoRetrieveParams
         ): CompletableFuture<HttpResponseFor<InfoRetrieveResponse>> =
@@ -46,8 +100,9 @@ interface InfoServiceAsync {
         /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
-            params: InfoRetrieveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<InfoRetrieveResponse>>
+            locId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<InfoRetrieveResponse>> =
+            retrieve(locId, InfoRetrieveParams.none(), requestOptions)
     }
 }

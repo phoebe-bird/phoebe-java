@@ -4,7 +4,6 @@ package com.phoebe.api.services.blocking.ref.taxonomy
 
 import com.phoebe.api.TestServerExtension
 import com.phoebe.api.client.okhttp.PhoebeOkHttpClient
-import com.phoebe.api.models.ref.taxonomy.forms.FormListParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -20,6 +19,6 @@ internal class FormServiceTest {
                 .build()
         val formService = client.ref().taxonomy().forms()
 
-        formService.list(FormListParams.builder().speciesCode("speciesCode").build())
+        formService.list("speciesCode")
     }
 }

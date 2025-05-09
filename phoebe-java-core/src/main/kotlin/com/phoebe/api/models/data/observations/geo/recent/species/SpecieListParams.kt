@@ -27,7 +27,7 @@ import kotlin.jvm.optionals.getOrNull
  */
 class SpecieListParams
 private constructor(
-    private val speciesCode: String,
+    private val speciesCode: String?,
     private val lat: Double,
     private val lng: Double,
     private val back: Long?,
@@ -40,7 +40,7 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun speciesCode(): String = speciesCode
+    fun speciesCode(): Optional<String> = Optional.ofNullable(speciesCode)
 
     fun lat(): Double = lat
 
@@ -77,7 +77,6 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .speciesCode()
          * .lat()
          * .lng()
          * ```
@@ -115,7 +114,10 @@ private constructor(
             additionalQueryParams = specieListParams.additionalQueryParams.toBuilder()
         }
 
-        fun speciesCode(speciesCode: String) = apply { this.speciesCode = speciesCode }
+        fun speciesCode(speciesCode: String?) = apply { this.speciesCode = speciesCode }
+
+        /** Alias for calling [Builder.speciesCode] with `speciesCode.orElse(null)`. */
+        fun speciesCode(speciesCode: Optional<String>) = speciesCode(speciesCode.getOrNull())
 
         fun lat(lat: Double) = apply { this.lat = lat }
 
@@ -303,7 +305,6 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .speciesCode()
          * .lat()
          * .lng()
          * ```
@@ -312,7 +313,7 @@ private constructor(
          */
         fun build(): SpecieListParams =
             SpecieListParams(
-                checkRequired("speciesCode", speciesCode),
+                speciesCode,
                 checkRequired("lat", lat),
                 checkRequired("lng", lng),
                 back,
@@ -328,7 +329,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> speciesCode
+            0 -> speciesCode ?: ""
             else -> ""
         }
 

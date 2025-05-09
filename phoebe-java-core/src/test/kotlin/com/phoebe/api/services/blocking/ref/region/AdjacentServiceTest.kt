@@ -4,7 +4,6 @@ package com.phoebe.api.services.blocking.ref.region
 
 import com.phoebe.api.TestServerExtension
 import com.phoebe.api.client.okhttp.PhoebeOkHttpClient
-import com.phoebe.api.models.ref.region.adjacent.AdjacentListParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -20,8 +19,7 @@ internal class AdjacentServiceTest {
                 .build()
         val adjacentService = client.ref().region().adjacent()
 
-        val adjacents =
-            adjacentService.list(AdjacentListParams.builder().regionCode("regionCode").build())
+        val adjacents = adjacentService.list("regionCode")
 
         adjacents.forEach { it.validate() }
     }

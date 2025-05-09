@@ -20,14 +20,40 @@ interface AdjacentServiceAsync {
      * Get the list of countries or regions that share a border with this one. #### Notes Only
      * subnational2 codes in the United States, New Zealand, or Mexico are currently supported
      */
-    fun list(params: AdjacentListParams): CompletableFuture<List<AdjacentListResponse>> =
-        list(params, RequestOptions.none())
+    fun list(regionCode: String): CompletableFuture<List<AdjacentListResponse>> =
+        list(regionCode, AdjacentListParams.none())
+
+    /** @see [list] */
+    fun list(
+        regionCode: String,
+        params: AdjacentListParams = AdjacentListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<List<AdjacentListResponse>> =
+        list(params.toBuilder().regionCode(regionCode).build(), requestOptions)
+
+    /** @see [list] */
+    fun list(
+        regionCode: String,
+        params: AdjacentListParams = AdjacentListParams.none(),
+    ): CompletableFuture<List<AdjacentListResponse>> =
+        list(regionCode, params, RequestOptions.none())
 
     /** @see [list] */
     fun list(
         params: AdjacentListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<List<AdjacentListResponse>>
+
+    /** @see [list] */
+    fun list(params: AdjacentListParams): CompletableFuture<List<AdjacentListResponse>> =
+        list(params, RequestOptions.none())
+
+    /** @see [list] */
+    fun list(
+        regionCode: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<List<AdjacentListResponse>> =
+        list(regionCode, AdjacentListParams.none(), requestOptions)
 
     /**
      * A view of [AdjacentServiceAsync] that provides access to raw HTTP responses for each method.
@@ -40,9 +66,26 @@ interface AdjacentServiceAsync {
          */
         @MustBeClosed
         fun list(
-            params: AdjacentListParams
+            regionCode: String
         ): CompletableFuture<HttpResponseFor<List<AdjacentListResponse>>> =
-            list(params, RequestOptions.none())
+            list(regionCode, AdjacentListParams.none())
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            regionCode: String,
+            params: AdjacentListParams = AdjacentListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<List<AdjacentListResponse>>> =
+            list(params.toBuilder().regionCode(regionCode).build(), requestOptions)
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            regionCode: String,
+            params: AdjacentListParams = AdjacentListParams.none(),
+        ): CompletableFuture<HttpResponseFor<List<AdjacentListResponse>>> =
+            list(regionCode, params, RequestOptions.none())
 
         /** @see [list] */
         @MustBeClosed
@@ -50,5 +93,20 @@ interface AdjacentServiceAsync {
             params: AdjacentListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<List<AdjacentListResponse>>>
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: AdjacentListParams
+        ): CompletableFuture<HttpResponseFor<List<AdjacentListResponse>>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            regionCode: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<List<AdjacentListResponse>>> =
+            list(regionCode, AdjacentListParams.none(), requestOptions)
     }
 }

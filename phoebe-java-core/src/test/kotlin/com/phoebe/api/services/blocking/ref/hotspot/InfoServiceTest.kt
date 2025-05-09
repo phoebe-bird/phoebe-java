@@ -4,7 +4,6 @@ package com.phoebe.api.services.blocking.ref.hotspot
 
 import com.phoebe.api.TestServerExtension
 import com.phoebe.api.client.okhttp.PhoebeOkHttpClient
-import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -20,7 +19,7 @@ internal class InfoServiceTest {
                 .build()
         val infoService = client.ref().hotspot().info()
 
-        val info = infoService.retrieve(InfoRetrieveParams.builder().locId("locId").build())
+        val info = infoService.retrieve("locId")
 
         info.validate()
     }

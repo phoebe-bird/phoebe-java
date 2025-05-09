@@ -20,14 +20,42 @@ interface SpeciesGroupServiceAsync {
      * Get the list of species groups, e.g. terns, finches, etc. #### Notes Merlin puts like birds
      * together, with Falcons next to Hawks, whereas eBird follows taxonomic order.
      */
-    fun list(params: SpeciesGroupListParams): CompletableFuture<List<SpeciesGroupListResponse>> =
-        list(params, RequestOptions.none())
+    fun list(
+        speciesGrouping: SpeciesGroupListParams.SpeciesGrouping
+    ): CompletableFuture<List<SpeciesGroupListResponse>> =
+        list(speciesGrouping, SpeciesGroupListParams.none())
+
+    /** @see [list] */
+    fun list(
+        speciesGrouping: SpeciesGroupListParams.SpeciesGrouping,
+        params: SpeciesGroupListParams = SpeciesGroupListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<List<SpeciesGroupListResponse>> =
+        list(params.toBuilder().speciesGrouping(speciesGrouping).build(), requestOptions)
+
+    /** @see [list] */
+    fun list(
+        speciesGrouping: SpeciesGroupListParams.SpeciesGrouping,
+        params: SpeciesGroupListParams = SpeciesGroupListParams.none(),
+    ): CompletableFuture<List<SpeciesGroupListResponse>> =
+        list(speciesGrouping, params, RequestOptions.none())
 
     /** @see [list] */
     fun list(
         params: SpeciesGroupListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<List<SpeciesGroupListResponse>>
+
+    /** @see [list] */
+    fun list(params: SpeciesGroupListParams): CompletableFuture<List<SpeciesGroupListResponse>> =
+        list(params, RequestOptions.none())
+
+    /** @see [list] */
+    fun list(
+        speciesGrouping: SpeciesGroupListParams.SpeciesGrouping,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<List<SpeciesGroupListResponse>> =
+        list(speciesGrouping, SpeciesGroupListParams.none(), requestOptions)
 
     /**
      * A view of [SpeciesGroupServiceAsync] that provides access to raw HTTP responses for each
@@ -41,9 +69,26 @@ interface SpeciesGroupServiceAsync {
          */
         @MustBeClosed
         fun list(
-            params: SpeciesGroupListParams
+            speciesGrouping: SpeciesGroupListParams.SpeciesGrouping
         ): CompletableFuture<HttpResponseFor<List<SpeciesGroupListResponse>>> =
-            list(params, RequestOptions.none())
+            list(speciesGrouping, SpeciesGroupListParams.none())
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            speciesGrouping: SpeciesGroupListParams.SpeciesGrouping,
+            params: SpeciesGroupListParams = SpeciesGroupListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<List<SpeciesGroupListResponse>>> =
+            list(params.toBuilder().speciesGrouping(speciesGrouping).build(), requestOptions)
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            speciesGrouping: SpeciesGroupListParams.SpeciesGrouping,
+            params: SpeciesGroupListParams = SpeciesGroupListParams.none(),
+        ): CompletableFuture<HttpResponseFor<List<SpeciesGroupListResponse>>> =
+            list(speciesGrouping, params, RequestOptions.none())
 
         /** @see [list] */
         @MustBeClosed
@@ -51,5 +96,20 @@ interface SpeciesGroupServiceAsync {
             params: SpeciesGroupListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<List<SpeciesGroupListResponse>>>
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: SpeciesGroupListParams
+        ): CompletableFuture<HttpResponseFor<List<SpeciesGroupListResponse>>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            speciesGrouping: SpeciesGroupListParams.SpeciesGrouping,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<List<SpeciesGroupListResponse>>> =
+            list(speciesGrouping, SpeciesGroupListParams.none(), requestOptions)
     }
 }

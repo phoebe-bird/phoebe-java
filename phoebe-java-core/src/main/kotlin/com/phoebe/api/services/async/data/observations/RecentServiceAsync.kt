@@ -30,14 +30,39 @@ interface RecentServiceAsync {
      * county, or location. Results include only the most recent observation for each species in the
      * region specified.
      */
-    fun list(params: RecentListParams): CompletableFuture<List<Observation>> =
-        list(params, RequestOptions.none())
+    fun list(regionCode: String): CompletableFuture<List<Observation>> =
+        list(regionCode, RecentListParams.none())
+
+    /** @see [list] */
+    fun list(
+        regionCode: String,
+        params: RecentListParams = RecentListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<List<Observation>> =
+        list(params.toBuilder().regionCode(regionCode).build(), requestOptions)
+
+    /** @see [list] */
+    fun list(
+        regionCode: String,
+        params: RecentListParams = RecentListParams.none(),
+    ): CompletableFuture<List<Observation>> = list(regionCode, params, RequestOptions.none())
 
     /** @see [list] */
     fun list(
         params: RecentListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<List<Observation>>
+
+    /** @see [list] */
+    fun list(params: RecentListParams): CompletableFuture<List<Observation>> =
+        list(params, RequestOptions.none())
+
+    /** @see [list] */
+    fun list(
+        regionCode: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<List<Observation>> =
+        list(regionCode, RecentListParams.none(), requestOptions)
 
     /**
      * A view of [RecentServiceAsync] that provides access to raw HTTP responses for each method.
@@ -55,8 +80,25 @@ interface RecentServiceAsync {
          * same as [RecentServiceAsync.list].
          */
         @MustBeClosed
-        fun list(params: RecentListParams): CompletableFuture<HttpResponseFor<List<Observation>>> =
-            list(params, RequestOptions.none())
+        fun list(regionCode: String): CompletableFuture<HttpResponseFor<List<Observation>>> =
+            list(regionCode, RecentListParams.none())
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            regionCode: String,
+            params: RecentListParams = RecentListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<List<Observation>>> =
+            list(params.toBuilder().regionCode(regionCode).build(), requestOptions)
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            regionCode: String,
+            params: RecentListParams = RecentListParams.none(),
+        ): CompletableFuture<HttpResponseFor<List<Observation>>> =
+            list(regionCode, params, RequestOptions.none())
 
         /** @see [list] */
         @MustBeClosed
@@ -64,5 +106,18 @@ interface RecentServiceAsync {
             params: RecentListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<List<Observation>>>
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(params: RecentListParams): CompletableFuture<HttpResponseFor<List<Observation>>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            regionCode: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<List<Observation>>> =
+            list(regionCode, RecentListParams.none(), requestOptions)
     }
 }

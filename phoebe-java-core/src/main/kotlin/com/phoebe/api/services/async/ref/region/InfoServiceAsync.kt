@@ -33,14 +33,39 @@ interface InfoServiceAsync {
      * |nameonly      |return only the name of the region        |Madison                         |
      * |revdetailed   |return the detailed description in reverse|US, New York, Madison County    |
      */
-    fun retrieve(params: InfoRetrieveParams): CompletableFuture<InfoRetrieveResponse> =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(regionCode: String): CompletableFuture<InfoRetrieveResponse> =
+        retrieve(regionCode, InfoRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        regionCode: String,
+        params: InfoRetrieveParams = InfoRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<InfoRetrieveResponse> =
+        retrieve(params.toBuilder().regionCode(regionCode).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        regionCode: String,
+        params: InfoRetrieveParams = InfoRetrieveParams.none(),
+    ): CompletableFuture<InfoRetrieveResponse> = retrieve(regionCode, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: InfoRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InfoRetrieveResponse>
+
+    /** @see [retrieve] */
+    fun retrieve(params: InfoRetrieveParams): CompletableFuture<InfoRetrieveResponse> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        regionCode: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<InfoRetrieveResponse> =
+        retrieve(regionCode, InfoRetrieveParams.none(), requestOptions)
 
     /** A view of [InfoServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -50,6 +75,35 @@ interface InfoServiceAsync {
          * same as [InfoServiceAsync.retrieve].
          */
         @MustBeClosed
+        fun retrieve(regionCode: String): CompletableFuture<HttpResponseFor<InfoRetrieveResponse>> =
+            retrieve(regionCode, InfoRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            regionCode: String,
+            params: InfoRetrieveParams = InfoRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<InfoRetrieveResponse>> =
+            retrieve(params.toBuilder().regionCode(regionCode).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            regionCode: String,
+            params: InfoRetrieveParams = InfoRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<InfoRetrieveResponse>> =
+            retrieve(regionCode, params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: InfoRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<InfoRetrieveResponse>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
         fun retrieve(
             params: InfoRetrieveParams
         ): CompletableFuture<HttpResponseFor<InfoRetrieveResponse>> =
@@ -58,8 +112,9 @@ interface InfoServiceAsync {
         /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
-            params: InfoRetrieveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<InfoRetrieveResponse>>
+            regionCode: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<InfoRetrieveResponse>> =
+            retrieve(regionCode, InfoRetrieveParams.none(), requestOptions)
     }
 }

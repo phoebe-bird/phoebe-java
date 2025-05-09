@@ -3,10 +3,11 @@
 package com.phoebe.api.models.product.specieslist
 
 import com.phoebe.api.core.Params
-import com.phoebe.api.core.checkRequired
 import com.phoebe.api.core.http.Headers
 import com.phoebe.api.core.http.QueryParams
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Get a list of species codes ever seen in a region, in taxonomic order (species taxa only)
@@ -16,12 +17,12 @@ import java.util.Objects
  */
 class SpeciesListListParams
 private constructor(
-    private val regionCode: String,
+    private val regionCode: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun regionCode(): String = regionCode
+    fun regionCode(): Optional<String> = Optional.ofNullable(regionCode)
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -31,14 +32,9 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [SpeciesListListParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .regionCode()
-         * ```
-         */
+        @JvmStatic fun none(): SpeciesListListParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [SpeciesListListParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -56,7 +52,10 @@ private constructor(
             additionalQueryParams = speciesListListParams.additionalQueryParams.toBuilder()
         }
 
-        fun regionCode(regionCode: String) = apply { this.regionCode = regionCode }
+        fun regionCode(regionCode: String?) = apply { this.regionCode = regionCode }
+
+        /** Alias for calling [Builder.regionCode] with `regionCode.orElse(null)`. */
+        fun regionCode(regionCode: Optional<String>) = regionCode(regionCode.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -160,17 +159,10 @@ private constructor(
          * Returns an immutable instance of [SpeciesListListParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .regionCode()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): SpeciesListListParams =
             SpeciesListListParams(
-                checkRequired("regionCode", regionCode),
+                regionCode,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -178,7 +170,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> regionCode
+            0 -> regionCode ?: ""
             else -> ""
         }
 

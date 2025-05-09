@@ -34,6 +34,20 @@ interface Top100ServiceAsync {
      * included in this total numCompleteChecklists - always zero when checklistSort parameter is
      * false
      */
+    fun retrieve(
+        d: Long,
+        params: Top100RetrieveParams,
+    ): CompletableFuture<List<Top100RetrieveResponse>> = retrieve(d, params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        d: Long,
+        params: Top100RetrieveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<List<Top100RetrieveResponse>> =
+        retrieve(params.toBuilder().d(d).build(), requestOptions)
+
+    /** @see [retrieve] */
     fun retrieve(params: Top100RetrieveParams): CompletableFuture<List<Top100RetrieveResponse>> =
         retrieve(params, RequestOptions.none())
 
@@ -52,6 +66,23 @@ interface Top100ServiceAsync {
          * Returns a raw HTTP response for `get /product/top100/{regionCode}/{y}/{m}/{d}`, but is
          * otherwise the same as [Top100ServiceAsync.retrieve].
          */
+        @MustBeClosed
+        fun retrieve(
+            d: Long,
+            params: Top100RetrieveParams,
+        ): CompletableFuture<HttpResponseFor<List<Top100RetrieveResponse>>> =
+            retrieve(d, params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            d: Long,
+            params: Top100RetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<List<Top100RetrieveResponse>>> =
+            retrieve(params.toBuilder().d(d).build(), requestOptions)
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: Top100RetrieveParams

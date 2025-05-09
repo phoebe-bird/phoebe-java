@@ -22,6 +22,21 @@ interface ListServiceAsync {
      * regions for a country however you can only specify a region type of 'country' when using
      * 'world' as a region code.
      */
+    fun list(
+        parentRegionCode: String,
+        params: ListListParams,
+    ): CompletableFuture<List<ListListResponse>> =
+        list(parentRegionCode, params, RequestOptions.none())
+
+    /** @see [list] */
+    fun list(
+        parentRegionCode: String,
+        params: ListListParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<List<ListListResponse>> =
+        list(params.toBuilder().parentRegionCode(parentRegionCode).build(), requestOptions)
+
+    /** @see [list] */
     fun list(params: ListListParams): CompletableFuture<List<ListListResponse>> =
         list(params, RequestOptions.none())
 
@@ -38,6 +53,23 @@ interface ListServiceAsync {
          * Returns a raw HTTP response for `get /ref/region/list/{regionType}/{parentRegionCode}`,
          * but is otherwise the same as [ListServiceAsync.list].
          */
+        @MustBeClosed
+        fun list(
+            parentRegionCode: String,
+            params: ListListParams,
+        ): CompletableFuture<HttpResponseFor<List<ListListResponse>>> =
+            list(parentRegionCode, params, RequestOptions.none())
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            parentRegionCode: String,
+            params: ListListParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<List<ListListResponse>>> =
+            list(params.toBuilder().parentRegionCode(parentRegionCode).build(), requestOptions)
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: ListListParams

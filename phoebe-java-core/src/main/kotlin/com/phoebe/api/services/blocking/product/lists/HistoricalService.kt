@@ -16,6 +16,17 @@ interface HistoricalService {
     fun withRawResponse(): WithRawResponse
 
     /** Get information on the checklists submitted on a given date for a country or region. */
+    fun retrieve(d: Long, params: HistoricalRetrieveParams): List<HistoricalRetrieveResponse> =
+        retrieve(d, params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        d: Long,
+        params: HistoricalRetrieveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): List<HistoricalRetrieveResponse> = retrieve(params.toBuilder().d(d).build(), requestOptions)
+
+    /** @see [retrieve] */
     fun retrieve(params: HistoricalRetrieveParams): List<HistoricalRetrieveResponse> =
         retrieve(params, RequestOptions.none())
 
@@ -32,6 +43,23 @@ interface HistoricalService {
          * Returns a raw HTTP response for `get /product/lists/{regionCode}/{y}/{m}/{d}`, but is
          * otherwise the same as [HistoricalService.retrieve].
          */
+        @MustBeClosed
+        fun retrieve(
+            d: Long,
+            params: HistoricalRetrieveParams,
+        ): HttpResponseFor<List<HistoricalRetrieveResponse>> =
+            retrieve(d, params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            d: Long,
+            params: HistoricalRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<List<HistoricalRetrieveResponse>> =
+            retrieve(params.toBuilder().d(d).build(), requestOptions)
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: HistoricalRetrieveParams

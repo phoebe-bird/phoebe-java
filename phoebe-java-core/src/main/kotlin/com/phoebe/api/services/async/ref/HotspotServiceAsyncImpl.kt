@@ -5,6 +5,7 @@ package com.phoebe.api.services.async.ref
 import com.phoebe.api.core.ClientOptions
 import com.phoebe.api.core.JsonValue
 import com.phoebe.api.core.RequestOptions
+import com.phoebe.api.core.checkRequired
 import com.phoebe.api.core.handlers.errorHandler
 import com.phoebe.api.core.handlers.jsonHandler
 import com.phoebe.api.core.handlers.withErrorHandler
@@ -21,6 +22,7 @@ import com.phoebe.api.services.async.ref.hotspot.GeoServiceAsyncImpl
 import com.phoebe.api.services.async.ref.hotspot.InfoServiceAsync
 import com.phoebe.api.services.async.ref.hotspot.InfoServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
+import kotlin.jvm.optionals.getOrNull
 
 class HotspotServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     HotspotServiceAsync {
@@ -71,6 +73,9 @@ class HotspotServiceAsyncImpl internal constructor(private val clientOptions: Cl
             params: HotspotListParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<List<HotspotListResponse>>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("regionCode", params.regionCode().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
