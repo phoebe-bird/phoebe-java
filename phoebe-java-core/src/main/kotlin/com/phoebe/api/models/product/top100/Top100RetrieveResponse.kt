@@ -17,10 +17,10 @@ import java.util.Optional
 
 class Top100RetrieveResponse
 private constructor(
-    private val numCompleteChecklists: JsonField<Long>,
-    private val numSpecies: JsonField<Long>,
+    private val numCompleteChecklists: JsonField<Int>,
+    private val numSpecies: JsonField<Int>,
     private val profileHandle: JsonField<String>,
-    private val rowNum: JsonField<Long>,
+    private val rowNum: JsonField<Int>,
     private val userDisplayName: JsonField<String>,
     private val userId: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -30,12 +30,12 @@ private constructor(
     private constructor(
         @JsonProperty("numCompleteChecklists")
         @ExcludeMissing
-        numCompleteChecklists: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("numSpecies") @ExcludeMissing numSpecies: JsonField<Long> = JsonMissing.of(),
+        numCompleteChecklists: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("numSpecies") @ExcludeMissing numSpecies: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("profileHandle")
         @ExcludeMissing
         profileHandle: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("rowNum") @ExcludeMissing rowNum: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("rowNum") @ExcludeMissing rowNum: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("userDisplayName")
         @ExcludeMissing
         userDisplayName: JsonField<String> = JsonMissing.of(),
@@ -54,14 +54,14 @@ private constructor(
      * @throws PhoebeInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun numCompleteChecklists(): Optional<Long> =
+    fun numCompleteChecklists(): Optional<Int> =
         numCompleteChecklists.getOptional("numCompleteChecklists")
 
     /**
      * @throws PhoebeInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun numSpecies(): Optional<Long> = numSpecies.getOptional("numSpecies")
+    fun numSpecies(): Optional<Int> = numSpecies.getOptional("numSpecies")
 
     /**
      * @throws PhoebeInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -73,7 +73,7 @@ private constructor(
      * @throws PhoebeInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun rowNum(): Optional<Long> = rowNum.getOptional("rowNum")
+    fun rowNum(): Optional<Int> = rowNum.getOptional("rowNum")
 
     /**
      * @throws PhoebeInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -95,14 +95,14 @@ private constructor(
      */
     @JsonProperty("numCompleteChecklists")
     @ExcludeMissing
-    fun _numCompleteChecklists(): JsonField<Long> = numCompleteChecklists
+    fun _numCompleteChecklists(): JsonField<Int> = numCompleteChecklists
 
     /**
      * Returns the raw JSON value of [numSpecies].
      *
      * Unlike [numSpecies], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("numSpecies") @ExcludeMissing fun _numSpecies(): JsonField<Long> = numSpecies
+    @JsonProperty("numSpecies") @ExcludeMissing fun _numSpecies(): JsonField<Int> = numSpecies
 
     /**
      * Returns the raw JSON value of [profileHandle].
@@ -118,7 +118,7 @@ private constructor(
      *
      * Unlike [rowNum], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("rowNum") @ExcludeMissing fun _rowNum(): JsonField<Long> = rowNum
+    @JsonProperty("rowNum") @ExcludeMissing fun _rowNum(): JsonField<Int> = rowNum
 
     /**
      * Returns the raw JSON value of [userDisplayName].
@@ -157,10 +157,10 @@ private constructor(
     /** A builder for [Top100RetrieveResponse]. */
     class Builder internal constructor() {
 
-        private var numCompleteChecklists: JsonField<Long> = JsonMissing.of()
-        private var numSpecies: JsonField<Long> = JsonMissing.of()
+        private var numCompleteChecklists: JsonField<Int> = JsonMissing.of()
+        private var numSpecies: JsonField<Int> = JsonMissing.of()
         private var profileHandle: JsonField<String> = JsonMissing.of()
-        private var rowNum: JsonField<Long> = JsonMissing.of()
+        private var rowNum: JsonField<Int> = JsonMissing.of()
         private var userDisplayName: JsonField<String> = JsonMissing.of()
         private var userId: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -176,29 +176,29 @@ private constructor(
             additionalProperties = top100RetrieveResponse.additionalProperties.toMutableMap()
         }
 
-        fun numCompleteChecklists(numCompleteChecklists: Long) =
+        fun numCompleteChecklists(numCompleteChecklists: Int) =
             numCompleteChecklists(JsonField.of(numCompleteChecklists))
 
         /**
          * Sets [Builder.numCompleteChecklists] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.numCompleteChecklists] with a well-typed [Long] value
+         * You should usually call [Builder.numCompleteChecklists] with a well-typed [Int] value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun numCompleteChecklists(numCompleteChecklists: JsonField<Long>) = apply {
+        fun numCompleteChecklists(numCompleteChecklists: JsonField<Int>) = apply {
             this.numCompleteChecklists = numCompleteChecklists
         }
 
-        fun numSpecies(numSpecies: Long) = numSpecies(JsonField.of(numSpecies))
+        fun numSpecies(numSpecies: Int) = numSpecies(JsonField.of(numSpecies))
 
         /**
          * Sets [Builder.numSpecies] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.numSpecies] with a well-typed [Long] value instead. This
+         * You should usually call [Builder.numSpecies] with a well-typed [Int] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun numSpecies(numSpecies: JsonField<Long>) = apply { this.numSpecies = numSpecies }
+        fun numSpecies(numSpecies: JsonField<Int>) = apply { this.numSpecies = numSpecies }
 
         fun profileHandle(profileHandle: String) = profileHandle(JsonField.of(profileHandle))
 
@@ -213,15 +213,15 @@ private constructor(
             this.profileHandle = profileHandle
         }
 
-        fun rowNum(rowNum: Long) = rowNum(JsonField.of(rowNum))
+        fun rowNum(rowNum: Int) = rowNum(JsonField.of(rowNum))
 
         /**
          * Sets [Builder.rowNum] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.rowNum] with a well-typed [Long] value instead. This
+         * You should usually call [Builder.rowNum] with a well-typed [Int] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun rowNum(rowNum: JsonField<Long>) = apply { this.rowNum = rowNum }
+        fun rowNum(rowNum: JsonField<Int>) = apply { this.rowNum = rowNum }
 
         fun userDisplayName(userDisplayName: String) =
             userDisplayName(JsonField.of(userDisplayName))

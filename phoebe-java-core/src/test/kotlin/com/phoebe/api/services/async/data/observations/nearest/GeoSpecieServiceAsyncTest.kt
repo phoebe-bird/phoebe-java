@@ -24,8 +24,8 @@ internal class GeoSpecieServiceAsyncTest {
             geoSpecieServiceAsync.list(
                 GeoSpecieListParams.builder()
                     .speciesCode("speciesCode")
-                    .lat(-90.0)
-                    .lng(-180.0)
+                    .lat(-90.0f)
+                    .lng(-180.0f)
                     .back(1L)
                     .dist(0L)
                     .hotspot(true)

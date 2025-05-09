@@ -11,8 +11,8 @@ internal class GeoRetrieveParamsTest {
     @Test
     fun create() {
         GeoRetrieveParams.builder()
-            .lat(-90.0)
-            .lng(-180.0)
+            .lat(-90.0f)
+            .lng(-180.0f)
             .back(1L)
             .dist(0L)
             .fmt(GeoRetrieveParams.Fmt.CSV)
@@ -23,8 +23,8 @@ internal class GeoRetrieveParamsTest {
     fun queryParams() {
         val params =
             GeoRetrieveParams.builder()
-                .lat(-90.0)
-                .lng(-180.0)
+                .lat(-90.0f)
+                .lng(-180.0f)
                 .back(1L)
                 .dist(0L)
                 .fmt(GeoRetrieveParams.Fmt.CSV)
@@ -46,7 +46,7 @@ internal class GeoRetrieveParamsTest {
 
     @Test
     fun queryParamsWithoutOptionalFields() {
-        val params = GeoRetrieveParams.builder().lat(-90.0).lng(-180.0).build()
+        val params = GeoRetrieveParams.builder().lat(-90.0f).lng(-180.0f).build()
 
         val queryParams = params._queryParams()
 

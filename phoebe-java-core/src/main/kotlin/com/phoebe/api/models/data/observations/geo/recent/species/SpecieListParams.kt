@@ -28,8 +28,8 @@ import kotlin.jvm.optionals.getOrNull
 class SpecieListParams
 private constructor(
     private val speciesCode: String?,
-    private val lat: Double,
-    private val lng: Double,
+    private val lat: Float,
+    private val lng: Float,
     private val back: Long?,
     private val dist: Long?,
     private val hotspot: Boolean?,
@@ -42,9 +42,9 @@ private constructor(
 
     fun speciesCode(): Optional<String> = Optional.ofNullable(speciesCode)
 
-    fun lat(): Double = lat
+    fun lat(): Float = lat
 
-    fun lng(): Double = lng
+    fun lng(): Float = lng
 
     /** The number of days back to fetch observations. */
     fun back(): Optional<Long> = Optional.ofNullable(back)
@@ -88,8 +88,8 @@ private constructor(
     class Builder internal constructor() {
 
         private var speciesCode: String? = null
-        private var lat: Double? = null
-        private var lng: Double? = null
+        private var lat: Float? = null
+        private var lng: Float? = null
         private var back: Long? = null
         private var dist: Long? = null
         private var hotspot: Boolean? = null
@@ -119,9 +119,9 @@ private constructor(
         /** Alias for calling [Builder.speciesCode] with `speciesCode.orElse(null)`. */
         fun speciesCode(speciesCode: Optional<String>) = speciesCode(speciesCode.getOrNull())
 
-        fun lat(lat: Double) = apply { this.lat = lat }
+        fun lat(lat: Float) = apply { this.lat = lat }
 
-        fun lng(lng: Double) = apply { this.lng = lng }
+        fun lng(lng: Float) = apply { this.lng = lng }
 
         /** The number of days back to fetch observations. */
         fun back(back: Long?) = apply { this.back = back }

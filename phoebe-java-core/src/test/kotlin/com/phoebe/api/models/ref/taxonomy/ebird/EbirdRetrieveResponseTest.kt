@@ -25,7 +25,7 @@ internal class EbirdRetrieveResponseTest {
                 .sciName("sciName")
                 .addSciNameCode("string")
                 .speciesCode("speciesCode")
-                .taxonOrder(0L)
+                .taxonOrder(0)
                 .build()
 
         assertThat(ebirdRetrieveResponse.bandingCodes().getOrNull()).containsExactly("string")
@@ -39,7 +39,7 @@ internal class EbirdRetrieveResponseTest {
         assertThat(ebirdRetrieveResponse.sciName()).contains("sciName")
         assertThat(ebirdRetrieveResponse.sciNameCodes().getOrNull()).containsExactly("string")
         assertThat(ebirdRetrieveResponse.speciesCode()).contains("speciesCode")
-        assertThat(ebirdRetrieveResponse.taxonOrder()).contains(0L)
+        assertThat(ebirdRetrieveResponse.taxonOrder()).contains(0)
     }
 
     @Test
@@ -58,7 +58,7 @@ internal class EbirdRetrieveResponseTest {
                 .sciName("sciName")
                 .addSciNameCode("string")
                 .speciesCode("speciesCode")
-                .taxonOrder(0L)
+                .taxonOrder(0)
                 .build()
 
         val roundtrippedEbirdRetrieveResponse =

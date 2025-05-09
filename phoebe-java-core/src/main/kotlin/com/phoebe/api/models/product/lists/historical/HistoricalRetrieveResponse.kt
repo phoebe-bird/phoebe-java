@@ -29,7 +29,7 @@ private constructor(
     private val loc: JsonField<Loc>,
     private val locId: JsonField<String>,
     private val numObservers: JsonField<Long>,
-    private val numSpecies: JsonField<Long>,
+    private val numSpecies: JsonField<Int>,
     private val obs: JsonField<List<Ob>>,
     private val obsDt: JsonField<String>,
     private val obsTime: JsonField<String>,
@@ -68,7 +68,7 @@ private constructor(
         @JsonProperty("numObservers")
         @ExcludeMissing
         numObservers: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("numSpecies") @ExcludeMissing numSpecies: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("numSpecies") @ExcludeMissing numSpecies: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("obs") @ExcludeMissing obs: JsonField<List<Ob>> = JsonMissing.of(),
         @JsonProperty("obsDt") @ExcludeMissing obsDt: JsonField<String> = JsonMissing.of(),
         @JsonProperty("obsTime") @ExcludeMissing obsTime: JsonField<String> = JsonMissing.of(),
@@ -171,7 +171,7 @@ private constructor(
      * @throws PhoebeInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun numSpecies(): Optional<Long> = numSpecies.getOptional("numSpecies")
+    fun numSpecies(): Optional<Int> = numSpecies.getOptional("numSpecies")
 
     /**
      * @throws PhoebeInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -308,7 +308,7 @@ private constructor(
      *
      * Unlike [numSpecies], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("numSpecies") @ExcludeMissing fun _numSpecies(): JsonField<Long> = numSpecies
+    @JsonProperty("numSpecies") @ExcludeMissing fun _numSpecies(): JsonField<Int> = numSpecies
 
     /**
      * Returns the raw JSON value of [obs].
@@ -422,7 +422,7 @@ private constructor(
         private var loc: JsonField<Loc> = JsonMissing.of()
         private var locId: JsonField<String> = JsonMissing.of()
         private var numObservers: JsonField<Long> = JsonMissing.of()
-        private var numSpecies: JsonField<Long> = JsonMissing.of()
+        private var numSpecies: JsonField<Int> = JsonMissing.of()
         private var obs: JsonField<MutableList<Ob>>? = null
         private var obsDt: JsonField<String> = JsonMissing.of()
         private var obsTime: JsonField<String> = JsonMissing.of()
@@ -561,15 +561,15 @@ private constructor(
          */
         fun numObservers(numObservers: JsonField<Long>) = apply { this.numObservers = numObservers }
 
-        fun numSpecies(numSpecies: Long) = numSpecies(JsonField.of(numSpecies))
+        fun numSpecies(numSpecies: Int) = numSpecies(JsonField.of(numSpecies))
 
         /**
          * Sets [Builder.numSpecies] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.numSpecies] with a well-typed [Long] value instead. This
+         * You should usually call [Builder.numSpecies] with a well-typed [Int] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun numSpecies(numSpecies: JsonField<Long>) = apply { this.numSpecies = numSpecies }
+        fun numSpecies(numSpecies: JsonField<Int>) = apply { this.numSpecies = numSpecies }
 
         fun obs(obs: List<Ob>) = obs(JsonField.of(obs))
 

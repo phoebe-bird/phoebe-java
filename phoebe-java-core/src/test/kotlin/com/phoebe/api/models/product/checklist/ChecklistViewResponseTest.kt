@@ -39,7 +39,7 @@ internal class ChecklistViewResponseTest {
                 )
                 .locId("locId")
                 .numObservers(0L)
-                .numSpecies(0L)
+                .numSpecies(0)
                 .addOb(
                     ChecklistViewResponse.Ob.builder()
                         .addObsAux(
@@ -95,7 +95,7 @@ internal class ChecklistViewResponseTest {
             )
         assertThat(checklistViewResponse.locId()).contains("locId")
         assertThat(checklistViewResponse.numObservers()).contains(0L)
-        assertThat(checklistViewResponse.numSpecies()).contains(0L)
+        assertThat(checklistViewResponse.numSpecies()).contains(0)
         assertThat(checklistViewResponse.obs().getOrNull())
             .containsExactly(
                 ChecklistViewResponse.Ob.builder()
@@ -156,7 +156,7 @@ internal class ChecklistViewResponseTest {
                 )
                 .locId("locId")
                 .numObservers(0L)
-                .numSpecies(0L)
+                .numSpecies(0)
                 .addOb(
                     ChecklistViewResponse.Ob.builder()
                         .addObsAux(

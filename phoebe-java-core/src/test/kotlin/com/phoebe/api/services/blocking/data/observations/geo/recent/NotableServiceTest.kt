@@ -23,8 +23,8 @@ internal class NotableServiceTest {
         val observations =
             notableService.list(
                 NotableListParams.builder()
-                    .lat(-90.0)
-                    .lng(-180.0)
+                    .lat(-90.0f)
+                    .lng(-180.0f)
                     .back(1L)
                     .detail(NotableListParams.Detail.SIMPLE)
                     .dist(0L)

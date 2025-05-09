@@ -39,7 +39,7 @@ internal class HistoricalRetrieveResponseTest {
                 )
                 .locId("locId")
                 .numObservers(0L)
-                .numSpecies(0L)
+                .numSpecies(0)
                 .addOb(
                     HistoricalRetrieveResponse.Ob.builder()
                         .addObsAux(
@@ -95,7 +95,7 @@ internal class HistoricalRetrieveResponseTest {
             )
         assertThat(historicalRetrieveResponse.locId()).contains("locId")
         assertThat(historicalRetrieveResponse.numObservers()).contains(0L)
-        assertThat(historicalRetrieveResponse.numSpecies()).contains(0L)
+        assertThat(historicalRetrieveResponse.numSpecies()).contains(0)
         assertThat(historicalRetrieveResponse.obs().getOrNull())
             .containsExactly(
                 HistoricalRetrieveResponse.Ob.builder()
@@ -157,7 +157,7 @@ internal class HistoricalRetrieveResponseTest {
                 )
                 .locId("locId")
                 .numObservers(0L)
-                .numSpecies(0L)
+                .numSpecies(0)
                 .addOb(
                     HistoricalRetrieveResponse.Ob.builder()
                         .addObsAux(

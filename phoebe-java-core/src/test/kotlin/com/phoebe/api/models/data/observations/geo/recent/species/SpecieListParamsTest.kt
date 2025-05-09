@@ -12,8 +12,8 @@ internal class SpecieListParamsTest {
     fun create() {
         SpecieListParams.builder()
             .speciesCode("speciesCode")
-            .lat(-90.0)
-            .lng(-180.0)
+            .lat(-90.0f)
+            .lng(-180.0f)
             .back(1L)
             .dist(0L)
             .hotspot(true)
@@ -26,7 +26,7 @@ internal class SpecieListParamsTest {
     @Test
     fun pathParams() {
         val params =
-            SpecieListParams.builder().speciesCode("speciesCode").lat(-90.0).lng(-180.0).build()
+            SpecieListParams.builder().speciesCode("speciesCode").lat(-90.0f).lng(-180.0f).build()
 
         assertThat(params._pathParam(0)).isEqualTo("speciesCode")
         // out-of-bound path param
@@ -38,8 +38,8 @@ internal class SpecieListParamsTest {
         val params =
             SpecieListParams.builder()
                 .speciesCode("speciesCode")
-                .lat(-90.0)
-                .lng(-180.0)
+                .lat(-90.0f)
+                .lng(-180.0f)
                 .back(1L)
                 .dist(0L)
                 .hotspot(true)
@@ -68,7 +68,7 @@ internal class SpecieListParamsTest {
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params =
-            SpecieListParams.builder().speciesCode("speciesCode").lat(-90.0).lng(-180.0).build()
+            SpecieListParams.builder().speciesCode("speciesCode").lat(-90.0f).lng(-180.0f).build()
 
         val queryParams = params._queryParams()
 

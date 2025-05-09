@@ -166,72 +166,72 @@ private constructor(
 
     class Bounds
     private constructor(
-        private val maxX: JsonField<Double>,
-        private val maxY: JsonField<Double>,
-        private val minX: JsonField<Double>,
-        private val minY: JsonField<Double>,
+        private val maxX: JsonField<Float>,
+        private val maxY: JsonField<Float>,
+        private val minX: JsonField<Float>,
+        private val minY: JsonField<Float>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("maxX") @ExcludeMissing maxX: JsonField<Double> = JsonMissing.of(),
-            @JsonProperty("maxY") @ExcludeMissing maxY: JsonField<Double> = JsonMissing.of(),
-            @JsonProperty("minX") @ExcludeMissing minX: JsonField<Double> = JsonMissing.of(),
-            @JsonProperty("minY") @ExcludeMissing minY: JsonField<Double> = JsonMissing.of(),
+            @JsonProperty("maxX") @ExcludeMissing maxX: JsonField<Float> = JsonMissing.of(),
+            @JsonProperty("maxY") @ExcludeMissing maxY: JsonField<Float> = JsonMissing.of(),
+            @JsonProperty("minX") @ExcludeMissing minX: JsonField<Float> = JsonMissing.of(),
+            @JsonProperty("minY") @ExcludeMissing minY: JsonField<Float> = JsonMissing.of(),
         ) : this(maxX, maxY, minX, minY, mutableMapOf())
 
         /**
          * @throws PhoebeInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun maxX(): Optional<Double> = maxX.getOptional("maxX")
+        fun maxX(): Optional<Float> = maxX.getOptional("maxX")
 
         /**
          * @throws PhoebeInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun maxY(): Optional<Double> = maxY.getOptional("maxY")
+        fun maxY(): Optional<Float> = maxY.getOptional("maxY")
 
         /**
          * @throws PhoebeInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun minX(): Optional<Double> = minX.getOptional("minX")
+        fun minX(): Optional<Float> = minX.getOptional("minX")
 
         /**
          * @throws PhoebeInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun minY(): Optional<Double> = minY.getOptional("minY")
+        fun minY(): Optional<Float> = minY.getOptional("minY")
 
         /**
          * Returns the raw JSON value of [maxX].
          *
          * Unlike [maxX], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("maxX") @ExcludeMissing fun _maxX(): JsonField<Double> = maxX
+        @JsonProperty("maxX") @ExcludeMissing fun _maxX(): JsonField<Float> = maxX
 
         /**
          * Returns the raw JSON value of [maxY].
          *
          * Unlike [maxY], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("maxY") @ExcludeMissing fun _maxY(): JsonField<Double> = maxY
+        @JsonProperty("maxY") @ExcludeMissing fun _maxY(): JsonField<Float> = maxY
 
         /**
          * Returns the raw JSON value of [minX].
          *
          * Unlike [minX], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("minX") @ExcludeMissing fun _minX(): JsonField<Double> = minX
+        @JsonProperty("minX") @ExcludeMissing fun _minX(): JsonField<Float> = minX
 
         /**
          * Returns the raw JSON value of [minY].
          *
          * Unlike [minY], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("minY") @ExcludeMissing fun _minY(): JsonField<Double> = minY
+        @JsonProperty("minY") @ExcludeMissing fun _minY(): JsonField<Float> = minY
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -254,10 +254,10 @@ private constructor(
         /** A builder for [Bounds]. */
         class Builder internal constructor() {
 
-            private var maxX: JsonField<Double> = JsonMissing.of()
-            private var maxY: JsonField<Double> = JsonMissing.of()
-            private var minX: JsonField<Double> = JsonMissing.of()
-            private var minY: JsonField<Double> = JsonMissing.of()
+            private var maxX: JsonField<Float> = JsonMissing.of()
+            private var maxY: JsonField<Float> = JsonMissing.of()
+            private var minX: JsonField<Float> = JsonMissing.of()
+            private var minY: JsonField<Float> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -269,49 +269,49 @@ private constructor(
                 additionalProperties = bounds.additionalProperties.toMutableMap()
             }
 
-            fun maxX(maxX: Double) = maxX(JsonField.of(maxX))
+            fun maxX(maxX: Float) = maxX(JsonField.of(maxX))
 
             /**
              * Sets [Builder.maxX] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.maxX] with a well-typed [Double] value instead. This
+             * You should usually call [Builder.maxX] with a well-typed [Float] value instead. This
              * method is primarily for setting the field to an undocumented or not yet supported
              * value.
              */
-            fun maxX(maxX: JsonField<Double>) = apply { this.maxX = maxX }
+            fun maxX(maxX: JsonField<Float>) = apply { this.maxX = maxX }
 
-            fun maxY(maxY: Double) = maxY(JsonField.of(maxY))
+            fun maxY(maxY: Float) = maxY(JsonField.of(maxY))
 
             /**
              * Sets [Builder.maxY] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.maxY] with a well-typed [Double] value instead. This
+             * You should usually call [Builder.maxY] with a well-typed [Float] value instead. This
              * method is primarily for setting the field to an undocumented or not yet supported
              * value.
              */
-            fun maxY(maxY: JsonField<Double>) = apply { this.maxY = maxY }
+            fun maxY(maxY: JsonField<Float>) = apply { this.maxY = maxY }
 
-            fun minX(minX: Double) = minX(JsonField.of(minX))
+            fun minX(minX: Float) = minX(JsonField.of(minX))
 
             /**
              * Sets [Builder.minX] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.minX] with a well-typed [Double] value instead. This
+             * You should usually call [Builder.minX] with a well-typed [Float] value instead. This
              * method is primarily for setting the field to an undocumented or not yet supported
              * value.
              */
-            fun minX(minX: JsonField<Double>) = apply { this.minX = minX }
+            fun minX(minX: JsonField<Float>) = apply { this.minX = minX }
 
-            fun minY(minY: Double) = minY(JsonField.of(minY))
+            fun minY(minY: Float) = minY(JsonField.of(minY))
 
             /**
              * Sets [Builder.minY] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.minY] with a well-typed [Double] value instead. This
+             * You should usually call [Builder.minY] with a well-typed [Float] value instead. This
              * method is primarily for setting the field to an undocumented or not yet supported
              * value.
              */
-            fun minY(minY: JsonField<Double>) = apply { this.minY = minY }
+            fun minY(minY: JsonField<Float>) = apply { this.minY = minY }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()

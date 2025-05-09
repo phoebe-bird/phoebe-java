@@ -21,8 +21,8 @@ import kotlin.jvm.optionals.getOrNull
  */
 class RecentListParams
 private constructor(
-    private val lat: Double,
-    private val lng: Double,
+    private val lat: Float,
+    private val lng: Float,
     private val back: Long?,
     private val cat: Cat?,
     private val dist: Long?,
@@ -35,9 +35,9 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun lat(): Double = lat
+    fun lat(): Float = lat
 
-    fun lng(): Double = lng
+    fun lng(): Float = lng
 
     /** The number of days back to fetch observations. */
     fun back(): Optional<Long> = Optional.ofNullable(back)
@@ -86,8 +86,8 @@ private constructor(
     /** A builder for [RecentListParams]. */
     class Builder internal constructor() {
 
-        private var lat: Double? = null
-        private var lng: Double? = null
+        private var lat: Float? = null
+        private var lng: Float? = null
         private var back: Long? = null
         private var cat: Cat? = null
         private var dist: Long? = null
@@ -115,9 +115,9 @@ private constructor(
             additionalQueryParams = recentListParams.additionalQueryParams.toBuilder()
         }
 
-        fun lat(lat: Double) = apply { this.lat = lat }
+        fun lat(lat: Float) = apply { this.lat = lat }
 
-        fun lng(lng: Double) = apply { this.lng = lng }
+        fun lng(lng: Float) = apply { this.lng = lng }
 
         /** The number of days back to fetch observations. */
         fun back(back: Long?) = apply { this.back = back }

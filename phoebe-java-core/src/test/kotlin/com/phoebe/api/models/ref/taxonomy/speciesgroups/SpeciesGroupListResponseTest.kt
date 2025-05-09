@@ -17,14 +17,22 @@ internal class SpeciesGroupListResponseTest {
                 .groupName("Waterfowl")
                 .groupOrder(1L)
                 .taxonOrderBounds(
-                    listOf(listOf(211.0, 579.0), listOf(1968.0, 2063.0), listOf(16549.0, 16613.0))
+                    listOf(
+                        listOf(211.0f, 579.0f),
+                        listOf(1968.0f, 2063.0f),
+                        listOf(16549.0f, 16613.0f),
+                    )
                 )
                 .build()
 
         assertThat(speciesGroupListResponse.groupName()).contains("Waterfowl")
         assertThat(speciesGroupListResponse.groupOrder()).contains(1L)
         assertThat(speciesGroupListResponse.taxonOrderBounds().getOrNull())
-            .containsExactly(listOf(211.0, 579.0), listOf(1968.0, 2063.0), listOf(16549.0, 16613.0))
+            .containsExactly(
+                listOf(211.0f, 579.0f),
+                listOf(1968.0f, 2063.0f),
+                listOf(16549.0f, 16613.0f),
+            )
     }
 
     @Test
@@ -35,7 +43,11 @@ internal class SpeciesGroupListResponseTest {
                 .groupName("Waterfowl")
                 .groupOrder(1L)
                 .taxonOrderBounds(
-                    listOf(listOf(211.0, 579.0), listOf(1968.0, 2063.0), listOf(16549.0, 16613.0))
+                    listOf(
+                        listOf(211.0f, 579.0f),
+                        listOf(1968.0f, 2063.0f),
+                        listOf(16549.0f, 16613.0f),
+                    )
                 )
                 .build()
 

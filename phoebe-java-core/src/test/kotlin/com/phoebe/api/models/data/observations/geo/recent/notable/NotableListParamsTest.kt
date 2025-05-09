@@ -11,8 +11,8 @@ internal class NotableListParamsTest {
     @Test
     fun create() {
         NotableListParams.builder()
-            .lat(-90.0)
-            .lng(-180.0)
+            .lat(-90.0f)
+            .lng(-180.0f)
             .back(1L)
             .detail(NotableListParams.Detail.SIMPLE)
             .dist(0L)
@@ -26,8 +26,8 @@ internal class NotableListParamsTest {
     fun queryParams() {
         val params =
             NotableListParams.builder()
-                .lat(-90.0)
-                .lng(-180.0)
+                .lat(-90.0f)
+                .lng(-180.0f)
                 .back(1L)
                 .detail(NotableListParams.Detail.SIMPLE)
                 .dist(0L)
@@ -55,7 +55,7 @@ internal class NotableListParamsTest {
 
     @Test
     fun queryParamsWithoutOptionalFields() {
-        val params = NotableListParams.builder().lat(-90.0).lng(-180.0).build()
+        val params = NotableListParams.builder().lat(-90.0f).lng(-180.0f).build()
 
         val queryParams = params._queryParams()
 
