@@ -23,8 +23,8 @@ internal class RecentServiceTest {
         val observations =
             recentService.list(
                 RecentListParams.builder()
-                    .lat(-90.0)
-                    .lng(-180.0)
+                    .lat(-90.0f)
+                    .lng(-180.0f)
                     .back(1L)
                     .cat(RecentListParams.Cat.SPECIES)
                     .dist(0L)

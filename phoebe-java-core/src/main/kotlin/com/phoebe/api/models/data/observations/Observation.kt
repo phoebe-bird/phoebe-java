@@ -22,8 +22,8 @@ private constructor(
     private val firstname: JsonField<String>,
     private val howMany: JsonField<Long>,
     private val lastname: JsonField<String>,
-    private val lat: JsonField<Double>,
-    private val lng: JsonField<Double>,
+    private val lat: JsonField<Float>,
+    private val lng: JsonField<Float>,
     private val locationPrivate: JsonField<Boolean>,
     private val locId: JsonField<String>,
     private val locName: JsonField<String>,
@@ -43,8 +43,8 @@ private constructor(
         @JsonProperty("firstname") @ExcludeMissing firstname: JsonField<String> = JsonMissing.of(),
         @JsonProperty("howMany") @ExcludeMissing howMany: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("lastname") @ExcludeMissing lastname: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("lat") @ExcludeMissing lat: JsonField<Double> = JsonMissing.of(),
-        @JsonProperty("lng") @ExcludeMissing lng: JsonField<Double> = JsonMissing.of(),
+        @JsonProperty("lat") @ExcludeMissing lat: JsonField<Float> = JsonMissing.of(),
+        @JsonProperty("lng") @ExcludeMissing lng: JsonField<Float> = JsonMissing.of(),
         @JsonProperty("locationPrivate")
         @ExcludeMissing
         locationPrivate: JsonField<Boolean> = JsonMissing.of(),
@@ -114,13 +114,13 @@ private constructor(
      * @throws PhoebeInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun lat(): Optional<Double> = lat.getOptional("lat")
+    fun lat(): Optional<Float> = lat.getOptional("lat")
 
     /**
      * @throws PhoebeInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun lng(): Optional<Double> = lng.getOptional("lng")
+    fun lng(): Optional<Float> = lng.getOptional("lng")
 
     /**
      * @throws PhoebeInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -216,14 +216,14 @@ private constructor(
      *
      * Unlike [lat], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("lat") @ExcludeMissing fun _lat(): JsonField<Double> = lat
+    @JsonProperty("lat") @ExcludeMissing fun _lat(): JsonField<Float> = lat
 
     /**
      * Returns the raw JSON value of [lng].
      *
      * Unlike [lng], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("lng") @ExcludeMissing fun _lng(): JsonField<Double> = lng
+    @JsonProperty("lng") @ExcludeMissing fun _lng(): JsonField<Float> = lng
 
     /**
      * Returns the raw JSON value of [locationPrivate].
@@ -318,8 +318,8 @@ private constructor(
         private var firstname: JsonField<String> = JsonMissing.of()
         private var howMany: JsonField<Long> = JsonMissing.of()
         private var lastname: JsonField<String> = JsonMissing.of()
-        private var lat: JsonField<Double> = JsonMissing.of()
-        private var lng: JsonField<Double> = JsonMissing.of()
+        private var lat: JsonField<Float> = JsonMissing.of()
+        private var lng: JsonField<Float> = JsonMissing.of()
         private var locationPrivate: JsonField<Boolean> = JsonMissing.of()
         private var locId: JsonField<String> = JsonMissing.of()
         private var locName: JsonField<String> = JsonMissing.of()
@@ -403,25 +403,25 @@ private constructor(
          */
         fun lastname(lastname: JsonField<String>) = apply { this.lastname = lastname }
 
-        fun lat(lat: Double) = lat(JsonField.of(lat))
+        fun lat(lat: Float) = lat(JsonField.of(lat))
 
         /**
          * Sets [Builder.lat] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.lat] with a well-typed [Double] value instead. This
+         * You should usually call [Builder.lat] with a well-typed [Float] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun lat(lat: JsonField<Double>) = apply { this.lat = lat }
+        fun lat(lat: JsonField<Float>) = apply { this.lat = lat }
 
-        fun lng(lng: Double) = lng(JsonField.of(lng))
+        fun lng(lng: Float) = lng(JsonField.of(lng))
 
         /**
          * Sets [Builder.lng] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.lng] with a well-typed [Double] value instead. This
+         * You should usually call [Builder.lng] with a well-typed [Float] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun lng(lng: JsonField<Double>) = apply { this.lng = lng }
+        fun lng(lng: JsonField<Float>) = apply { this.lng = lng }
 
         fun locationPrivate(locationPrivate: Boolean) =
             locationPrivate(JsonField.of(locationPrivate))

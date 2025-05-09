@@ -31,7 +31,7 @@ private constructor(
     private val sciName: JsonField<String>,
     private val sciNameCodes: JsonField<List<String>>,
     private val speciesCode: JsonField<String>,
-    private val taxonOrder: JsonField<Long>,
+    private val taxonOrder: JsonField<Int>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -62,7 +62,7 @@ private constructor(
         @JsonProperty("speciesCode")
         @ExcludeMissing
         speciesCode: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("taxonOrder") @ExcludeMissing taxonOrder: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("taxonOrder") @ExcludeMissing taxonOrder: JsonField<Int> = JsonMissing.of(),
     ) : this(
         bandingCodes,
         category,
@@ -149,7 +149,7 @@ private constructor(
      * @throws PhoebeInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun taxonOrder(): Optional<Long> = taxonOrder.getOptional("taxonOrder")
+    fun taxonOrder(): Optional<Int> = taxonOrder.getOptional("taxonOrder")
 
     /**
      * Returns the raw JSON value of [bandingCodes].
@@ -243,7 +243,7 @@ private constructor(
      *
      * Unlike [taxonOrder], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("taxonOrder") @ExcludeMissing fun _taxonOrder(): JsonField<Long> = taxonOrder
+    @JsonProperty("taxonOrder") @ExcludeMissing fun _taxonOrder(): JsonField<Int> = taxonOrder
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -277,7 +277,7 @@ private constructor(
         private var sciName: JsonField<String> = JsonMissing.of()
         private var sciNameCodes: JsonField<MutableList<String>>? = null
         private var speciesCode: JsonField<String> = JsonMissing.of()
-        private var taxonOrder: JsonField<Long> = JsonMissing.of()
+        private var taxonOrder: JsonField<Int> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -460,15 +460,15 @@ private constructor(
          */
         fun speciesCode(speciesCode: JsonField<String>) = apply { this.speciesCode = speciesCode }
 
-        fun taxonOrder(taxonOrder: Long) = taxonOrder(JsonField.of(taxonOrder))
+        fun taxonOrder(taxonOrder: Int) = taxonOrder(JsonField.of(taxonOrder))
 
         /**
          * Sets [Builder.taxonOrder] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.taxonOrder] with a well-typed [Long] value instead. This
+         * You should usually call [Builder.taxonOrder] with a well-typed [Int] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun taxonOrder(taxonOrder: JsonField<Long>) = apply { this.taxonOrder = taxonOrder }
+        fun taxonOrder(taxonOrder: JsonField<Int>) = apply { this.taxonOrder = taxonOrder }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()

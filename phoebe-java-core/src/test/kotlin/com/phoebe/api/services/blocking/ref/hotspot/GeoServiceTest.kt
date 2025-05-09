@@ -23,8 +23,8 @@ internal class GeoServiceTest {
         val geos =
             geoService.retrieve(
                 GeoRetrieveParams.builder()
-                    .lat(-90.0)
-                    .lng(-180.0)
+                    .lat(-90.0f)
+                    .lng(-180.0f)
                     .back(1L)
                     .dist(0L)
                     .fmt(GeoRetrieveParams.Fmt.CSV)

@@ -17,9 +17,9 @@ import java.util.Optional
 
 class StatRetrieveResponse
 private constructor(
-    private val numChecklists: JsonField<Long>,
-    private val numContributors: JsonField<Long>,
-    private val numSpecies: JsonField<Long>,
+    private val numChecklists: JsonField<Int>,
+    private val numContributors: JsonField<Int>,
+    private val numSpecies: JsonField<Int>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -27,30 +27,30 @@ private constructor(
     private constructor(
         @JsonProperty("numChecklists")
         @ExcludeMissing
-        numChecklists: JsonField<Long> = JsonMissing.of(),
+        numChecklists: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("numContributors")
         @ExcludeMissing
-        numContributors: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("numSpecies") @ExcludeMissing numSpecies: JsonField<Long> = JsonMissing.of(),
+        numContributors: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("numSpecies") @ExcludeMissing numSpecies: JsonField<Int> = JsonMissing.of(),
     ) : this(numChecklists, numContributors, numSpecies, mutableMapOf())
 
     /**
      * @throws PhoebeInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun numChecklists(): Optional<Long> = numChecklists.getOptional("numChecklists")
+    fun numChecklists(): Optional<Int> = numChecklists.getOptional("numChecklists")
 
     /**
      * @throws PhoebeInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun numContributors(): Optional<Long> = numContributors.getOptional("numContributors")
+    fun numContributors(): Optional<Int> = numContributors.getOptional("numContributors")
 
     /**
      * @throws PhoebeInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun numSpecies(): Optional<Long> = numSpecies.getOptional("numSpecies")
+    fun numSpecies(): Optional<Int> = numSpecies.getOptional("numSpecies")
 
     /**
      * Returns the raw JSON value of [numChecklists].
@@ -59,7 +59,7 @@ private constructor(
      */
     @JsonProperty("numChecklists")
     @ExcludeMissing
-    fun _numChecklists(): JsonField<Long> = numChecklists
+    fun _numChecklists(): JsonField<Int> = numChecklists
 
     /**
      * Returns the raw JSON value of [numContributors].
@@ -68,14 +68,14 @@ private constructor(
      */
     @JsonProperty("numContributors")
     @ExcludeMissing
-    fun _numContributors(): JsonField<Long> = numContributors
+    fun _numContributors(): JsonField<Int> = numContributors
 
     /**
      * Returns the raw JSON value of [numSpecies].
      *
      * Unlike [numSpecies], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("numSpecies") @ExcludeMissing fun _numSpecies(): JsonField<Long> = numSpecies
+    @JsonProperty("numSpecies") @ExcludeMissing fun _numSpecies(): JsonField<Int> = numSpecies
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -98,9 +98,9 @@ private constructor(
     /** A builder for [StatRetrieveResponse]. */
     class Builder internal constructor() {
 
-        private var numChecklists: JsonField<Long> = JsonMissing.of()
-        private var numContributors: JsonField<Long> = JsonMissing.of()
-        private var numSpecies: JsonField<Long> = JsonMissing.of()
+        private var numChecklists: JsonField<Int> = JsonMissing.of()
+        private var numContributors: JsonField<Int> = JsonMissing.of()
+        private var numSpecies: JsonField<Int> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -111,41 +111,41 @@ private constructor(
             additionalProperties = statRetrieveResponse.additionalProperties.toMutableMap()
         }
 
-        fun numChecklists(numChecklists: Long) = numChecklists(JsonField.of(numChecklists))
+        fun numChecklists(numChecklists: Int) = numChecklists(JsonField.of(numChecklists))
 
         /**
          * Sets [Builder.numChecklists] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.numChecklists] with a well-typed [Long] value instead.
+         * You should usually call [Builder.numChecklists] with a well-typed [Int] value instead.
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun numChecklists(numChecklists: JsonField<Long>) = apply {
+        fun numChecklists(numChecklists: JsonField<Int>) = apply {
             this.numChecklists = numChecklists
         }
 
-        fun numContributors(numContributors: Long) = numContributors(JsonField.of(numContributors))
+        fun numContributors(numContributors: Int) = numContributors(JsonField.of(numContributors))
 
         /**
          * Sets [Builder.numContributors] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.numContributors] with a well-typed [Long] value instead.
+         * You should usually call [Builder.numContributors] with a well-typed [Int] value instead.
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun numContributors(numContributors: JsonField<Long>) = apply {
+        fun numContributors(numContributors: JsonField<Int>) = apply {
             this.numContributors = numContributors
         }
 
-        fun numSpecies(numSpecies: Long) = numSpecies(JsonField.of(numSpecies))
+        fun numSpecies(numSpecies: Int) = numSpecies(JsonField.of(numSpecies))
 
         /**
          * Sets [Builder.numSpecies] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.numSpecies] with a well-typed [Long] value instead. This
+         * You should usually call [Builder.numSpecies] with a well-typed [Int] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun numSpecies(numSpecies: JsonField<Long>) = apply { this.numSpecies = numSpecies }
+        fun numSpecies(numSpecies: JsonField<Int>) = apply { this.numSpecies = numSpecies }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()

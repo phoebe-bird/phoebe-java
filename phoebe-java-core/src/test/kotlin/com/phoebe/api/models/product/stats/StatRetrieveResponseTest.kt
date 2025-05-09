@@ -12,26 +12,18 @@ internal class StatRetrieveResponseTest {
     @Test
     fun create() {
         val statRetrieveResponse =
-            StatRetrieveResponse.builder()
-                .numChecklists(0L)
-                .numContributors(0L)
-                .numSpecies(0L)
-                .build()
+            StatRetrieveResponse.builder().numChecklists(0).numContributors(0).numSpecies(0).build()
 
-        assertThat(statRetrieveResponse.numChecklists()).contains(0L)
-        assertThat(statRetrieveResponse.numContributors()).contains(0L)
-        assertThat(statRetrieveResponse.numSpecies()).contains(0L)
+        assertThat(statRetrieveResponse.numChecklists()).contains(0)
+        assertThat(statRetrieveResponse.numContributors()).contains(0)
+        assertThat(statRetrieveResponse.numSpecies()).contains(0)
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
         val statRetrieveResponse =
-            StatRetrieveResponse.builder()
-                .numChecklists(0L)
-                .numContributors(0L)
-                .numSpecies(0L)
-                .build()
+            StatRetrieveResponse.builder().numChecklists(0).numContributors(0).numSpecies(0).build()
 
         val roundtrippedStatRetrieveResponse =
             jsonMapper.readValue(
