@@ -251,12 +251,9 @@ Requests time out after 1 minute by default.
 To set a custom timeout, configure the method call using the `timeout` method:
 
 ```java
-import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveParams;
 import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveResponse;
 
-InfoRetrieveResponse info = client.ref().hotspot().info().retrieve(
-  "L99381", RequestOptions.builder().timeout(Duration.ofSeconds(30)).build()
-);
+InfoRetrieveResponse info = client.ref().hotspot().info().retrieve(RequestOptions.builder().timeout(Duration.ofSeconds(30)).build());
 ```
 
 Or configure the default for all method calls at the client level:
@@ -480,12 +477,9 @@ InfoRetrieveResponse info = client.ref().hotspot().info().retrieve(params).valid
 Or configure the method call to validate the response using the `responseValidation` method:
 
 ```java
-import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveParams;
 import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveResponse;
 
-InfoRetrieveResponse info = client.ref().hotspot().info().retrieve(
-  "L99381", RequestOptions.builder().responseValidation(true).build()
-);
+InfoRetrieveResponse info = client.ref().hotspot().info().retrieve(RequestOptions.builder().responseValidation(true).build());
 ```
 
 Or configure the default for all method calls at the client level:
