@@ -23,14 +23,34 @@ interface ChecklistService {
      * be removed at a future date: _howManyAtleast_, _howManyAtmost_, _hideFlags_, _projId_,
      * _subId_, _subnational1Code_ and _present_.
      */
-    fun view(params: ChecklistViewParams): ChecklistViewResponse =
-        view(params, RequestOptions.none())
+    fun view(subId: String): ChecklistViewResponse = view(subId, ChecklistViewParams.none())
+
+    /** @see [view] */
+    fun view(
+        subId: String,
+        params: ChecklistViewParams = ChecklistViewParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ChecklistViewResponse = view(params.toBuilder().subId(subId).build(), requestOptions)
+
+    /** @see [view] */
+    fun view(
+        subId: String,
+        params: ChecklistViewParams = ChecklistViewParams.none(),
+    ): ChecklistViewResponse = view(subId, params, RequestOptions.none())
 
     /** @see [view] */
     fun view(
         params: ChecklistViewParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ChecklistViewResponse
+
+    /** @see [view] */
+    fun view(params: ChecklistViewParams): ChecklistViewResponse =
+        view(params, RequestOptions.none())
+
+    /** @see [view] */
+    fun view(subId: String, requestOptions: RequestOptions): ChecklistViewResponse =
+        view(subId, ChecklistViewParams.none(), requestOptions)
 
     /** A view of [ChecklistService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -40,8 +60,24 @@ interface ChecklistService {
          * the same as [ChecklistService.view].
          */
         @MustBeClosed
-        fun view(params: ChecklistViewParams): HttpResponseFor<ChecklistViewResponse> =
-            view(params, RequestOptions.none())
+        fun view(subId: String): HttpResponseFor<ChecklistViewResponse> =
+            view(subId, ChecklistViewParams.none())
+
+        /** @see [view] */
+        @MustBeClosed
+        fun view(
+            subId: String,
+            params: ChecklistViewParams = ChecklistViewParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ChecklistViewResponse> =
+            view(params.toBuilder().subId(subId).build(), requestOptions)
+
+        /** @see [view] */
+        @MustBeClosed
+        fun view(
+            subId: String,
+            params: ChecklistViewParams = ChecklistViewParams.none(),
+        ): HttpResponseFor<ChecklistViewResponse> = view(subId, params, RequestOptions.none())
 
         /** @see [view] */
         @MustBeClosed
@@ -49,5 +85,18 @@ interface ChecklistService {
             params: ChecklistViewParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ChecklistViewResponse>
+
+        /** @see [view] */
+        @MustBeClosed
+        fun view(params: ChecklistViewParams): HttpResponseFor<ChecklistViewResponse> =
+            view(params, RequestOptions.none())
+
+        /** @see [view] */
+        @MustBeClosed
+        fun view(
+            subId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ChecklistViewResponse> =
+            view(subId, ChecklistViewParams.none(), requestOptions)
     }
 }

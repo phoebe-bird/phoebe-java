@@ -5,6 +5,7 @@ package com.phoebe.api.services.blocking.ref.region
 import com.phoebe.api.core.ClientOptions
 import com.phoebe.api.core.JsonValue
 import com.phoebe.api.core.RequestOptions
+import com.phoebe.api.core.checkRequired
 import com.phoebe.api.core.handlers.errorHandler
 import com.phoebe.api.core.handlers.jsonHandler
 import com.phoebe.api.core.handlers.withErrorHandler
@@ -16,6 +17,7 @@ import com.phoebe.api.core.http.parseable
 import com.phoebe.api.core.prepare
 import com.phoebe.api.models.ref.region.list.ListListParams
 import com.phoebe.api.models.ref.region.list.ListListResponse
+import kotlin.jvm.optionals.getOrNull
 
 class ListServiceImpl internal constructor(private val clientOptions: ClientOptions) : ListService {
 
@@ -45,6 +47,9 @@ class ListServiceImpl internal constructor(private val clientOptions: ClientOpti
             params: ListListParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<List<ListListResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("parentRegionCode", params.parentRegionCode().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)

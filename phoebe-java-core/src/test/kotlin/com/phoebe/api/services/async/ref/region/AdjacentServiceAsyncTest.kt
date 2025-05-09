@@ -4,7 +4,6 @@ package com.phoebe.api.services.async.ref.region
 
 import com.phoebe.api.TestServerExtension
 import com.phoebe.api.client.okhttp.PhoebeOkHttpClientAsync
-import com.phoebe.api.models.ref.region.adjacent.AdjacentListParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -20,8 +19,7 @@ internal class AdjacentServiceAsyncTest {
                 .build()
         val adjacentServiceAsync = client.ref().region().adjacent()
 
-        val adjacentsFuture =
-            adjacentServiceAsync.list(AdjacentListParams.builder().regionCode("regionCode").build())
+        val adjacentsFuture = adjacentServiceAsync.list("regionCode")
 
         val adjacents = adjacentsFuture.get()
         adjacents.forEach { it.validate() }

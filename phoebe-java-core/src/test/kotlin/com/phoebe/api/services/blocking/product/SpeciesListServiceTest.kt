@@ -4,7 +4,6 @@ package com.phoebe.api.services.blocking.product
 
 import com.phoebe.api.TestServerExtension
 import com.phoebe.api.client.okhttp.PhoebeOkHttpClient
-import com.phoebe.api.models.product.specieslist.SpeciesListListParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -20,6 +19,6 @@ internal class SpeciesListServiceTest {
                 .build()
         val speciesListService = client.product().speciesList()
 
-        speciesListService.list(SpeciesListListParams.builder().regionCode("regionCode").build())
+        speciesListService.list("regionCode")
     }
 }

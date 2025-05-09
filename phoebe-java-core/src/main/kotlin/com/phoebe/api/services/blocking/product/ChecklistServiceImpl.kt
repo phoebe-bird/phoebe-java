@@ -5,6 +5,7 @@ package com.phoebe.api.services.blocking.product
 import com.phoebe.api.core.ClientOptions
 import com.phoebe.api.core.JsonValue
 import com.phoebe.api.core.RequestOptions
+import com.phoebe.api.core.checkRequired
 import com.phoebe.api.core.handlers.errorHandler
 import com.phoebe.api.core.handlers.jsonHandler
 import com.phoebe.api.core.handlers.withErrorHandler
@@ -16,6 +17,7 @@ import com.phoebe.api.core.http.parseable
 import com.phoebe.api.core.prepare
 import com.phoebe.api.models.product.checklist.ChecklistViewParams
 import com.phoebe.api.models.product.checklist.ChecklistViewResponse
+import kotlin.jvm.optionals.getOrNull
 
 class ChecklistServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ChecklistService {
@@ -46,6 +48,9 @@ class ChecklistServiceImpl internal constructor(private val clientOptions: Clien
             params: ChecklistViewParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<ChecklistViewResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("subId", params.subId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)

@@ -22,6 +22,17 @@ interface HistoricService {
      *
      * #### Notes Responses may be cached for 30 minutes
      */
+    fun list(d: Long, params: HistoricListParams): List<Observation> =
+        list(d, params, RequestOptions.none())
+
+    /** @see [list] */
+    fun list(
+        d: Long,
+        params: HistoricListParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): List<Observation> = list(params.toBuilder().d(d).build(), requestOptions)
+
+    /** @see [list] */
     fun list(params: HistoricListParams): List<Observation> = list(params, RequestOptions.none())
 
     /** @see [list] */
@@ -37,6 +48,20 @@ interface HistoricService {
          * Returns a raw HTTP response for `get /data/obs/{regionCode}/historic/{y}/{m}/{d}`, but is
          * otherwise the same as [HistoricService.list].
          */
+        @MustBeClosed
+        fun list(d: Long, params: HistoricListParams): HttpResponseFor<List<Observation>> =
+            list(d, params, RequestOptions.none())
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            d: Long,
+            params: HistoricListParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<List<Observation>> =
+            list(params.toBuilder().d(d).build(), requestOptions)
+
+        /** @see [list] */
         @MustBeClosed
         fun list(params: HistoricListParams): HttpResponseFor<List<Observation>> =
             list(params, RequestOptions.none())

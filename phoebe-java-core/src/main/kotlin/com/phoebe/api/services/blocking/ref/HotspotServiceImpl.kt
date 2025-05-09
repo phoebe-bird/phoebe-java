@@ -5,6 +5,7 @@ package com.phoebe.api.services.blocking.ref
 import com.phoebe.api.core.ClientOptions
 import com.phoebe.api.core.JsonValue
 import com.phoebe.api.core.RequestOptions
+import com.phoebe.api.core.checkRequired
 import com.phoebe.api.core.handlers.errorHandler
 import com.phoebe.api.core.handlers.jsonHandler
 import com.phoebe.api.core.handlers.withErrorHandler
@@ -20,6 +21,7 @@ import com.phoebe.api.services.blocking.ref.hotspot.GeoService
 import com.phoebe.api.services.blocking.ref.hotspot.GeoServiceImpl
 import com.phoebe.api.services.blocking.ref.hotspot.InfoService
 import com.phoebe.api.services.blocking.ref.hotspot.InfoServiceImpl
+import kotlin.jvm.optionals.getOrNull
 
 class HotspotServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     HotspotService {
@@ -70,6 +72,9 @@ class HotspotServiceImpl internal constructor(private val clientOptions: ClientO
             params: HotspotListParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<List<HotspotListResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("regionCode", params.regionCode().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)

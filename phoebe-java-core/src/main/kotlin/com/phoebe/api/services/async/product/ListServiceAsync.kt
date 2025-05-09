@@ -20,14 +20,40 @@ interface ListServiceAsync {
     fun historical(): HistoricalServiceAsync
 
     /** Get information on the most recently submitted checklists for a region. */
-    fun retrieve(params: ListRetrieveParams): CompletableFuture<List<ListRetrieveResponse>> =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(regionCode: String): CompletableFuture<List<ListRetrieveResponse>> =
+        retrieve(regionCode, ListRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        regionCode: String,
+        params: ListRetrieveParams = ListRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<List<ListRetrieveResponse>> =
+        retrieve(params.toBuilder().regionCode(regionCode).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        regionCode: String,
+        params: ListRetrieveParams = ListRetrieveParams.none(),
+    ): CompletableFuture<List<ListRetrieveResponse>> =
+        retrieve(regionCode, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: ListRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<List<ListRetrieveResponse>>
+
+    /** @see [retrieve] */
+    fun retrieve(params: ListRetrieveParams): CompletableFuture<List<ListRetrieveResponse>> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        regionCode: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<List<ListRetrieveResponse>> =
+        retrieve(regionCode, ListRetrieveParams.none(), requestOptions)
 
     /** A view of [ListServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -40,9 +66,26 @@ interface ListServiceAsync {
          */
         @MustBeClosed
         fun retrieve(
-            params: ListRetrieveParams
+            regionCode: String
         ): CompletableFuture<HttpResponseFor<List<ListRetrieveResponse>>> =
-            retrieve(params, RequestOptions.none())
+            retrieve(regionCode, ListRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            regionCode: String,
+            params: ListRetrieveParams = ListRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<List<ListRetrieveResponse>>> =
+            retrieve(params.toBuilder().regionCode(regionCode).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            regionCode: String,
+            params: ListRetrieveParams = ListRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<List<ListRetrieveResponse>>> =
+            retrieve(regionCode, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -50,5 +93,20 @@ interface ListServiceAsync {
             params: ListRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<List<ListRetrieveResponse>>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: ListRetrieveParams
+        ): CompletableFuture<HttpResponseFor<List<ListRetrieveResponse>>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            regionCode: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<List<ListRetrieveResponse>>> =
+            retrieve(regionCode, ListRetrieveParams.none(), requestOptions)
     }
 }

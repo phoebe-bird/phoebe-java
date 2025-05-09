@@ -18,6 +18,21 @@ interface HistoricalServiceAsync {
 
     /** Get information on the checklists submitted on a given date for a country or region. */
     fun retrieve(
+        d: Long,
+        params: HistoricalRetrieveParams,
+    ): CompletableFuture<List<HistoricalRetrieveResponse>> =
+        retrieve(d, params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        d: Long,
+        params: HistoricalRetrieveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<List<HistoricalRetrieveResponse>> =
+        retrieve(params.toBuilder().d(d).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: HistoricalRetrieveParams
     ): CompletableFuture<List<HistoricalRetrieveResponse>> = retrieve(params, RequestOptions.none())
 
@@ -37,6 +52,23 @@ interface HistoricalServiceAsync {
          * Returns a raw HTTP response for `get /product/lists/{regionCode}/{y}/{m}/{d}`, but is
          * otherwise the same as [HistoricalServiceAsync.retrieve].
          */
+        @MustBeClosed
+        fun retrieve(
+            d: Long,
+            params: HistoricalRetrieveParams,
+        ): CompletableFuture<HttpResponseFor<List<HistoricalRetrieveResponse>>> =
+            retrieve(d, params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            d: Long,
+            params: HistoricalRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<List<HistoricalRetrieveResponse>>> =
+            retrieve(params.toBuilder().d(d).build(), requestOptions)
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: HistoricalRetrieveParams

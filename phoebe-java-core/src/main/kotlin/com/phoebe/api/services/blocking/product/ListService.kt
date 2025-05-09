@@ -19,14 +19,36 @@ interface ListService {
     fun historical(): HistoricalService
 
     /** Get information on the most recently submitted checklists for a region. */
-    fun retrieve(params: ListRetrieveParams): List<ListRetrieveResponse> =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(regionCode: String): List<ListRetrieveResponse> =
+        retrieve(regionCode, ListRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        regionCode: String,
+        params: ListRetrieveParams = ListRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): List<ListRetrieveResponse> =
+        retrieve(params.toBuilder().regionCode(regionCode).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        regionCode: String,
+        params: ListRetrieveParams = ListRetrieveParams.none(),
+    ): List<ListRetrieveResponse> = retrieve(regionCode, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: ListRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): List<ListRetrieveResponse>
+
+    /** @see [retrieve] */
+    fun retrieve(params: ListRetrieveParams): List<ListRetrieveResponse> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(regionCode: String, requestOptions: RequestOptions): List<ListRetrieveResponse> =
+        retrieve(regionCode, ListRetrieveParams.none(), requestOptions)
 
     /** A view of [ListService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -38,8 +60,25 @@ interface ListService {
          * same as [ListService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(params: ListRetrieveParams): HttpResponseFor<List<ListRetrieveResponse>> =
-            retrieve(params, RequestOptions.none())
+        fun retrieve(regionCode: String): HttpResponseFor<List<ListRetrieveResponse>> =
+            retrieve(regionCode, ListRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            regionCode: String,
+            params: ListRetrieveParams = ListRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<List<ListRetrieveResponse>> =
+            retrieve(params.toBuilder().regionCode(regionCode).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            regionCode: String,
+            params: ListRetrieveParams = ListRetrieveParams.none(),
+        ): HttpResponseFor<List<ListRetrieveResponse>> =
+            retrieve(regionCode, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -47,5 +86,18 @@ interface ListService {
             params: ListRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<List<ListRetrieveResponse>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(params: ListRetrieveParams): HttpResponseFor<List<ListRetrieveResponse>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            regionCode: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<List<ListRetrieveResponse>> =
+            retrieve(regionCode, ListRetrieveParams.none(), requestOptions)
     }
 }

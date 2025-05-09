@@ -21,6 +21,17 @@ interface StatService {
      *
      * #### Notes The results are updated every 15 minutes.
      */
+    fun retrieve(d: Long, params: StatRetrieveParams): StatRetrieveResponse =
+        retrieve(d, params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        d: Long,
+        params: StatRetrieveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): StatRetrieveResponse = retrieve(params.toBuilder().d(d).build(), requestOptions)
+
+    /** @see [retrieve] */
     fun retrieve(params: StatRetrieveParams): StatRetrieveResponse =
         retrieve(params, RequestOptions.none())
 
@@ -37,6 +48,20 @@ interface StatService {
          * Returns a raw HTTP response for `get /product/stats/{regionCode}/{y}/{m}/{d}`, but is
          * otherwise the same as [StatService.retrieve].
          */
+        @MustBeClosed
+        fun retrieve(d: Long, params: StatRetrieveParams): HttpResponseFor<StatRetrieveResponse> =
+            retrieve(d, params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            d: Long,
+            params: StatRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<StatRetrieveResponse> =
+            retrieve(params.toBuilder().d(d).build(), requestOptions)
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(params: StatRetrieveParams): HttpResponseFor<StatRetrieveResponse> =
             retrieve(params, RequestOptions.none())

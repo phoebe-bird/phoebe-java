@@ -30,6 +30,17 @@ interface SpecieService {
      * The species code is typically a 6-letter code, e.g. horlar for Horned Lark. You can get
      * complete set of species code from the GET eBird Taxonomy end-point.
      */
+    fun list(speciesCode: String, params: SpecieListParams): List<Observation> =
+        list(speciesCode, params, RequestOptions.none())
+
+    /** @see [list] */
+    fun list(
+        speciesCode: String,
+        params: SpecieListParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): List<Observation> = list(params.toBuilder().speciesCode(speciesCode).build(), requestOptions)
+
+    /** @see [list] */
     fun list(params: SpecieListParams): List<Observation> = list(params, RequestOptions.none())
 
     /** @see [list] */
@@ -45,6 +56,22 @@ interface SpecieService {
          * Returns a raw HTTP response for `get /data/obs/geo/recent/{speciesCode}`, but is
          * otherwise the same as [SpecieService.list].
          */
+        @MustBeClosed
+        fun list(
+            speciesCode: String,
+            params: SpecieListParams,
+        ): HttpResponseFor<List<Observation>> = list(speciesCode, params, RequestOptions.none())
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            speciesCode: String,
+            params: SpecieListParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<List<Observation>> =
+            list(params.toBuilder().speciesCode(speciesCode).build(), requestOptions)
+
+        /** @see [list] */
         @MustBeClosed
         fun list(params: SpecieListParams): HttpResponseFor<List<Observation>> =
             list(params, RequestOptions.none())

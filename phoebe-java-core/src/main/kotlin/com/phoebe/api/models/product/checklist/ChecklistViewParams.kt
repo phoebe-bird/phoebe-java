@@ -3,10 +3,11 @@
 package com.phoebe.api.models.product.checklist
 
 import com.phoebe.api.core.Params
-import com.phoebe.api.core.checkRequired
 import com.phoebe.api.core.http.Headers
 import com.phoebe.api.core.http.QueryParams
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Get the details and observations of a checklist.
@@ -18,12 +19,12 @@ import java.util.Objects
  */
 class ChecklistViewParams
 private constructor(
-    private val subId: String,
+    private val subId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun subId(): String = subId
+    fun subId(): Optional<String> = Optional.ofNullable(subId)
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -33,14 +34,9 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [ChecklistViewParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .subId()
-         * ```
-         */
+        @JvmStatic fun none(): ChecklistViewParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [ChecklistViewParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -58,7 +54,10 @@ private constructor(
             additionalQueryParams = checklistViewParams.additionalQueryParams.toBuilder()
         }
 
-        fun subId(subId: String) = apply { this.subId = subId }
+        fun subId(subId: String?) = apply { this.subId = subId }
+
+        /** Alias for calling [Builder.subId] with `subId.orElse(null)`. */
+        fun subId(subId: Optional<String>) = subId(subId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -162,25 +161,14 @@ private constructor(
          * Returns an immutable instance of [ChecklistViewParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .subId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): ChecklistViewParams =
-            ChecklistViewParams(
-                checkRequired("subId", subId),
-                additionalHeaders.build(),
-                additionalQueryParams.build(),
-            )
+            ChecklistViewParams(subId, additionalHeaders.build(), additionalQueryParams.build())
     }
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> subId
+            0 -> subId ?: ""
             else -> ""
         }
 

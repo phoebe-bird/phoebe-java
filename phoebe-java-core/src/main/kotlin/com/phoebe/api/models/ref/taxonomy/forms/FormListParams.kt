@@ -3,10 +3,11 @@
 package com.phoebe.api.models.ref.taxonomy.forms
 
 import com.phoebe.api.core.Params
-import com.phoebe.api.core.checkRequired
 import com.phoebe.api.core.http.Headers
 import com.phoebe.api.core.http.QueryParams
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * For a species, get the list of subspecies recognised in the taxonomy. The results include the
@@ -14,12 +15,12 @@ import java.util.Objects
  */
 class FormListParams
 private constructor(
-    private val speciesCode: String,
+    private val speciesCode: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun speciesCode(): String = speciesCode
+    fun speciesCode(): Optional<String> = Optional.ofNullable(speciesCode)
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -29,14 +30,9 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [FormListParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .speciesCode()
-         * ```
-         */
+        @JvmStatic fun none(): FormListParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [FormListParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -54,7 +50,10 @@ private constructor(
             additionalQueryParams = formListParams.additionalQueryParams.toBuilder()
         }
 
-        fun speciesCode(speciesCode: String) = apply { this.speciesCode = speciesCode }
+        fun speciesCode(speciesCode: String?) = apply { this.speciesCode = speciesCode }
+
+        /** Alias for calling [Builder.speciesCode] with `speciesCode.orElse(null)`. */
+        fun speciesCode(speciesCode: Optional<String>) = speciesCode(speciesCode.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -158,25 +157,14 @@ private constructor(
          * Returns an immutable instance of [FormListParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .speciesCode()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): FormListParams =
-            FormListParams(
-                checkRequired("speciesCode", speciesCode),
-                additionalHeaders.build(),
-                additionalQueryParams.build(),
-            )
+            FormListParams(speciesCode, additionalHeaders.build(), additionalQueryParams.build())
     }
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> speciesCode
+            0 -> speciesCode ?: ""
             else -> ""
         }
 

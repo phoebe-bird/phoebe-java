@@ -5,6 +5,7 @@ package com.phoebe.api.services.blocking.data.observations.recent
 import com.phoebe.api.core.ClientOptions
 import com.phoebe.api.core.JsonValue
 import com.phoebe.api.core.RequestOptions
+import com.phoebe.api.core.checkRequired
 import com.phoebe.api.core.handlers.errorHandler
 import com.phoebe.api.core.handlers.jsonHandler
 import com.phoebe.api.core.handlers.withErrorHandler
@@ -16,6 +17,7 @@ import com.phoebe.api.core.http.parseable
 import com.phoebe.api.core.prepare
 import com.phoebe.api.models.data.observations.Observation
 import com.phoebe.api.models.data.observations.recent.historic.HistoricListParams
+import kotlin.jvm.optionals.getOrNull
 
 class HistoricServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     HistoricService {
@@ -45,6 +47,9 @@ class HistoricServiceImpl internal constructor(private val clientOptions: Client
             params: HistoricListParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<List<Observation>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("d", params.d().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)

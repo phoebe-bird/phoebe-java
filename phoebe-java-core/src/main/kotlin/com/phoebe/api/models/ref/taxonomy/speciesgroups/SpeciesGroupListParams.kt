@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.phoebe.api.core.Enum
 import com.phoebe.api.core.JsonField
 import com.phoebe.api.core.Params
-import com.phoebe.api.core.checkRequired
 import com.phoebe.api.core.http.Headers
 import com.phoebe.api.core.http.QueryParams
 import com.phoebe.api.errors.PhoebeInvalidDataException
@@ -20,14 +19,14 @@ import kotlin.jvm.optionals.getOrNull
  */
 class SpeciesGroupListParams
 private constructor(
-    private val speciesGrouping: SpeciesGrouping,
+    private val speciesGrouping: SpeciesGrouping?,
     private val groupNameLocale: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The order in which groups are returned. */
-    fun speciesGrouping(): SpeciesGrouping = speciesGrouping
+    fun speciesGrouping(): Optional<SpeciesGrouping> = Optional.ofNullable(speciesGrouping)
 
     /**
      * Locale for species group names. English names are returned for any non-listed locale or any
@@ -43,14 +42,9 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [SpeciesGroupListParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .speciesGrouping()
-         * ```
-         */
+        @JvmStatic fun none(): SpeciesGroupListParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [SpeciesGroupListParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -71,9 +65,13 @@ private constructor(
         }
 
         /** The order in which groups are returned. */
-        fun speciesGrouping(speciesGrouping: SpeciesGrouping) = apply {
+        fun speciesGrouping(speciesGrouping: SpeciesGrouping?) = apply {
             this.speciesGrouping = speciesGrouping
         }
+
+        /** Alias for calling [Builder.speciesGrouping] with `speciesGrouping.orElse(null)`. */
+        fun speciesGrouping(speciesGrouping: Optional<SpeciesGrouping>) =
+            speciesGrouping(speciesGrouping.getOrNull())
 
         /**
          * Locale for species group names. English names are returned for any non-listed locale or
@@ -189,17 +187,10 @@ private constructor(
          * Returns an immutable instance of [SpeciesGroupListParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .speciesGrouping()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): SpeciesGroupListParams =
             SpeciesGroupListParams(
-                checkRequired("speciesGrouping", speciesGrouping),
+                speciesGrouping,
                 groupNameLocale,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -208,7 +199,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> speciesGrouping.toString()
+            0 -> speciesGrouping?.toString() ?: ""
             else -> ""
         }
 

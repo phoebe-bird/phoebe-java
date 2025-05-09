@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.phoebe.api.core.Enum
 import com.phoebe.api.core.JsonField
 import com.phoebe.api.core.Params
-import com.phoebe.api.core.checkRequired
 import com.phoebe.api.core.http.Headers
 import com.phoebe.api.core.http.QueryParams
 import com.phoebe.api.core.toImmutable
@@ -23,7 +22,7 @@ import kotlin.jvm.optionals.getOrNull
  */
 class NotableListParams
 private constructor(
-    private val regionCode: String,
+    private val regionCode: String?,
     private val back: Long?,
     private val detail: Detail?,
     private val hotspot: Boolean?,
@@ -34,7 +33,7 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun regionCode(): String = regionCode
+    fun regionCode(): Optional<String> = Optional.ofNullable(regionCode)
 
     /** The number of days back to fetch observations. */
     fun back(): Optional<Long> = Optional.ofNullable(back)
@@ -62,14 +61,9 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [NotableListParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .regionCode()
-         * ```
-         */
+        @JvmStatic fun none(): NotableListParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [NotableListParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -99,7 +93,10 @@ private constructor(
             additionalQueryParams = notableListParams.additionalQueryParams.toBuilder()
         }
 
-        fun regionCode(regionCode: String) = apply { this.regionCode = regionCode }
+        fun regionCode(regionCode: String?) = apply { this.regionCode = regionCode }
+
+        /** Alias for calling [Builder.regionCode] with `regionCode.orElse(null)`. */
+        fun regionCode(regionCode: Optional<String>) = regionCode(regionCode.getOrNull())
 
         /** The number of days back to fetch observations. */
         fun back(back: Long?) = apply { this.back = back }
@@ -267,17 +264,10 @@ private constructor(
          * Returns an immutable instance of [NotableListParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .regionCode()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): NotableListParams =
             NotableListParams(
-                checkRequired("regionCode", regionCode),
+                regionCode,
                 back,
                 detail,
                 hotspot,
@@ -291,7 +281,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> regionCode
+            0 -> regionCode ?: ""
             else -> ""
         }
 

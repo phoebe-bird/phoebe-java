@@ -4,7 +4,6 @@ package com.phoebe.api.services.async.ref.taxonomy
 
 import com.phoebe.api.TestServerExtension
 import com.phoebe.api.client.okhttp.PhoebeOkHttpClientAsync
-import com.phoebe.api.models.ref.taxonomy.forms.FormListParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -20,8 +19,7 @@ internal class FormServiceAsyncTest {
                 .build()
         val formServiceAsync = client.ref().taxonomy().forms()
 
-        val formsFuture =
-            formServiceAsync.list(FormListParams.builder().speciesCode("speciesCode").build())
+        val formsFuture = formServiceAsync.list("speciesCode")
 
         val forms = formsFuture.get()
     }

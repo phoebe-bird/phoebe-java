@@ -21,14 +21,36 @@ interface SpeciesListServiceAsync {
      * #### Notes The results are usually updated every 10 seconds for locations, every day for
      * larger regions.
      */
-    fun list(params: SpeciesListListParams): CompletableFuture<List<String>> =
-        list(params, RequestOptions.none())
+    fun list(regionCode: String): CompletableFuture<List<String>> =
+        list(regionCode, SpeciesListListParams.none())
+
+    /** @see [list] */
+    fun list(
+        regionCode: String,
+        params: SpeciesListListParams = SpeciesListListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<List<String>> =
+        list(params.toBuilder().regionCode(regionCode).build(), requestOptions)
+
+    /** @see [list] */
+    fun list(
+        regionCode: String,
+        params: SpeciesListListParams = SpeciesListListParams.none(),
+    ): CompletableFuture<List<String>> = list(regionCode, params, RequestOptions.none())
 
     /** @see [list] */
     fun list(
         params: SpeciesListListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<List<String>>
+
+    /** @see [list] */
+    fun list(params: SpeciesListListParams): CompletableFuture<List<String>> =
+        list(params, RequestOptions.none())
+
+    /** @see [list] */
+    fun list(regionCode: String, requestOptions: RequestOptions): CompletableFuture<List<String>> =
+        list(regionCode, SpeciesListListParams.none(), requestOptions)
 
     /**
      * A view of [SpeciesListServiceAsync] that provides access to raw HTTP responses for each
@@ -41,8 +63,25 @@ interface SpeciesListServiceAsync {
          * same as [SpeciesListServiceAsync.list].
          */
         @MustBeClosed
-        fun list(params: SpeciesListListParams): CompletableFuture<HttpResponseFor<List<String>>> =
-            list(params, RequestOptions.none())
+        fun list(regionCode: String): CompletableFuture<HttpResponseFor<List<String>>> =
+            list(regionCode, SpeciesListListParams.none())
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            regionCode: String,
+            params: SpeciesListListParams = SpeciesListListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<List<String>>> =
+            list(params.toBuilder().regionCode(regionCode).build(), requestOptions)
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            regionCode: String,
+            params: SpeciesListListParams = SpeciesListListParams.none(),
+        ): CompletableFuture<HttpResponseFor<List<String>>> =
+            list(regionCode, params, RequestOptions.none())
 
         /** @see [list] */
         @MustBeClosed
@@ -50,5 +89,18 @@ interface SpeciesListServiceAsync {
             params: SpeciesListListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<List<String>>>
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(params: SpeciesListListParams): CompletableFuture<HttpResponseFor<List<String>>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            regionCode: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<List<String>>> =
+            list(regionCode, SpeciesListListParams.none(), requestOptions)
     }
 }

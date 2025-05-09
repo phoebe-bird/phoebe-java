@@ -31,6 +31,18 @@ interface SpecieServiceAsync {
      * The species code is typically a 6-letter code, e.g. horlar for Horned Lark. You can get
      * complete set of species code from the GET eBird Taxonomy end-point.
      */
+    fun list(speciesCode: String, params: SpecieListParams): CompletableFuture<List<Observation>> =
+        list(speciesCode, params, RequestOptions.none())
+
+    /** @see [list] */
+    fun list(
+        speciesCode: String,
+        params: SpecieListParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<List<Observation>> =
+        list(params.toBuilder().speciesCode(speciesCode).build(), requestOptions)
+
+    /** @see [list] */
     fun list(params: SpecieListParams): CompletableFuture<List<Observation>> =
         list(params, RequestOptions.none())
 
@@ -49,6 +61,23 @@ interface SpecieServiceAsync {
          * Returns a raw HTTP response for `get /data/obs/geo/recent/{speciesCode}`, but is
          * otherwise the same as [SpecieServiceAsync.list].
          */
+        @MustBeClosed
+        fun list(
+            speciesCode: String,
+            params: SpecieListParams,
+        ): CompletableFuture<HttpResponseFor<List<Observation>>> =
+            list(speciesCode, params, RequestOptions.none())
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            speciesCode: String,
+            params: SpecieListParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<List<Observation>>> =
+            list(params.toBuilder().speciesCode(speciesCode).build(), requestOptions)
+
+        /** @see [list] */
         @MustBeClosed
         fun list(params: SpecieListParams): CompletableFuture<HttpResponseFor<List<Observation>>> =
             list(params, RequestOptions.none())

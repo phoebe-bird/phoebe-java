@@ -20,14 +20,34 @@ interface InfoService {
      * hotspots. If you pass the location code for a private location or an invalid location code
      * then an HTTP 410 (Gone) error is returned.
      */
-    fun retrieve(params: InfoRetrieveParams): InfoRetrieveResponse =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(locId: String): InfoRetrieveResponse = retrieve(locId, InfoRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        locId: String,
+        params: InfoRetrieveParams = InfoRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): InfoRetrieveResponse = retrieve(params.toBuilder().locId(locId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        locId: String,
+        params: InfoRetrieveParams = InfoRetrieveParams.none(),
+    ): InfoRetrieveResponse = retrieve(locId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: InfoRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InfoRetrieveResponse
+
+    /** @see [retrieve] */
+    fun retrieve(params: InfoRetrieveParams): InfoRetrieveResponse =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(locId: String, requestOptions: RequestOptions): InfoRetrieveResponse =
+        retrieve(locId, InfoRetrieveParams.none(), requestOptions)
 
     /** A view of [InfoService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -37,8 +57,24 @@ interface InfoService {
          * same as [InfoService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(params: InfoRetrieveParams): HttpResponseFor<InfoRetrieveResponse> =
-            retrieve(params, RequestOptions.none())
+        fun retrieve(locId: String): HttpResponseFor<InfoRetrieveResponse> =
+            retrieve(locId, InfoRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            locId: String,
+            params: InfoRetrieveParams = InfoRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InfoRetrieveResponse> =
+            retrieve(params.toBuilder().locId(locId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            locId: String,
+            params: InfoRetrieveParams = InfoRetrieveParams.none(),
+        ): HttpResponseFor<InfoRetrieveResponse> = retrieve(locId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -46,5 +82,18 @@ interface InfoService {
             params: InfoRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InfoRetrieveResponse>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(params: InfoRetrieveParams): HttpResponseFor<InfoRetrieveResponse> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            locId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<InfoRetrieveResponse> =
+            retrieve(locId, InfoRetrieveParams.none(), requestOptions)
     }
 }

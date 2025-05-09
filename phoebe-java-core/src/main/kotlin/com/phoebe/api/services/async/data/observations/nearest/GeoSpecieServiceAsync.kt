@@ -21,6 +21,20 @@ interface GeoSpecieServiceAsync {
      * code is typically a 6-letter code, e.g. barswa for Barn Swallow. You can get complete set of
      * species code from the GET eBird Taxonomy end-point.
      */
+    fun list(
+        speciesCode: String,
+        params: GeoSpecieListParams,
+    ): CompletableFuture<List<Observation>> = list(speciesCode, params, RequestOptions.none())
+
+    /** @see [list] */
+    fun list(
+        speciesCode: String,
+        params: GeoSpecieListParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<List<Observation>> =
+        list(params.toBuilder().speciesCode(speciesCode).build(), requestOptions)
+
+    /** @see [list] */
     fun list(params: GeoSpecieListParams): CompletableFuture<List<Observation>> =
         list(params, RequestOptions.none())
 
@@ -39,6 +53,23 @@ interface GeoSpecieServiceAsync {
          * Returns a raw HTTP response for `get /data/nearest/geo/recent/{speciesCode}`, but is
          * otherwise the same as [GeoSpecieServiceAsync.list].
          */
+        @MustBeClosed
+        fun list(
+            speciesCode: String,
+            params: GeoSpecieListParams,
+        ): CompletableFuture<HttpResponseFor<List<Observation>>> =
+            list(speciesCode, params, RequestOptions.none())
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            speciesCode: String,
+            params: GeoSpecieListParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<List<Observation>>> =
+            list(params.toBuilder().speciesCode(speciesCode).build(), requestOptions)
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: GeoSpecieListParams

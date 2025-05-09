@@ -22,6 +22,18 @@ interface StatServiceAsync {
      *
      * #### Notes The results are updated every 15 minutes.
      */
+    fun retrieve(d: Long, params: StatRetrieveParams): CompletableFuture<StatRetrieveResponse> =
+        retrieve(d, params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        d: Long,
+        params: StatRetrieveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<StatRetrieveResponse> =
+        retrieve(params.toBuilder().d(d).build(), requestOptions)
+
+    /** @see [retrieve] */
     fun retrieve(params: StatRetrieveParams): CompletableFuture<StatRetrieveResponse> =
         retrieve(params, RequestOptions.none())
 
@@ -38,6 +50,23 @@ interface StatServiceAsync {
          * Returns a raw HTTP response for `get /product/stats/{regionCode}/{y}/{m}/{d}`, but is
          * otherwise the same as [StatServiceAsync.retrieve].
          */
+        @MustBeClosed
+        fun retrieve(
+            d: Long,
+            params: StatRetrieveParams,
+        ): CompletableFuture<HttpResponseFor<StatRetrieveResponse>> =
+            retrieve(d, params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            d: Long,
+            params: StatRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<StatRetrieveResponse>> =
+            retrieve(params.toBuilder().d(d).build(), requestOptions)
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: StatRetrieveParams

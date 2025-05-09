@@ -7,6 +7,8 @@ import com.phoebe.api.core.checkRequired
 import com.phoebe.api.core.http.Headers
 import com.phoebe.api.core.http.QueryParams
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Get a summary of the number of checklist submitted, species seen and contributors on a given date
@@ -19,7 +21,7 @@ private constructor(
     private val regionCode: String,
     private val y: Long,
     private val m: Long,
-    private val d: Long,
+    private val d: Long?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -30,7 +32,7 @@ private constructor(
 
     fun m(): Long = m
 
-    fun d(): Long = d
+    fun d(): Optional<Long> = Optional.ofNullable(d)
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -48,7 +50,6 @@ private constructor(
          * .regionCode()
          * .y()
          * .m()
-         * .d()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -80,7 +81,17 @@ private constructor(
 
         fun m(m: Long) = apply { this.m = m }
 
-        fun d(d: Long) = apply { this.d = d }
+        fun d(d: Long?) = apply { this.d = d }
+
+        /**
+         * Alias for [Builder.d].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun d(d: Long) = d(d as Long?)
+
+        /** Alias for calling [Builder.d] with `d.orElse(null)`. */
+        fun d(d: Optional<Long>) = d(d.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -190,7 +201,6 @@ private constructor(
          * .regionCode()
          * .y()
          * .m()
-         * .d()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -200,7 +210,7 @@ private constructor(
                 checkRequired("regionCode", regionCode),
                 checkRequired("y", y),
                 checkRequired("m", m),
-                checkRequired("d", d),
+                d,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -211,7 +221,7 @@ private constructor(
             0 -> regionCode
             1 -> y.toString()
             2 -> m.toString()
-            3 -> d.toString()
+            3 -> d?.toString() ?: ""
             else -> ""
         }
 

@@ -21,6 +21,18 @@ interface ListService {
      * regions for a country however you can only specify a region type of 'country' when using
      * 'world' as a region code.
      */
+    fun list(parentRegionCode: String, params: ListListParams): List<ListListResponse> =
+        list(parentRegionCode, params, RequestOptions.none())
+
+    /** @see [list] */
+    fun list(
+        parentRegionCode: String,
+        params: ListListParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): List<ListListResponse> =
+        list(params.toBuilder().parentRegionCode(parentRegionCode).build(), requestOptions)
+
+    /** @see [list] */
     fun list(params: ListListParams): List<ListListResponse> = list(params, RequestOptions.none())
 
     /** @see [list] */
@@ -36,6 +48,23 @@ interface ListService {
          * Returns a raw HTTP response for `get /ref/region/list/{regionType}/{parentRegionCode}`,
          * but is otherwise the same as [ListService.list].
          */
+        @MustBeClosed
+        fun list(
+            parentRegionCode: String,
+            params: ListListParams,
+        ): HttpResponseFor<List<ListListResponse>> =
+            list(parentRegionCode, params, RequestOptions.none())
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            parentRegionCode: String,
+            params: ListListParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<List<ListListResponse>> =
+            list(params.toBuilder().parentRegionCode(parentRegionCode).build(), requestOptions)
+
+        /** @see [list] */
         @MustBeClosed
         fun list(params: ListListParams): HttpResponseFor<List<ListListResponse>> =
             list(params, RequestOptions.none())

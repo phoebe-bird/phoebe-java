@@ -5,6 +5,7 @@ package com.phoebe.api.services.async.ref.region
 import com.phoebe.api.core.ClientOptions
 import com.phoebe.api.core.JsonValue
 import com.phoebe.api.core.RequestOptions
+import com.phoebe.api.core.checkRequired
 import com.phoebe.api.core.handlers.errorHandler
 import com.phoebe.api.core.handlers.jsonHandler
 import com.phoebe.api.core.handlers.withErrorHandler
@@ -17,6 +18,7 @@ import com.phoebe.api.core.prepareAsync
 import com.phoebe.api.models.ref.region.adjacent.AdjacentListParams
 import com.phoebe.api.models.ref.region.adjacent.AdjacentListResponse
 import java.util.concurrent.CompletableFuture
+import kotlin.jvm.optionals.getOrNull
 
 class AdjacentServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     AdjacentServiceAsync {
@@ -47,6 +49,9 @@ class AdjacentServiceAsyncImpl internal constructor(private val clientOptions: C
             params: AdjacentListParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<List<AdjacentListResponse>>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("regionCode", params.regionCode().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)

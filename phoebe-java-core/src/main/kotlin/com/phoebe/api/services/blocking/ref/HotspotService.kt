@@ -22,14 +22,36 @@ interface HotspotService {
     fun info(): InfoService
 
     /** Hotspots in a region */
-    fun list(params: HotspotListParams): List<HotspotListResponse> =
-        list(params, RequestOptions.none())
+    fun list(regionCode: String): List<HotspotListResponse> =
+        list(regionCode, HotspotListParams.none())
+
+    /** @see [list] */
+    fun list(
+        regionCode: String,
+        params: HotspotListParams = HotspotListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): List<HotspotListResponse> =
+        list(params.toBuilder().regionCode(regionCode).build(), requestOptions)
+
+    /** @see [list] */
+    fun list(
+        regionCode: String,
+        params: HotspotListParams = HotspotListParams.none(),
+    ): List<HotspotListResponse> = list(regionCode, params, RequestOptions.none())
 
     /** @see [list] */
     fun list(
         params: HotspotListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): List<HotspotListResponse>
+
+    /** @see [list] */
+    fun list(params: HotspotListParams): List<HotspotListResponse> =
+        list(params, RequestOptions.none())
+
+    /** @see [list] */
+    fun list(regionCode: String, requestOptions: RequestOptions): List<HotspotListResponse> =
+        list(regionCode, HotspotListParams.none(), requestOptions)
 
     /** A view of [HotspotService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -43,8 +65,25 @@ interface HotspotService {
          * same as [HotspotService.list].
          */
         @MustBeClosed
-        fun list(params: HotspotListParams): HttpResponseFor<List<HotspotListResponse>> =
-            list(params, RequestOptions.none())
+        fun list(regionCode: String): HttpResponseFor<List<HotspotListResponse>> =
+            list(regionCode, HotspotListParams.none())
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            regionCode: String,
+            params: HotspotListParams = HotspotListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<List<HotspotListResponse>> =
+            list(params.toBuilder().regionCode(regionCode).build(), requestOptions)
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            regionCode: String,
+            params: HotspotListParams = HotspotListParams.none(),
+        ): HttpResponseFor<List<HotspotListResponse>> =
+            list(regionCode, params, RequestOptions.none())
 
         /** @see [list] */
         @MustBeClosed
@@ -52,5 +91,18 @@ interface HotspotService {
             params: HotspotListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<List<HotspotListResponse>>
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(params: HotspotListParams): HttpResponseFor<List<HotspotListResponse>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            regionCode: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<List<HotspotListResponse>> =
+            list(regionCode, HotspotListParams.none(), requestOptions)
     }
 }
