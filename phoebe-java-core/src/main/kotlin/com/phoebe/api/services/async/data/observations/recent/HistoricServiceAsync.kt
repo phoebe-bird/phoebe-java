@@ -2,7 +2,6 @@
 
 package com.phoebe.api.services.async.data.observations.recent
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.data.observations.Observation
@@ -52,7 +51,6 @@ interface HistoricServiceAsync {
          * Returns a raw HTTP response for `get /data/obs/{regionCode}/historic/{y}/{m}/{d}`, but is
          * otherwise the same as [HistoricServiceAsync.list].
          */
-        @MustBeClosed
         fun list(
             d: Long,
             params: HistoricListParams,
@@ -60,7 +58,6 @@ interface HistoricServiceAsync {
             list(d, params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             d: Long,
             params: HistoricListParams,
@@ -69,14 +66,12 @@ interface HistoricServiceAsync {
             list(params.toBuilder().d(d).build(), requestOptions)
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: HistoricListParams
         ): CompletableFuture<HttpResponseFor<List<Observation>>> =
             list(params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: HistoricListParams,
             requestOptions: RequestOptions = RequestOptions.none(),

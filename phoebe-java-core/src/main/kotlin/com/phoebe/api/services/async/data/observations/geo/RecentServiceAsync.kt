@@ -2,7 +2,6 @@
 
 package com.phoebe.api.services.async.data.observations.geo
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.data.observations.Observation
@@ -49,12 +48,10 @@ interface RecentServiceAsync {
          * Returns a raw HTTP response for `get /data/obs/geo/recent`, but is otherwise the same as
          * [RecentServiceAsync.list].
          */
-        @MustBeClosed
         fun list(params: RecentListParams): CompletableFuture<HttpResponseFor<List<Observation>>> =
             list(params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: RecentListParams,
             requestOptions: RequestOptions = RequestOptions.none(),

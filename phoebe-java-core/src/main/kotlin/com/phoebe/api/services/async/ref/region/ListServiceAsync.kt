@@ -2,7 +2,6 @@
 
 package com.phoebe.api.services.async.ref.region
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.ref.region.list.ListListParams
@@ -53,7 +52,6 @@ interface ListServiceAsync {
          * Returns a raw HTTP response for `get /ref/region/list/{regionType}/{parentRegionCode}`,
          * but is otherwise the same as [ListServiceAsync.list].
          */
-        @MustBeClosed
         fun list(
             parentRegionCode: String,
             params: ListListParams,
@@ -61,7 +59,6 @@ interface ListServiceAsync {
             list(parentRegionCode, params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             parentRegionCode: String,
             params: ListListParams,
@@ -70,14 +67,12 @@ interface ListServiceAsync {
             list(params.toBuilder().parentRegionCode(parentRegionCode).build(), requestOptions)
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: ListListParams
         ): CompletableFuture<HttpResponseFor<List<ListListResponse>>> =
             list(params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: ListListParams,
             requestOptions: RequestOptions = RequestOptions.none(),

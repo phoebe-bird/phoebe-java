@@ -2,7 +2,6 @@
 
 package com.phoebe.api.services.async.data.observations.nearest
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.data.observations.Observation
@@ -53,7 +52,6 @@ interface GeoSpecieServiceAsync {
          * Returns a raw HTTP response for `get /data/nearest/geo/recent/{speciesCode}`, but is
          * otherwise the same as [GeoSpecieServiceAsync.list].
          */
-        @MustBeClosed
         fun list(
             speciesCode: String,
             params: GeoSpecieListParams,
@@ -61,7 +59,6 @@ interface GeoSpecieServiceAsync {
             list(speciesCode, params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             speciesCode: String,
             params: GeoSpecieListParams,
@@ -70,14 +67,12 @@ interface GeoSpecieServiceAsync {
             list(params.toBuilder().speciesCode(speciesCode).build(), requestOptions)
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: GeoSpecieListParams
         ): CompletableFuture<HttpResponseFor<List<Observation>>> =
             list(params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: GeoSpecieListParams,
             requestOptions: RequestOptions = RequestOptions.none(),

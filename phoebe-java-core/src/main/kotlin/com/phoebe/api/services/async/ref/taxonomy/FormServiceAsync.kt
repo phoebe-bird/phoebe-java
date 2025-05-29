@@ -2,7 +2,6 @@
 
 package com.phoebe.api.services.async.ref.taxonomy
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.ref.taxonomy.forms.FormListParams
@@ -57,12 +56,10 @@ interface FormServiceAsync {
          * Returns a raw HTTP response for `get /ref/taxon/forms/{speciesCode}`, but is otherwise
          * the same as [FormServiceAsync.list].
          */
-        @MustBeClosed
         fun list(speciesCode: String): CompletableFuture<HttpResponseFor<List<String>>> =
             list(speciesCode, FormListParams.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             speciesCode: String,
             params: FormListParams = FormListParams.none(),
@@ -71,7 +68,6 @@ interface FormServiceAsync {
             list(params.toBuilder().speciesCode(speciesCode).build(), requestOptions)
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             speciesCode: String,
             params: FormListParams = FormListParams.none(),
@@ -79,19 +75,16 @@ interface FormServiceAsync {
             list(speciesCode, params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: FormListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<List<String>>>
 
         /** @see [list] */
-        @MustBeClosed
         fun list(params: FormListParams): CompletableFuture<HttpResponseFor<List<String>>> =
             list(params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             speciesCode: String,
             requestOptions: RequestOptions,

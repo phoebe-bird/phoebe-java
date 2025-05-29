@@ -2,7 +2,6 @@
 
 package com.phoebe.api.services.async.ref.taxonomy
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.ref.taxonomy.ebird.EbirdRetrieveParams
@@ -47,26 +46,22 @@ interface EbirdServiceAsync {
          * Returns a raw HTTP response for `get /ref/taxonomy/ebird`, but is otherwise the same as
          * [EbirdServiceAsync.retrieve].
          */
-        @MustBeClosed
         fun retrieve(): CompletableFuture<HttpResponseFor<List<EbirdRetrieveResponse>>> =
             retrieve(EbirdRetrieveParams.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: EbirdRetrieveParams = EbirdRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<List<EbirdRetrieveResponse>>>
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: EbirdRetrieveParams = EbirdRetrieveParams.none()
         ): CompletableFuture<HttpResponseFor<List<EbirdRetrieveResponse>>> =
             retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<List<EbirdRetrieveResponse>>> =

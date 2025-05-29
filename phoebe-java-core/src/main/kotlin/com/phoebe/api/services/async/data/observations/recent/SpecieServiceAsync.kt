@@ -2,7 +2,6 @@
 
 package com.phoebe.api.services.async.data.observations.recent
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.data.observations.Observation
@@ -60,7 +59,6 @@ interface SpecieServiceAsync {
          * Returns a raw HTTP response for `get /data/obs/{regionCode}/recent/{speciesCode}`, but is
          * otherwise the same as [SpecieServiceAsync.retrieve].
          */
-        @MustBeClosed
         fun retrieve(
             speciesCode: String,
             params: SpecieRetrieveParams,
@@ -68,7 +66,6 @@ interface SpecieServiceAsync {
             retrieve(speciesCode, params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             speciesCode: String,
             params: SpecieRetrieveParams,
@@ -77,14 +74,12 @@ interface SpecieServiceAsync {
             retrieve(params.toBuilder().speciesCode(speciesCode).build(), requestOptions)
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: SpecieRetrieveParams
         ): CompletableFuture<HttpResponseFor<List<Observation>>> =
             retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: SpecieRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),

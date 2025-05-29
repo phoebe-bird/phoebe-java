@@ -2,7 +2,6 @@
 
 package com.phoebe.api.services.async.data.observations
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.data.observations.Observation
@@ -79,12 +78,10 @@ interface RecentServiceAsync {
          * Returns a raw HTTP response for `get /data/obs/{regionCode}/recent`, but is otherwise the
          * same as [RecentServiceAsync.list].
          */
-        @MustBeClosed
         fun list(regionCode: String): CompletableFuture<HttpResponseFor<List<Observation>>> =
             list(regionCode, RecentListParams.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             regionCode: String,
             params: RecentListParams = RecentListParams.none(),
@@ -93,7 +90,6 @@ interface RecentServiceAsync {
             list(params.toBuilder().regionCode(regionCode).build(), requestOptions)
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             regionCode: String,
             params: RecentListParams = RecentListParams.none(),
@@ -101,19 +97,16 @@ interface RecentServiceAsync {
             list(regionCode, params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: RecentListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<List<Observation>>>
 
         /** @see [list] */
-        @MustBeClosed
         fun list(params: RecentListParams): CompletableFuture<HttpResponseFor<List<Observation>>> =
             list(params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             regionCode: String,
             requestOptions: RequestOptions,

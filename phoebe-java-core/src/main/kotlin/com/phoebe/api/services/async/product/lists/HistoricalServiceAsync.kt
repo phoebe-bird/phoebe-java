@@ -2,7 +2,6 @@
 
 package com.phoebe.api.services.async.product.lists
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.product.lists.historical.HistoricalRetrieveParams
@@ -52,7 +51,6 @@ interface HistoricalServiceAsync {
          * Returns a raw HTTP response for `get /product/lists/{regionCode}/{y}/{m}/{d}`, but is
          * otherwise the same as [HistoricalServiceAsync.retrieve].
          */
-        @MustBeClosed
         fun retrieve(
             d: Long,
             params: HistoricalRetrieveParams,
@@ -60,7 +58,6 @@ interface HistoricalServiceAsync {
             retrieve(d, params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             d: Long,
             params: HistoricalRetrieveParams,
@@ -69,14 +66,12 @@ interface HistoricalServiceAsync {
             retrieve(params.toBuilder().d(d).build(), requestOptions)
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: HistoricalRetrieveParams
         ): CompletableFuture<HttpResponseFor<List<HistoricalRetrieveResponse>>> =
             retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: HistoricalRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),

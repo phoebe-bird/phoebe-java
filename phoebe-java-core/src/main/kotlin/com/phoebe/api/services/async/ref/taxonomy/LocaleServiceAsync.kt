@@ -2,7 +2,6 @@
 
 package com.phoebe.api.services.async.ref.taxonomy
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.ref.taxonomy.locales.LocaleListParams
@@ -50,26 +49,22 @@ interface LocaleServiceAsync {
          * Returns a raw HTTP response for `get /ref/taxa-locales/ebird`, but is otherwise the same
          * as [LocaleServiceAsync.list].
          */
-        @MustBeClosed
         fun list(): CompletableFuture<HttpResponseFor<List<LocaleListResponse>>> =
             list(LocaleListParams.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: LocaleListParams = LocaleListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<List<LocaleListResponse>>>
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: LocaleListParams = LocaleListParams.none()
         ): CompletableFuture<HttpResponseFor<List<LocaleListResponse>>> =
             list(params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<List<LocaleListResponse>>> =
