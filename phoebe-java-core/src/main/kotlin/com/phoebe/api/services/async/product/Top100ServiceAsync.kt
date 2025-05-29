@@ -2,7 +2,6 @@
 
 package com.phoebe.api.services.async.product
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.product.top100.Top100RetrieveParams
@@ -66,7 +65,6 @@ interface Top100ServiceAsync {
          * Returns a raw HTTP response for `get /product/top100/{regionCode}/{y}/{m}/{d}`, but is
          * otherwise the same as [Top100ServiceAsync.retrieve].
          */
-        @MustBeClosed
         fun retrieve(
             d: Long,
             params: Top100RetrieveParams,
@@ -74,7 +72,6 @@ interface Top100ServiceAsync {
             retrieve(d, params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             d: Long,
             params: Top100RetrieveParams,
@@ -83,14 +80,12 @@ interface Top100ServiceAsync {
             retrieve(params.toBuilder().d(d).build(), requestOptions)
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: Top100RetrieveParams
         ): CompletableFuture<HttpResponseFor<List<Top100RetrieveResponse>>> =
             retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: Top100RetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),

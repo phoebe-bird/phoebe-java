@@ -2,7 +2,6 @@
 
 package com.phoebe.api.services.async.product
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.product.specieslist.SpeciesListListParams
@@ -62,12 +61,10 @@ interface SpeciesListServiceAsync {
          * Returns a raw HTTP response for `get /product/spplist/{regionCode}`, but is otherwise the
          * same as [SpeciesListServiceAsync.list].
          */
-        @MustBeClosed
         fun list(regionCode: String): CompletableFuture<HttpResponseFor<List<String>>> =
             list(regionCode, SpeciesListListParams.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             regionCode: String,
             params: SpeciesListListParams = SpeciesListListParams.none(),
@@ -76,7 +73,6 @@ interface SpeciesListServiceAsync {
             list(params.toBuilder().regionCode(regionCode).build(), requestOptions)
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             regionCode: String,
             params: SpeciesListListParams = SpeciesListListParams.none(),
@@ -84,19 +80,16 @@ interface SpeciesListServiceAsync {
             list(regionCode, params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: SpeciesListListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<List<String>>>
 
         /** @see [list] */
-        @MustBeClosed
         fun list(params: SpeciesListListParams): CompletableFuture<HttpResponseFor<List<String>>> =
             list(params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             regionCode: String,
             requestOptions: RequestOptions,

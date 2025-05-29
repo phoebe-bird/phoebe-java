@@ -2,7 +2,6 @@
 
 package com.phoebe.api.services.async.product
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.product.lists.ListRetrieveParams
@@ -64,14 +63,12 @@ interface ListServiceAsync {
          * Returns a raw HTTP response for `get /product/lists/{regionCode}`, but is otherwise the
          * same as [ListServiceAsync.retrieve].
          */
-        @MustBeClosed
         fun retrieve(
             regionCode: String
         ): CompletableFuture<HttpResponseFor<List<ListRetrieveResponse>>> =
             retrieve(regionCode, ListRetrieveParams.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             regionCode: String,
             params: ListRetrieveParams = ListRetrieveParams.none(),
@@ -80,7 +77,6 @@ interface ListServiceAsync {
             retrieve(params.toBuilder().regionCode(regionCode).build(), requestOptions)
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             regionCode: String,
             params: ListRetrieveParams = ListRetrieveParams.none(),
@@ -88,21 +84,18 @@ interface ListServiceAsync {
             retrieve(regionCode, params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: ListRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<List<ListRetrieveResponse>>>
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: ListRetrieveParams
         ): CompletableFuture<HttpResponseFor<List<ListRetrieveResponse>>> =
             retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             regionCode: String,
             requestOptions: RequestOptions,

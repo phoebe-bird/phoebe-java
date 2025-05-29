@@ -2,7 +2,6 @@
 
 package com.phoebe.api.services.async.ref.hotspot
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.ref.hotspot.geo.GeoRetrieveParams
@@ -36,14 +35,12 @@ interface GeoServiceAsync {
          * Returns a raw HTTP response for `get /ref/hotspot/geo`, but is otherwise the same as
          * [GeoServiceAsync.retrieve].
          */
-        @MustBeClosed
         fun retrieve(
             params: GeoRetrieveParams
         ): CompletableFuture<HttpResponseFor<List<GeoRetrieveResponse>>> =
             retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: GeoRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),

@@ -2,7 +2,6 @@
 
 package com.phoebe.api.services.async.ref
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.ref.hotspot.HotspotListParams
@@ -71,14 +70,12 @@ interface HotspotServiceAsync {
          * Returns a raw HTTP response for `get /ref/hotspot/{regionCode}`, but is otherwise the
          * same as [HotspotServiceAsync.list].
          */
-        @MustBeClosed
         fun list(
             regionCode: String
         ): CompletableFuture<HttpResponseFor<List<HotspotListResponse>>> =
             list(regionCode, HotspotListParams.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             regionCode: String,
             params: HotspotListParams = HotspotListParams.none(),
@@ -87,7 +84,6 @@ interface HotspotServiceAsync {
             list(params.toBuilder().regionCode(regionCode).build(), requestOptions)
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             regionCode: String,
             params: HotspotListParams = HotspotListParams.none(),
@@ -95,21 +91,18 @@ interface HotspotServiceAsync {
             list(regionCode, params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: HotspotListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<List<HotspotListResponse>>>
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: HotspotListParams
         ): CompletableFuture<HttpResponseFor<List<HotspotListResponse>>> =
             list(params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             regionCode: String,
             requestOptions: RequestOptions,

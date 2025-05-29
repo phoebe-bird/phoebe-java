@@ -2,7 +2,6 @@
 
 package com.phoebe.api.services.async.ref.region
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.ref.region.adjacent.AdjacentListParams
@@ -64,14 +63,12 @@ interface AdjacentServiceAsync {
          * Returns a raw HTTP response for `get /ref/adjacent/{regionCode}`, but is otherwise the
          * same as [AdjacentServiceAsync.list].
          */
-        @MustBeClosed
         fun list(
             regionCode: String
         ): CompletableFuture<HttpResponseFor<List<AdjacentListResponse>>> =
             list(regionCode, AdjacentListParams.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             regionCode: String,
             params: AdjacentListParams = AdjacentListParams.none(),
@@ -80,7 +77,6 @@ interface AdjacentServiceAsync {
             list(params.toBuilder().regionCode(regionCode).build(), requestOptions)
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             regionCode: String,
             params: AdjacentListParams = AdjacentListParams.none(),
@@ -88,21 +84,18 @@ interface AdjacentServiceAsync {
             list(regionCode, params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: AdjacentListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<List<AdjacentListResponse>>>
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: AdjacentListParams
         ): CompletableFuture<HttpResponseFor<List<AdjacentListResponse>>> =
             list(params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             regionCode: String,
             requestOptions: RequestOptions,

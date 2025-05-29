@@ -2,7 +2,6 @@
 
 package com.phoebe.api.services.async.ref.hotspot
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveParams
@@ -62,12 +61,10 @@ interface InfoServiceAsync {
          * Returns a raw HTTP response for `get /ref/hotspot/info/{locId}`, but is otherwise the
          * same as [InfoServiceAsync.retrieve].
          */
-        @MustBeClosed
         fun retrieve(locId: String): CompletableFuture<HttpResponseFor<InfoRetrieveResponse>> =
             retrieve(locId, InfoRetrieveParams.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             locId: String,
             params: InfoRetrieveParams = InfoRetrieveParams.none(),
@@ -76,7 +73,6 @@ interface InfoServiceAsync {
             retrieve(params.toBuilder().locId(locId).build(), requestOptions)
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             locId: String,
             params: InfoRetrieveParams = InfoRetrieveParams.none(),
@@ -84,21 +80,18 @@ interface InfoServiceAsync {
             retrieve(locId, params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: InfoRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InfoRetrieveResponse>>
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: InfoRetrieveParams
         ): CompletableFuture<HttpResponseFor<InfoRetrieveResponse>> =
             retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             locId: String,
             requestOptions: RequestOptions,

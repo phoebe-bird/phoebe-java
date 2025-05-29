@@ -2,7 +2,6 @@
 
 package com.phoebe.api.services.async.product
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.product.checklist.ChecklistViewParams
@@ -67,12 +66,10 @@ interface ChecklistServiceAsync {
          * Returns a raw HTTP response for `get /product/checklist/view/{subId}`, but is otherwise
          * the same as [ChecklistServiceAsync.view].
          */
-        @MustBeClosed
         fun view(subId: String): CompletableFuture<HttpResponseFor<ChecklistViewResponse>> =
             view(subId, ChecklistViewParams.none())
 
         /** @see [view] */
-        @MustBeClosed
         fun view(
             subId: String,
             params: ChecklistViewParams = ChecklistViewParams.none(),
@@ -81,7 +78,6 @@ interface ChecklistServiceAsync {
             view(params.toBuilder().subId(subId).build(), requestOptions)
 
         /** @see [view] */
-        @MustBeClosed
         fun view(
             subId: String,
             params: ChecklistViewParams = ChecklistViewParams.none(),
@@ -89,21 +85,18 @@ interface ChecklistServiceAsync {
             view(subId, params, RequestOptions.none())
 
         /** @see [view] */
-        @MustBeClosed
         fun view(
             params: ChecklistViewParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<ChecklistViewResponse>>
 
         /** @see [view] */
-        @MustBeClosed
         fun view(
             params: ChecklistViewParams
         ): CompletableFuture<HttpResponseFor<ChecklistViewResponse>> =
             view(params, RequestOptions.none())
 
         /** @see [view] */
-        @MustBeClosed
         fun view(
             subId: String,
             requestOptions: RequestOptions,

@@ -2,7 +2,6 @@
 
 package com.phoebe.api.services.async.product
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.product.stats.StatRetrieveParams
@@ -50,7 +49,6 @@ interface StatServiceAsync {
          * Returns a raw HTTP response for `get /product/stats/{regionCode}/{y}/{m}/{d}`, but is
          * otherwise the same as [StatServiceAsync.retrieve].
          */
-        @MustBeClosed
         fun retrieve(
             d: Long,
             params: StatRetrieveParams,
@@ -58,7 +56,6 @@ interface StatServiceAsync {
             retrieve(d, params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             d: Long,
             params: StatRetrieveParams,
@@ -67,14 +64,12 @@ interface StatServiceAsync {
             retrieve(params.toBuilder().d(d).build(), requestOptions)
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: StatRetrieveParams
         ): CompletableFuture<HttpResponseFor<StatRetrieveResponse>> =
             retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: StatRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),

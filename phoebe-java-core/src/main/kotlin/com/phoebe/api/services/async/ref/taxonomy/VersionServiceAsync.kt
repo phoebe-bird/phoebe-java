@@ -2,7 +2,6 @@
 
 package com.phoebe.api.services.async.ref.taxonomy
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.ref.taxonomy.versions.VersionListParams
@@ -45,26 +44,22 @@ interface VersionServiceAsync {
          * Returns a raw HTTP response for `get /ref/taxonomy/versions`, but is otherwise the same
          * as [VersionServiceAsync.list].
          */
-        @MustBeClosed
         fun list(): CompletableFuture<HttpResponseFor<List<VersionListResponse>>> =
             list(VersionListParams.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: VersionListParams = VersionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<List<VersionListResponse>>>
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: VersionListParams = VersionListParams.none()
         ): CompletableFuture<HttpResponseFor<List<VersionListResponse>>> =
             list(params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<List<VersionListResponse>>> =

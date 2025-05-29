@@ -2,7 +2,6 @@
 
 package com.phoebe.api.services.async.ref.region
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.ref.region.info.InfoRetrieveParams
@@ -74,12 +73,10 @@ interface InfoServiceAsync {
          * Returns a raw HTTP response for `get /ref/region/info/{regionCode}`, but is otherwise the
          * same as [InfoServiceAsync.retrieve].
          */
-        @MustBeClosed
         fun retrieve(regionCode: String): CompletableFuture<HttpResponseFor<InfoRetrieveResponse>> =
             retrieve(regionCode, InfoRetrieveParams.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             regionCode: String,
             params: InfoRetrieveParams = InfoRetrieveParams.none(),
@@ -88,7 +85,6 @@ interface InfoServiceAsync {
             retrieve(params.toBuilder().regionCode(regionCode).build(), requestOptions)
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             regionCode: String,
             params: InfoRetrieveParams = InfoRetrieveParams.none(),
@@ -96,21 +92,18 @@ interface InfoServiceAsync {
             retrieve(regionCode, params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: InfoRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InfoRetrieveResponse>>
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: InfoRetrieveParams
         ): CompletableFuture<HttpResponseFor<InfoRetrieveResponse>> =
             retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             regionCode: String,
             requestOptions: RequestOptions,
