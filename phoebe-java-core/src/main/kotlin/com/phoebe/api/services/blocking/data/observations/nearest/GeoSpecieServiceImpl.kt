@@ -53,6 +53,7 @@ class GeoSpecieServiceImpl internal constructor(private val clientOptions: Clien
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("data", "nearest", "geo", "recent", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)

@@ -53,6 +53,7 @@ class SpeciesListServiceAsyncImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("product", "spplist", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)

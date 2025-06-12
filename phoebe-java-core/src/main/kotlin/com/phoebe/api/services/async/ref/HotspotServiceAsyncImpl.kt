@@ -79,6 +79,7 @@ class HotspotServiceAsyncImpl internal constructor(private val clientOptions: Cl
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("ref", "hotspot", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)

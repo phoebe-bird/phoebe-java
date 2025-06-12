@@ -54,6 +54,7 @@ class NotableServiceAsyncImpl internal constructor(private val clientOptions: Cl
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("data", "obs", params._pathParam(0), "recent", "notable")
                     .build()
                     .prepareAsync(clientOptions, params)

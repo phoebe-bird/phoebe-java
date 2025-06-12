@@ -55,6 +55,7 @@ class AdjacentServiceAsyncImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("ref", "adjacent", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)

@@ -50,6 +50,7 @@ class VersionServiceAsyncImpl internal constructor(private val clientOptions: Cl
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("ref", "taxonomy", "versions")
                     .build()
                     .prepareAsync(clientOptions, params)

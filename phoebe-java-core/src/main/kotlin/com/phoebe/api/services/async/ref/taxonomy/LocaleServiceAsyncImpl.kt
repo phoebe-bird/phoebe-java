@@ -50,6 +50,7 @@ class LocaleServiceAsyncImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("ref", "taxa-locales", "ebird")
                     .build()
                     .prepareAsync(clientOptions, params)

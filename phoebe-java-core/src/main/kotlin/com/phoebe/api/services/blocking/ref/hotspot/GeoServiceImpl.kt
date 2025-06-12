@@ -48,6 +48,7 @@ class GeoServiceImpl internal constructor(private val clientOptions: ClientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("ref", "hotspot", "geo")
                     .build()
                     .prepare(clientOptions, params)

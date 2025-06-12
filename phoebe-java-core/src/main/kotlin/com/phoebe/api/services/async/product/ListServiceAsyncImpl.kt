@@ -69,6 +69,7 @@ class ListServiceAsyncImpl internal constructor(private val clientOptions: Clien
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("product", "lists", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)

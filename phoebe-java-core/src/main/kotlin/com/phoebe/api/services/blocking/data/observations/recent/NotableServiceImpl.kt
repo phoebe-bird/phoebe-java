@@ -53,6 +53,7 @@ class NotableServiceImpl internal constructor(private val clientOptions: ClientO
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("data", "obs", params._pathParam(0), "recent", "notable")
                     .build()
                     .prepare(clientOptions, params)

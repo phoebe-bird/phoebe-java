@@ -49,6 +49,7 @@ class EbirdServiceImpl internal constructor(private val clientOptions: ClientOpt
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("ref", "taxonomy", "ebird")
                     .build()
                     .prepare(clientOptions, params)

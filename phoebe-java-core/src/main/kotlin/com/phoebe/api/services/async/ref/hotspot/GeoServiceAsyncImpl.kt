@@ -50,6 +50,7 @@ class GeoServiceAsyncImpl internal constructor(private val clientOptions: Client
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("ref", "hotspot", "geo")
                     .build()
                     .prepareAsync(clientOptions, params)
