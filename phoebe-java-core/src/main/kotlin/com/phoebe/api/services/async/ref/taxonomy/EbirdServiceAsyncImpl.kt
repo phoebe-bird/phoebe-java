@@ -50,6 +50,7 @@ class EbirdServiceAsyncImpl internal constructor(private val clientOptions: Clie
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("ref", "taxonomy", "ebird")
                     .build()
                     .prepareAsync(clientOptions, params)

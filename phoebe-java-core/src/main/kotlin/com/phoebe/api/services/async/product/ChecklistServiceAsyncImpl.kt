@@ -55,6 +55,7 @@ class ChecklistServiceAsyncImpl internal constructor(private val clientOptions: 
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("product", "checklist", "view", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)

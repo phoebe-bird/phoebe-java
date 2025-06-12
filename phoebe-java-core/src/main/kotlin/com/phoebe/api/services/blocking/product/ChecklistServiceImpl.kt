@@ -54,6 +54,7 @@ class ChecklistServiceImpl internal constructor(private val clientOptions: Clien
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("product", "checklist", "view", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
