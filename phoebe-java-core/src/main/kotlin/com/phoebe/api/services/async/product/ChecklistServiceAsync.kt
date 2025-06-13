@@ -2,11 +2,13 @@
 
 package com.phoebe.api.services.async.product
 
+import com.phoebe.api.core.ClientOptions
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.product.checklist.ChecklistViewParams
 import com.phoebe.api.models.product.checklist.ChecklistViewResponse
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 interface ChecklistServiceAsync {
 
@@ -14,6 +16,13 @@ interface ChecklistServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): ChecklistServiceAsync
 
     /**
      * Get the details and observations of a checklist.
@@ -61,6 +70,15 @@ interface ChecklistServiceAsync {
      * A view of [ChecklistServiceAsync] that provides access to raw HTTP responses for each method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): ChecklistServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /product/checklist/view/{subId}`, but is otherwise

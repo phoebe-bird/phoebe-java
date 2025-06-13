@@ -18,6 +18,7 @@ import com.phoebe.api.core.prepareAsync
 import com.phoebe.api.models.data.observations.Observation
 import com.phoebe.api.models.data.observations.nearest.geospecies.GeoSpecieListParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class GeoSpecieServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -28,6 +29,9 @@ class GeoSpecieServiceAsyncImpl internal constructor(private val clientOptions: 
     }
 
     override fun withRawResponse(): GeoSpecieServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): GeoSpecieServiceAsync =
+        GeoSpecieServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun list(
         params: GeoSpecieListParams,
@@ -40,6 +44,13 @@ class GeoSpecieServiceAsyncImpl internal constructor(private val clientOptions: 
         GeoSpecieServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): GeoSpecieServiceAsync.WithRawResponse =
+            GeoSpecieServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val listHandler: Handler<List<Observation>> =
             jsonHandler<List<Observation>>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

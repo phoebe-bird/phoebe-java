@@ -18,6 +18,7 @@ import com.phoebe.api.core.prepareAsync
 import com.phoebe.api.models.product.lists.historical.HistoricalRetrieveParams
 import com.phoebe.api.models.product.lists.historical.HistoricalRetrieveResponse
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class HistoricalServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -28,6 +29,9 @@ class HistoricalServiceAsyncImpl internal constructor(private val clientOptions:
     }
 
     override fun withRawResponse(): HistoricalServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): HistoricalServiceAsync =
+        HistoricalServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun retrieve(
         params: HistoricalRetrieveParams,
@@ -40,6 +44,13 @@ class HistoricalServiceAsyncImpl internal constructor(private val clientOptions:
         HistoricalServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): HistoricalServiceAsync.WithRawResponse =
+            HistoricalServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<List<HistoricalRetrieveResponse>> =
             jsonHandler<List<HistoricalRetrieveResponse>>(clientOptions.jsonMapper)

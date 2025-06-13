@@ -16,6 +16,7 @@ import com.phoebe.api.core.http.parseable
 import com.phoebe.api.core.prepare
 import com.phoebe.api.models.ref.taxonomy.versions.VersionListParams
 import com.phoebe.api.models.ref.taxonomy.versions.VersionListResponse
+import java.util.function.Consumer
 
 class VersionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     VersionService {
@@ -25,6 +26,9 @@ class VersionServiceImpl internal constructor(private val clientOptions: ClientO
     }
 
     override fun withRawResponse(): VersionService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): VersionService =
+        VersionServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun list(
         params: VersionListParams,
@@ -37,6 +41,13 @@ class VersionServiceImpl internal constructor(private val clientOptions: ClientO
         VersionService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): VersionService.WithRawResponse =
+            VersionServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val listHandler: Handler<List<VersionListResponse>> =
             jsonHandler<List<VersionListResponse>>(clientOptions.jsonMapper)

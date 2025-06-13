@@ -18,6 +18,7 @@ import com.phoebe.api.core.prepareAsync
 import com.phoebe.api.models.data.observations.Observation
 import com.phoebe.api.models.data.observations.recent.historic.HistoricListParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class HistoricServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -28,6 +29,9 @@ class HistoricServiceAsyncImpl internal constructor(private val clientOptions: C
     }
 
     override fun withRawResponse(): HistoricServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): HistoricServiceAsync =
+        HistoricServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun list(
         params: HistoricListParams,
@@ -40,6 +44,13 @@ class HistoricServiceAsyncImpl internal constructor(private val clientOptions: C
         HistoricServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): HistoricServiceAsync.WithRawResponse =
+            HistoricServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val listHandler: Handler<List<Observation>> =
             jsonHandler<List<Observation>>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

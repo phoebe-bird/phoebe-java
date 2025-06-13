@@ -18,6 +18,7 @@ import com.phoebe.api.core.prepareAsync
 import com.phoebe.api.models.product.top100.Top100RetrieveParams
 import com.phoebe.api.models.product.top100.Top100RetrieveResponse
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class Top100ServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -28,6 +29,9 @@ class Top100ServiceAsyncImpl internal constructor(private val clientOptions: Cli
     }
 
     override fun withRawResponse(): Top100ServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): Top100ServiceAsync =
+        Top100ServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun retrieve(
         params: Top100RetrieveParams,
@@ -40,6 +44,13 @@ class Top100ServiceAsyncImpl internal constructor(private val clientOptions: Cli
         Top100ServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): Top100ServiceAsync.WithRawResponse =
+            Top100ServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<List<Top100RetrieveResponse>> =
             jsonHandler<List<Top100RetrieveResponse>>(clientOptions.jsonMapper)

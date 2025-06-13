@@ -16,6 +16,7 @@ import com.phoebe.api.core.http.parseable
 import com.phoebe.api.core.prepare
 import com.phoebe.api.models.data.observations.Observation
 import com.phoebe.api.models.data.observations.geo.recent.notable.NotableListParams
+import java.util.function.Consumer
 
 class NotableServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     NotableService {
@@ -25,6 +26,9 @@ class NotableServiceImpl internal constructor(private val clientOptions: ClientO
     }
 
     override fun withRawResponse(): NotableService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): NotableService =
+        NotableServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun list(
         params: NotableListParams,
@@ -37,6 +41,13 @@ class NotableServiceImpl internal constructor(private val clientOptions: ClientO
         NotableService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): NotableService.WithRawResponse =
+            NotableServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val listHandler: Handler<List<Observation>> =
             jsonHandler<List<Observation>>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

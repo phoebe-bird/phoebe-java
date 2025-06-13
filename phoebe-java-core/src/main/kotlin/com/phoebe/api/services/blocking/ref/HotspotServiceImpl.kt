@@ -21,6 +21,7 @@ import com.phoebe.api.services.blocking.ref.hotspot.GeoService
 import com.phoebe.api.services.blocking.ref.hotspot.GeoServiceImpl
 import com.phoebe.api.services.blocking.ref.hotspot.InfoService
 import com.phoebe.api.services.blocking.ref.hotspot.InfoServiceImpl
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class HotspotServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -35,6 +36,9 @@ class HotspotServiceImpl internal constructor(private val clientOptions: ClientO
     private val info: InfoService by lazy { InfoServiceImpl(clientOptions) }
 
     override fun withRawResponse(): HotspotService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): HotspotService =
+        HotspotServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun geo(): GeoService = geo
 
@@ -59,6 +63,13 @@ class HotspotServiceImpl internal constructor(private val clientOptions: ClientO
         private val info: InfoService.WithRawResponse by lazy {
             InfoServiceImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): HotspotService.WithRawResponse =
+            HotspotServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         override fun geo(): GeoService.WithRawResponse = geo
 

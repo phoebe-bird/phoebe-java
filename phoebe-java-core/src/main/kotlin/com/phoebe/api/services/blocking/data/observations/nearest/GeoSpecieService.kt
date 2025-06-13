@@ -3,10 +3,12 @@
 package com.phoebe.api.services.blocking.data.observations.nearest
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.phoebe.api.core.ClientOptions
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.data.observations.Observation
 import com.phoebe.api.models.data.observations.nearest.geospecies.GeoSpecieListParams
+import java.util.function.Consumer
 
 interface GeoSpecieService {
 
@@ -14,6 +16,13 @@ interface GeoSpecieService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): GeoSpecieService
 
     /**
      * Find the nearest locations where a species has been seen recently. #### Notes The species
@@ -41,6 +50,13 @@ interface GeoSpecieService {
 
     /** A view of [GeoSpecieService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(modifier: Consumer<ClientOptions.Builder>): GeoSpecieService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /data/nearest/geo/recent/{speciesCode}`, but is

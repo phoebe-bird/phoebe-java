@@ -17,6 +17,7 @@ import com.phoebe.api.core.prepareAsync
 import com.phoebe.api.models.ref.taxonomy.ebird.EbirdRetrieveParams
 import com.phoebe.api.models.ref.taxonomy.ebird.EbirdRetrieveResponse
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 class EbirdServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     EbirdServiceAsync {
@@ -26,6 +27,9 @@ class EbirdServiceAsyncImpl internal constructor(private val clientOptions: Clie
     }
 
     override fun withRawResponse(): EbirdServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): EbirdServiceAsync =
+        EbirdServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun retrieve(
         params: EbirdRetrieveParams,
@@ -38,6 +42,13 @@ class EbirdServiceAsyncImpl internal constructor(private val clientOptions: Clie
         EbirdServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): EbirdServiceAsync.WithRawResponse =
+            EbirdServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<List<EbirdRetrieveResponse>> =
             jsonHandler<List<EbirdRetrieveResponse>>(clientOptions.jsonMapper)

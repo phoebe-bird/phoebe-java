@@ -3,10 +3,12 @@
 package com.phoebe.api.services.blocking.ref.region
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.phoebe.api.core.ClientOptions
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.ref.region.adjacent.AdjacentListParams
 import com.phoebe.api.models.ref.region.adjacent.AdjacentListResponse
+import java.util.function.Consumer
 
 interface AdjacentService {
 
@@ -14,6 +16,13 @@ interface AdjacentService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): AdjacentService
 
     /**
      * Get the list of countries or regions that share a border with this one. #### Notes Only
@@ -52,6 +61,13 @@ interface AdjacentService {
 
     /** A view of [AdjacentService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(modifier: Consumer<ClientOptions.Builder>): AdjacentService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /ref/adjacent/{regionCode}`, but is otherwise the

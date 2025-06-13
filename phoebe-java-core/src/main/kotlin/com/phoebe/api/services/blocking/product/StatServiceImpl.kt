@@ -17,6 +17,7 @@ import com.phoebe.api.core.http.parseable
 import com.phoebe.api.core.prepare
 import com.phoebe.api.models.product.stats.StatRetrieveParams
 import com.phoebe.api.models.product.stats.StatRetrieveResponse
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class StatServiceImpl internal constructor(private val clientOptions: ClientOptions) : StatService {
@@ -26,6 +27,9 @@ class StatServiceImpl internal constructor(private val clientOptions: ClientOpti
     }
 
     override fun withRawResponse(): StatService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): StatService =
+        StatServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun retrieve(
         params: StatRetrieveParams,
@@ -38,6 +42,13 @@ class StatServiceImpl internal constructor(private val clientOptions: ClientOpti
         StatService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): StatService.WithRawResponse =
+            StatServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<StatRetrieveResponse> =
             jsonHandler<StatRetrieveResponse>(clientOptions.jsonMapper)

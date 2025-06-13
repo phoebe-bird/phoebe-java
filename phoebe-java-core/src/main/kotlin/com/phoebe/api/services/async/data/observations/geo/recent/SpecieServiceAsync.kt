@@ -2,11 +2,13 @@
 
 package com.phoebe.api.services.async.data.observations.geo.recent
 
+import com.phoebe.api.core.ClientOptions
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.data.observations.Observation
 import com.phoebe.api.models.data.observations.geo.recent.species.SpecieListParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 interface SpecieServiceAsync {
 
@@ -14,6 +16,13 @@ interface SpecieServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): SpecieServiceAsync
 
     /**
      * Get all observations of a species, seen up to 30 days ago, at any location within a radius of
@@ -55,6 +64,15 @@ interface SpecieServiceAsync {
      * A view of [SpecieServiceAsync] that provides access to raw HTTP responses for each method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): SpecieServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /data/obs/geo/recent/{speciesCode}`, but is

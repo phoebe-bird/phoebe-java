@@ -18,6 +18,7 @@ import com.phoebe.api.core.prepareAsync
 import com.phoebe.api.models.ref.region.list.ListListParams
 import com.phoebe.api.models.ref.region.list.ListListResponse
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class ListServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -28,6 +29,9 @@ class ListServiceAsyncImpl internal constructor(private val clientOptions: Clien
     }
 
     override fun withRawResponse(): ListServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ListServiceAsync =
+        ListServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun list(
         params: ListListParams,
@@ -40,6 +44,13 @@ class ListServiceAsyncImpl internal constructor(private val clientOptions: Clien
         ListServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): ListServiceAsync.WithRawResponse =
+            ListServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val listHandler: Handler<List<ListListResponse>> =
             jsonHandler<List<ListListResponse>>(clientOptions.jsonMapper)

@@ -5,6 +5,7 @@ package com.phoebe.api.services.async.data.observations
 import com.phoebe.api.core.ClientOptions
 import com.phoebe.api.services.async.data.observations.geo.RecentServiceAsync
 import com.phoebe.api.services.async.data.observations.geo.RecentServiceAsyncImpl
+import java.util.function.Consumer
 
 class GeoServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     GeoServiceAsync {
@@ -17,6 +18,9 @@ class GeoServiceAsyncImpl internal constructor(private val clientOptions: Client
 
     override fun withRawResponse(): GeoServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): GeoServiceAsync =
+        GeoServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
     override fun recent(): RecentServiceAsync = recent
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -25,6 +29,13 @@ class GeoServiceAsyncImpl internal constructor(private val clientOptions: Client
         private val recent: RecentServiceAsync.WithRawResponse by lazy {
             RecentServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): GeoServiceAsync.WithRawResponse =
+            GeoServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         override fun recent(): RecentServiceAsync.WithRawResponse = recent
     }

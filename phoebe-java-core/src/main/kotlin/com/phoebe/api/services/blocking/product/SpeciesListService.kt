@@ -3,9 +3,11 @@
 package com.phoebe.api.services.blocking.product
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.phoebe.api.core.ClientOptions
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.product.specieslist.SpeciesListListParams
+import java.util.function.Consumer
 
 interface SpeciesListService {
 
@@ -13,6 +15,13 @@ interface SpeciesListService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): SpeciesListService
 
     /**
      * Get a list of species codes ever seen in a region, in taxonomic order (species taxa only)
@@ -52,6 +61,15 @@ interface SpeciesListService {
      * A view of [SpeciesListService] that provides access to raw HTTP responses for each method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): SpeciesListService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /product/spplist/{regionCode}`, but is otherwise the

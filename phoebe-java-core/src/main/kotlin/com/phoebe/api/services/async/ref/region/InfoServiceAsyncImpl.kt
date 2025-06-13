@@ -18,6 +18,7 @@ import com.phoebe.api.core.prepareAsync
 import com.phoebe.api.models.ref.region.info.InfoRetrieveParams
 import com.phoebe.api.models.ref.region.info.InfoRetrieveResponse
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class InfoServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -28,6 +29,9 @@ class InfoServiceAsyncImpl internal constructor(private val clientOptions: Clien
     }
 
     override fun withRawResponse(): InfoServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): InfoServiceAsync =
+        InfoServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun retrieve(
         params: InfoRetrieveParams,
@@ -40,6 +44,13 @@ class InfoServiceAsyncImpl internal constructor(private val clientOptions: Clien
         InfoServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): InfoServiceAsync.WithRawResponse =
+            InfoServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<InfoRetrieveResponse> =
             jsonHandler<InfoRetrieveResponse>(clientOptions.jsonMapper)

@@ -16,6 +16,7 @@ import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.core.http.parseable
 import com.phoebe.api.core.prepare
 import com.phoebe.api.models.product.specieslist.SpeciesListListParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class SpeciesListServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -27,6 +28,9 @@ class SpeciesListServiceImpl internal constructor(private val clientOptions: Cli
 
     override fun withRawResponse(): SpeciesListService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): SpeciesListService =
+        SpeciesListServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
     override fun list(params: SpeciesListListParams, requestOptions: RequestOptions): List<String> =
         // get /product/spplist/{regionCode}
         withRawResponse().list(params, requestOptions).parse()
@@ -35,6 +39,13 @@ class SpeciesListServiceImpl internal constructor(private val clientOptions: Cli
         SpeciesListService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): SpeciesListService.WithRawResponse =
+            SpeciesListServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val listHandler: Handler<List<String>> =
             jsonHandler<List<String>>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

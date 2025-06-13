@@ -24,6 +24,7 @@ import com.phoebe.api.services.async.data.observations.recent.NotableServiceAsyn
 import com.phoebe.api.services.async.data.observations.recent.SpecieServiceAsync
 import com.phoebe.api.services.async.data.observations.recent.SpecieServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class RecentServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -40,6 +41,9 @@ class RecentServiceAsyncImpl internal constructor(private val clientOptions: Cli
     private val historic: HistoricServiceAsync by lazy { HistoricServiceAsyncImpl(clientOptions) }
 
     override fun withRawResponse(): RecentServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): RecentServiceAsync =
+        RecentServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun notable(): NotableServiceAsync = notable
 
@@ -70,6 +74,13 @@ class RecentServiceAsyncImpl internal constructor(private val clientOptions: Cli
         private val historic: HistoricServiceAsync.WithRawResponse by lazy {
             HistoricServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): RecentServiceAsync.WithRawResponse =
+            RecentServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         override fun notable(): NotableServiceAsync.WithRawResponse = notable
 

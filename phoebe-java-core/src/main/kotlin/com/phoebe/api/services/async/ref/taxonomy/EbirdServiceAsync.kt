@@ -2,11 +2,13 @@
 
 package com.phoebe.api.services.async.ref.taxonomy
 
+import com.phoebe.api.core.ClientOptions
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.ref.taxonomy.ebird.EbirdRetrieveParams
 import com.phoebe.api.models.ref.taxonomy.ebird.EbirdRetrieveResponse
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 interface EbirdServiceAsync {
 
@@ -14,6 +16,13 @@ interface EbirdServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): EbirdServiceAsync
 
     /**
      * Get the taxonomy used by eBird. #### Notes Each entry in the taxonomy contains a species code
@@ -41,6 +50,15 @@ interface EbirdServiceAsync {
 
     /** A view of [EbirdServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): EbirdServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /ref/taxonomy/ebird`, but is otherwise the same as

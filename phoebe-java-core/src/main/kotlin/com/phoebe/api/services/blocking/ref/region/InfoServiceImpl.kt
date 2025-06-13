@@ -17,6 +17,7 @@ import com.phoebe.api.core.http.parseable
 import com.phoebe.api.core.prepare
 import com.phoebe.api.models.ref.region.info.InfoRetrieveParams
 import com.phoebe.api.models.ref.region.info.InfoRetrieveResponse
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class InfoServiceImpl internal constructor(private val clientOptions: ClientOptions) : InfoService {
@@ -26,6 +27,9 @@ class InfoServiceImpl internal constructor(private val clientOptions: ClientOpti
     }
 
     override fun withRawResponse(): InfoService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): InfoService =
+        InfoServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun retrieve(
         params: InfoRetrieveParams,
@@ -38,6 +42,13 @@ class InfoServiceImpl internal constructor(private val clientOptions: ClientOpti
         InfoService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): InfoService.WithRawResponse =
+            InfoServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<InfoRetrieveResponse> =
             jsonHandler<InfoRetrieveResponse>(clientOptions.jsonMapper)

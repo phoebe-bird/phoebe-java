@@ -3,12 +3,14 @@
 package com.phoebe.api.services.blocking.data.observations.geo
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.phoebe.api.core.ClientOptions
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.data.observations.Observation
 import com.phoebe.api.models.data.observations.geo.recent.RecentListParams
 import com.phoebe.api.services.blocking.data.observations.geo.recent.NotableService
 import com.phoebe.api.services.blocking.data.observations.geo.recent.SpecieService
+import java.util.function.Consumer
 
 interface RecentService {
 
@@ -16,6 +18,13 @@ interface RecentService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): RecentService
 
     fun species(): SpecieService
 
@@ -36,6 +45,13 @@ interface RecentService {
 
     /** A view of [RecentService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(modifier: Consumer<ClientOptions.Builder>): RecentService.WithRawResponse
 
         fun species(): SpecieService.WithRawResponse
 

@@ -17,6 +17,7 @@ import com.phoebe.api.core.http.parseable
 import com.phoebe.api.core.prepare
 import com.phoebe.api.models.ref.taxonomy.speciesgroups.SpeciesGroupListParams
 import com.phoebe.api.models.ref.taxonomy.speciesgroups.SpeciesGroupListResponse
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class SpeciesGroupServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -27,6 +28,9 @@ class SpeciesGroupServiceImpl internal constructor(private val clientOptions: Cl
     }
 
     override fun withRawResponse(): SpeciesGroupService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): SpeciesGroupService =
+        SpeciesGroupServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun list(
         params: SpeciesGroupListParams,
@@ -39,6 +43,13 @@ class SpeciesGroupServiceImpl internal constructor(private val clientOptions: Cl
         SpeciesGroupService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): SpeciesGroupService.WithRawResponse =
+            SpeciesGroupServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val listHandler: Handler<List<SpeciesGroupListResponse>> =
             jsonHandler<List<SpeciesGroupListResponse>>(clientOptions.jsonMapper)

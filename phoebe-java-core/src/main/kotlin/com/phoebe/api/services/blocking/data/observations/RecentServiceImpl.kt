@@ -23,6 +23,7 @@ import com.phoebe.api.services.blocking.data.observations.recent.NotableService
 import com.phoebe.api.services.blocking.data.observations.recent.NotableServiceImpl
 import com.phoebe.api.services.blocking.data.observations.recent.SpecieService
 import com.phoebe.api.services.blocking.data.observations.recent.SpecieServiceImpl
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class RecentServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -39,6 +40,9 @@ class RecentServiceImpl internal constructor(private val clientOptions: ClientOp
     private val historic: HistoricService by lazy { HistoricServiceImpl(clientOptions) }
 
     override fun withRawResponse(): RecentService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): RecentService =
+        RecentServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun notable(): NotableService = notable
 
@@ -66,6 +70,13 @@ class RecentServiceImpl internal constructor(private val clientOptions: ClientOp
         private val historic: HistoricService.WithRawResponse by lazy {
             HistoricServiceImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): RecentService.WithRawResponse =
+            RecentServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         override fun notable(): NotableService.WithRawResponse = notable
 

@@ -17,6 +17,7 @@ import com.phoebe.api.core.prepareAsync
 import com.phoebe.api.models.ref.taxonomy.versions.VersionListParams
 import com.phoebe.api.models.ref.taxonomy.versions.VersionListResponse
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 class VersionServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     VersionServiceAsync {
@@ -26,6 +27,9 @@ class VersionServiceAsyncImpl internal constructor(private val clientOptions: Cl
     }
 
     override fun withRawResponse(): VersionServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): VersionServiceAsync =
+        VersionServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun list(
         params: VersionListParams,
@@ -38,6 +42,13 @@ class VersionServiceAsyncImpl internal constructor(private val clientOptions: Cl
         VersionServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): VersionServiceAsync.WithRawResponse =
+            VersionServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val listHandler: Handler<List<VersionListResponse>> =
             jsonHandler<List<VersionListResponse>>(clientOptions.jsonMapper)

@@ -16,6 +16,7 @@ import com.phoebe.api.core.http.parseable
 import com.phoebe.api.core.prepare
 import com.phoebe.api.models.ref.hotspot.geo.GeoRetrieveParams
 import com.phoebe.api.models.ref.hotspot.geo.GeoRetrieveResponse
+import java.util.function.Consumer
 
 class GeoServiceImpl internal constructor(private val clientOptions: ClientOptions) : GeoService {
 
@@ -24,6 +25,9 @@ class GeoServiceImpl internal constructor(private val clientOptions: ClientOptio
     }
 
     override fun withRawResponse(): GeoService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): GeoService =
+        GeoServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun retrieve(
         params: GeoRetrieveParams,
@@ -36,6 +40,13 @@ class GeoServiceImpl internal constructor(private val clientOptions: ClientOptio
         GeoService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): GeoService.WithRawResponse =
+            GeoServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<List<GeoRetrieveResponse>> =
             jsonHandler<List<GeoRetrieveResponse>>(clientOptions.jsonMapper)

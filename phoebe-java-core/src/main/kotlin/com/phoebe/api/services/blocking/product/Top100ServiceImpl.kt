@@ -17,6 +17,7 @@ import com.phoebe.api.core.http.parseable
 import com.phoebe.api.core.prepare
 import com.phoebe.api.models.product.top100.Top100RetrieveParams
 import com.phoebe.api.models.product.top100.Top100RetrieveResponse
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class Top100ServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -27,6 +28,9 @@ class Top100ServiceImpl internal constructor(private val clientOptions: ClientOp
     }
 
     override fun withRawResponse(): Top100Service.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): Top100Service =
+        Top100ServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun retrieve(
         params: Top100RetrieveParams,
@@ -39,6 +43,13 @@ class Top100ServiceImpl internal constructor(private val clientOptions: ClientOp
         Top100Service.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): Top100Service.WithRawResponse =
+            Top100ServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<List<Top100RetrieveResponse>> =
             jsonHandler<List<Top100RetrieveResponse>>(clientOptions.jsonMapper)

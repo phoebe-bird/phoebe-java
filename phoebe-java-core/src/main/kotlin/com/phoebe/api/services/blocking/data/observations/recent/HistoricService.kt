@@ -3,10 +3,12 @@
 package com.phoebe.api.services.blocking.data.observations.recent
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.phoebe.api.core.ClientOptions
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.data.observations.Observation
 import com.phoebe.api.models.data.observations.recent.historic.HistoricListParams
+import java.util.function.Consumer
 
 interface HistoricService {
 
@@ -14,6 +16,13 @@ interface HistoricService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): HistoricService
 
     /**
      * Get a list of all taxa seen in a country, region or location on a specific date, with the
@@ -43,6 +52,13 @@ interface HistoricService {
 
     /** A view of [HistoricService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(modifier: Consumer<ClientOptions.Builder>): HistoricService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /data/obs/{regionCode}/historic/{y}/{m}/{d}`, but is
