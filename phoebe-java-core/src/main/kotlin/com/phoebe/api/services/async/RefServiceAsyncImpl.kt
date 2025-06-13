@@ -9,6 +9,7 @@ import com.phoebe.api.services.async.ref.RegionServiceAsync
 import com.phoebe.api.services.async.ref.RegionServiceAsyncImpl
 import com.phoebe.api.services.async.ref.TaxonomyServiceAsync
 import com.phoebe.api.services.async.ref.TaxonomyServiceAsyncImpl
+import java.util.function.Consumer
 
 class RefServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     RefServiceAsync {
@@ -24,6 +25,9 @@ class RefServiceAsyncImpl internal constructor(private val clientOptions: Client
     private val taxonomy: TaxonomyServiceAsync by lazy { TaxonomyServiceAsyncImpl(clientOptions) }
 
     override fun withRawResponse(): RefServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): RefServiceAsync =
+        RefServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun region(): RegionServiceAsync = region
 
@@ -45,6 +49,13 @@ class RefServiceAsyncImpl internal constructor(private val clientOptions: Client
         private val taxonomy: TaxonomyServiceAsync.WithRawResponse by lazy {
             TaxonomyServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): RefServiceAsync.WithRawResponse =
+            RefServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         override fun region(): RegionServiceAsync.WithRawResponse = region
 

@@ -13,6 +13,7 @@ import com.phoebe.api.services.async.product.StatServiceAsync
 import com.phoebe.api.services.async.product.StatServiceAsyncImpl
 import com.phoebe.api.services.async.product.Top100ServiceAsync
 import com.phoebe.api.services.async.product.Top100ServiceAsyncImpl
+import java.util.function.Consumer
 
 class ProductServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     ProductServiceAsync {
@@ -36,6 +37,9 @@ class ProductServiceAsyncImpl internal constructor(private val clientOptions: Cl
     }
 
     override fun withRawResponse(): ProductServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ProductServiceAsync =
+        ProductServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun lists(): ListServiceAsync = lists
 
@@ -69,6 +73,13 @@ class ProductServiceAsyncImpl internal constructor(private val clientOptions: Cl
         private val checklist: ChecklistServiceAsync.WithRawResponse by lazy {
             ChecklistServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): ProductServiceAsync.WithRawResponse =
+            ProductServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         override fun lists(): ListServiceAsync.WithRawResponse = lists
 

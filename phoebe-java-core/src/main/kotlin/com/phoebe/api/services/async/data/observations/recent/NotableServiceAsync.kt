@@ -2,11 +2,13 @@
 
 package com.phoebe.api.services.async.data.observations.recent
 
+import com.phoebe.api.core.ClientOptions
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.data.observations.Observation
 import com.phoebe.api.models.data.observations.recent.notable.NotableListParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 interface NotableServiceAsync {
 
@@ -14,6 +16,13 @@ interface NotableServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): NotableServiceAsync
 
     /**
      * Get the list of recent, notable observations (up to 30 days ago) of birds seen in a country,
@@ -59,6 +68,15 @@ interface NotableServiceAsync {
      * A view of [NotableServiceAsync] that provides access to raw HTTP responses for each method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): NotableServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /data/obs/{regionCode}/recent/notable`, but is

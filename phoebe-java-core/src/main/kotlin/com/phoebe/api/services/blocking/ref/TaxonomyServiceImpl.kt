@@ -13,6 +13,7 @@ import com.phoebe.api.services.blocking.ref.taxonomy.SpeciesGroupService
 import com.phoebe.api.services.blocking.ref.taxonomy.SpeciesGroupServiceImpl
 import com.phoebe.api.services.blocking.ref.taxonomy.VersionService
 import com.phoebe.api.services.blocking.ref.taxonomy.VersionServiceImpl
+import java.util.function.Consumer
 
 class TaxonomyServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     TaxonomyService {
@@ -34,6 +35,9 @@ class TaxonomyServiceImpl internal constructor(private val clientOptions: Client
     }
 
     override fun withRawResponse(): TaxonomyService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): TaxonomyService =
+        TaxonomyServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun ebird(): EbirdService = ebird
 
@@ -67,6 +71,13 @@ class TaxonomyServiceImpl internal constructor(private val clientOptions: Client
         private val speciesGroups: SpeciesGroupService.WithRawResponse by lazy {
             SpeciesGroupServiceImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): TaxonomyService.WithRawResponse =
+            TaxonomyServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         override fun ebird(): EbirdService.WithRawResponse = ebird
 

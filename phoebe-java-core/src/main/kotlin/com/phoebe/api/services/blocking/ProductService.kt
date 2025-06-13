@@ -2,11 +2,13 @@
 
 package com.phoebe.api.services.blocking
 
+import com.phoebe.api.core.ClientOptions
 import com.phoebe.api.services.blocking.product.ChecklistService
 import com.phoebe.api.services.blocking.product.ListService
 import com.phoebe.api.services.blocking.product.SpeciesListService
 import com.phoebe.api.services.blocking.product.StatService
 import com.phoebe.api.services.blocking.product.Top100Service
+import java.util.function.Consumer
 
 interface ProductService {
 
@@ -14,6 +16,13 @@ interface ProductService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): ProductService
 
     fun lists(): ListService
 
@@ -27,6 +36,13 @@ interface ProductService {
 
     /** A view of [ProductService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(modifier: Consumer<ClientOptions.Builder>): ProductService.WithRawResponse
 
         fun lists(): ListService.WithRawResponse
 

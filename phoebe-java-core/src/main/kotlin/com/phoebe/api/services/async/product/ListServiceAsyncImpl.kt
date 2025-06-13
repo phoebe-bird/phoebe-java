@@ -20,6 +20,7 @@ import com.phoebe.api.models.product.lists.ListRetrieveResponse
 import com.phoebe.api.services.async.product.lists.HistoricalServiceAsync
 import com.phoebe.api.services.async.product.lists.HistoricalServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class ListServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -34,6 +35,9 @@ class ListServiceAsyncImpl internal constructor(private val clientOptions: Clien
     }
 
     override fun withRawResponse(): ListServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ListServiceAsync =
+        ListServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun historical(): HistoricalServiceAsync = historical
 
@@ -52,6 +56,13 @@ class ListServiceAsyncImpl internal constructor(private val clientOptions: Clien
         private val historical: HistoricalServiceAsync.WithRawResponse by lazy {
             HistoricalServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): ListServiceAsync.WithRawResponse =
+            ListServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         override fun historical(): HistoricalServiceAsync.WithRawResponse = historical
 

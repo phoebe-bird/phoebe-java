@@ -17,6 +17,7 @@ import com.phoebe.api.core.http.parseable
 import com.phoebe.api.core.prepareAsync
 import com.phoebe.api.models.product.specieslist.SpeciesListListParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class SpeciesListServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -27,6 +28,9 @@ class SpeciesListServiceAsyncImpl internal constructor(private val clientOptions
     }
 
     override fun withRawResponse(): SpeciesListServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): SpeciesListServiceAsync =
+        SpeciesListServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun list(
         params: SpeciesListListParams,
@@ -39,6 +43,13 @@ class SpeciesListServiceAsyncImpl internal constructor(private val clientOptions
         SpeciesListServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): SpeciesListServiceAsync.WithRawResponse =
+            SpeciesListServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val listHandler: Handler<List<String>> =
             jsonHandler<List<String>>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

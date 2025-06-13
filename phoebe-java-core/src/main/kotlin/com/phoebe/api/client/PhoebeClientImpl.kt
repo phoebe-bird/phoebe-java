@@ -10,6 +10,7 @@ import com.phoebe.api.services.blocking.ProductService
 import com.phoebe.api.services.blocking.ProductServiceImpl
 import com.phoebe.api.services.blocking.RefService
 import com.phoebe.api.services.blocking.RefServiceImpl
+import java.util.function.Consumer
 
 class PhoebeClientImpl(private val clientOptions: ClientOptions) : PhoebeClient {
 
@@ -38,6 +39,9 @@ class PhoebeClientImpl(private val clientOptions: ClientOptions) : PhoebeClient 
 
     override fun withRawResponse(): PhoebeClient.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): PhoebeClient =
+        PhoebeClientImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
     override fun data(): DataService = data
 
     override fun product(): ProductService = product
@@ -60,6 +64,13 @@ class PhoebeClientImpl(private val clientOptions: ClientOptions) : PhoebeClient 
         private val ref: RefService.WithRawResponse by lazy {
             RefServiceImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): PhoebeClient.WithRawResponse =
+            PhoebeClientImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         override fun data(): DataService.WithRawResponse = data
 

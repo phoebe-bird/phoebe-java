@@ -3,10 +3,12 @@
 package com.phoebe.api.services.blocking.ref.hotspot
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.phoebe.api.core.ClientOptions
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveParams
 import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveResponse
+import java.util.function.Consumer
 
 interface InfoService {
 
@@ -14,6 +16,13 @@ interface InfoService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): InfoService
 
     /**
      * Get information on the location of a hotspot. #### Notes This API call only works for
@@ -51,6 +60,13 @@ interface InfoService {
 
     /** A view of [InfoService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(modifier: Consumer<ClientOptions.Builder>): InfoService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /ref/hotspot/info/{locId}`, but is otherwise the

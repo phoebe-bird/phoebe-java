@@ -17,6 +17,7 @@ import com.phoebe.api.core.http.parseable
 import com.phoebe.api.core.prepare
 import com.phoebe.api.models.product.checklist.ChecklistViewParams
 import com.phoebe.api.models.product.checklist.ChecklistViewResponse
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class ChecklistServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -27,6 +28,9 @@ class ChecklistServiceImpl internal constructor(private val clientOptions: Clien
     }
 
     override fun withRawResponse(): ChecklistService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ChecklistService =
+        ChecklistServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun view(
         params: ChecklistViewParams,
@@ -39,6 +43,13 @@ class ChecklistServiceImpl internal constructor(private val clientOptions: Clien
         ChecklistService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): ChecklistService.WithRawResponse =
+            ChecklistServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val viewHandler: Handler<ChecklistViewResponse> =
             jsonHandler<ChecklistViewResponse>(clientOptions.jsonMapper)

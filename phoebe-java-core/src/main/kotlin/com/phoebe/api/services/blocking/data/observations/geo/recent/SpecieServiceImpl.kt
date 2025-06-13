@@ -17,6 +17,7 @@ import com.phoebe.api.core.http.parseable
 import com.phoebe.api.core.prepare
 import com.phoebe.api.models.data.observations.Observation
 import com.phoebe.api.models.data.observations.geo.recent.species.SpecieListParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class SpecieServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -28,6 +29,9 @@ class SpecieServiceImpl internal constructor(private val clientOptions: ClientOp
 
     override fun withRawResponse(): SpecieService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): SpecieService =
+        SpecieServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
     override fun list(params: SpecieListParams, requestOptions: RequestOptions): List<Observation> =
         // get /data/obs/geo/recent/{speciesCode}
         withRawResponse().list(params, requestOptions).parse()
@@ -36,6 +40,13 @@ class SpecieServiceImpl internal constructor(private val clientOptions: ClientOp
         SpecieService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): SpecieService.WithRawResponse =
+            SpecieServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val listHandler: Handler<List<Observation>> =
             jsonHandler<List<Observation>>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

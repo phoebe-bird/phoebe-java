@@ -20,6 +20,7 @@ import com.phoebe.api.services.blocking.data.observations.geo.recent.NotableServ
 import com.phoebe.api.services.blocking.data.observations.geo.recent.NotableServiceImpl
 import com.phoebe.api.services.blocking.data.observations.geo.recent.SpecieService
 import com.phoebe.api.services.blocking.data.observations.geo.recent.SpecieServiceImpl
+import java.util.function.Consumer
 
 class RecentServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     RecentService {
@@ -33,6 +34,9 @@ class RecentServiceImpl internal constructor(private val clientOptions: ClientOp
     private val notable: NotableService by lazy { NotableServiceImpl(clientOptions) }
 
     override fun withRawResponse(): RecentService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): RecentService =
+        RecentServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun species(): SpecieService = species
 
@@ -54,6 +58,13 @@ class RecentServiceImpl internal constructor(private val clientOptions: ClientOp
         private val notable: NotableService.WithRawResponse by lazy {
             NotableServiceImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): RecentService.WithRawResponse =
+            RecentServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         override fun species(): SpecieService.WithRawResponse = species
 

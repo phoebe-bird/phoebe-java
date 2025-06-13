@@ -18,6 +18,7 @@ import com.phoebe.api.core.prepareAsync
 import com.phoebe.api.models.product.checklist.ChecklistViewParams
 import com.phoebe.api.models.product.checklist.ChecklistViewResponse
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class ChecklistServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -28,6 +29,9 @@ class ChecklistServiceAsyncImpl internal constructor(private val clientOptions: 
     }
 
     override fun withRawResponse(): ChecklistServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ChecklistServiceAsync =
+        ChecklistServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun view(
         params: ChecklistViewParams,
@@ -40,6 +44,13 @@ class ChecklistServiceAsyncImpl internal constructor(private val clientOptions: 
         ChecklistServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): ChecklistServiceAsync.WithRawResponse =
+            ChecklistServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val viewHandler: Handler<ChecklistViewResponse> =
             jsonHandler<ChecklistViewResponse>(clientOptions.jsonMapper)

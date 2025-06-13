@@ -9,6 +9,7 @@ import com.phoebe.api.services.async.ref.region.InfoServiceAsync
 import com.phoebe.api.services.async.ref.region.InfoServiceAsyncImpl
 import com.phoebe.api.services.async.ref.region.ListServiceAsync
 import com.phoebe.api.services.async.ref.region.ListServiceAsyncImpl
+import java.util.function.Consumer
 
 class RegionServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     RegionServiceAsync {
@@ -24,6 +25,9 @@ class RegionServiceAsyncImpl internal constructor(private val clientOptions: Cli
     private val list: ListServiceAsync by lazy { ListServiceAsyncImpl(clientOptions) }
 
     override fun withRawResponse(): RegionServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): RegionServiceAsync =
+        RegionServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun adjacent(): AdjacentServiceAsync = adjacent
 
@@ -45,6 +49,13 @@ class RegionServiceAsyncImpl internal constructor(private val clientOptions: Cli
         private val list: ListServiceAsync.WithRawResponse by lazy {
             ListServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): RegionServiceAsync.WithRawResponse =
+            RegionServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         override fun adjacent(): AdjacentServiceAsync.WithRawResponse = adjacent
 

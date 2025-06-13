@@ -17,6 +17,7 @@ import com.phoebe.api.core.http.parseable
 import com.phoebe.api.core.prepareAsync
 import com.phoebe.api.models.ref.taxonomy.forms.FormListParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class FormServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -27,6 +28,9 @@ class FormServiceAsyncImpl internal constructor(private val clientOptions: Clien
     }
 
     override fun withRawResponse(): FormServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): FormServiceAsync =
+        FormServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun list(
         params: FormListParams,
@@ -39,6 +43,13 @@ class FormServiceAsyncImpl internal constructor(private val clientOptions: Clien
         FormServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): FormServiceAsync.WithRawResponse =
+            FormServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val listHandler: Handler<List<String>> =
             jsonHandler<List<String>>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

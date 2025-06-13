@@ -18,6 +18,7 @@ import com.phoebe.api.core.prepareAsync
 import com.phoebe.api.models.ref.taxonomy.speciesgroups.SpeciesGroupListParams
 import com.phoebe.api.models.ref.taxonomy.speciesgroups.SpeciesGroupListResponse
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class SpeciesGroupServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -28,6 +29,9 @@ class SpeciesGroupServiceAsyncImpl internal constructor(private val clientOption
     }
 
     override fun withRawResponse(): SpeciesGroupServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): SpeciesGroupServiceAsync =
+        SpeciesGroupServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun list(
         params: SpeciesGroupListParams,
@@ -40,6 +44,13 @@ class SpeciesGroupServiceAsyncImpl internal constructor(private val clientOption
         SpeciesGroupServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): SpeciesGroupServiceAsync.WithRawResponse =
+            SpeciesGroupServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val listHandler: Handler<List<SpeciesGroupListResponse>> =
             jsonHandler<List<SpeciesGroupListResponse>>(clientOptions.jsonMapper)

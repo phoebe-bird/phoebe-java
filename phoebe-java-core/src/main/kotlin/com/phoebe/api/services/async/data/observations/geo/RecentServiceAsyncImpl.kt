@@ -21,6 +21,7 @@ import com.phoebe.api.services.async.data.observations.geo.recent.NotableService
 import com.phoebe.api.services.async.data.observations.geo.recent.SpecieServiceAsync
 import com.phoebe.api.services.async.data.observations.geo.recent.SpecieServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 class RecentServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     RecentServiceAsync {
@@ -34,6 +35,9 @@ class RecentServiceAsyncImpl internal constructor(private val clientOptions: Cli
     private val notable: NotableServiceAsync by lazy { NotableServiceAsyncImpl(clientOptions) }
 
     override fun withRawResponse(): RecentServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): RecentServiceAsync =
+        RecentServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun species(): SpecieServiceAsync = species
 
@@ -58,6 +62,13 @@ class RecentServiceAsyncImpl internal constructor(private val clientOptions: Cli
         private val notable: NotableServiceAsync.WithRawResponse by lazy {
             NotableServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): RecentServiceAsync.WithRawResponse =
+            RecentServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         override fun species(): SpecieServiceAsync.WithRawResponse = species
 

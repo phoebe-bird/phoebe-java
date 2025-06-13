@@ -10,6 +10,7 @@ import com.phoebe.api.services.async.ProductServiceAsync
 import com.phoebe.api.services.async.ProductServiceAsyncImpl
 import com.phoebe.api.services.async.RefServiceAsync
 import com.phoebe.api.services.async.RefServiceAsyncImpl
+import java.util.function.Consumer
 
 class PhoebeClientAsyncImpl(private val clientOptions: ClientOptions) : PhoebeClientAsync {
 
@@ -40,6 +41,9 @@ class PhoebeClientAsyncImpl(private val clientOptions: ClientOptions) : PhoebeCl
 
     override fun withRawResponse(): PhoebeClientAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): PhoebeClientAsync =
+        PhoebeClientAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
     override fun data(): DataServiceAsync = data
 
     override fun product(): ProductServiceAsync = product
@@ -62,6 +66,13 @@ class PhoebeClientAsyncImpl(private val clientOptions: ClientOptions) : PhoebeCl
         private val ref: RefServiceAsync.WithRawResponse by lazy {
             RefServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): PhoebeClientAsync.WithRawResponse =
+            PhoebeClientAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         override fun data(): DataServiceAsync.WithRawResponse = data
 

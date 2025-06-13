@@ -17,6 +17,7 @@ import com.phoebe.api.core.prepareAsync
 import com.phoebe.api.models.ref.taxonomy.locales.LocaleListParams
 import com.phoebe.api.models.ref.taxonomy.locales.LocaleListResponse
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 class LocaleServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     LocaleServiceAsync {
@@ -26,6 +27,9 @@ class LocaleServiceAsyncImpl internal constructor(private val clientOptions: Cli
     }
 
     override fun withRawResponse(): LocaleServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): LocaleServiceAsync =
+        LocaleServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun list(
         params: LocaleListParams,
@@ -38,6 +42,13 @@ class LocaleServiceAsyncImpl internal constructor(private val clientOptions: Cli
         LocaleServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): LocaleServiceAsync.WithRawResponse =
+            LocaleServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val listHandler: Handler<List<LocaleListResponse>> =
             jsonHandler<List<LocaleListResponse>>(clientOptions.jsonMapper)

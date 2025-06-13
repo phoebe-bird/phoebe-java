@@ -9,6 +9,7 @@ import com.phoebe.api.services.async.data.observations.NearestServiceAsync
 import com.phoebe.api.services.async.data.observations.NearestServiceAsyncImpl
 import com.phoebe.api.services.async.data.observations.RecentServiceAsync
 import com.phoebe.api.services.async.data.observations.RecentServiceAsyncImpl
+import java.util.function.Consumer
 
 class ObservationServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     ObservationServiceAsync {
@@ -24,6 +25,9 @@ class ObservationServiceAsyncImpl internal constructor(private val clientOptions
     private val nearest: NearestServiceAsync by lazy { NearestServiceAsyncImpl(clientOptions) }
 
     override fun withRawResponse(): ObservationServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ObservationServiceAsync =
+        ObservationServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun recent(): RecentServiceAsync = recent
 
@@ -45,6 +49,13 @@ class ObservationServiceAsyncImpl internal constructor(private val clientOptions
         private val nearest: NearestServiceAsync.WithRawResponse by lazy {
             NearestServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): ObservationServiceAsync.WithRawResponse =
+            ObservationServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         override fun recent(): RecentServiceAsync.WithRawResponse = recent
 

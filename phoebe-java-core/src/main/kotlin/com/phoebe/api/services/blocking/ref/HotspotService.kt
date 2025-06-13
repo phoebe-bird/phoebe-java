@@ -3,12 +3,14 @@
 package com.phoebe.api.services.blocking.ref
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.phoebe.api.core.ClientOptions
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.models.ref.hotspot.HotspotListParams
 import com.phoebe.api.models.ref.hotspot.HotspotListResponse
 import com.phoebe.api.services.blocking.ref.hotspot.GeoService
 import com.phoebe.api.services.blocking.ref.hotspot.InfoService
+import java.util.function.Consumer
 
 interface HotspotService {
 
@@ -16,6 +18,13 @@ interface HotspotService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): HotspotService
 
     fun geo(): GeoService
 
@@ -55,6 +64,13 @@ interface HotspotService {
 
     /** A view of [HotspotService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(modifier: Consumer<ClientOptions.Builder>): HotspotService.WithRawResponse
 
         fun geo(): GeoService.WithRawResponse
 

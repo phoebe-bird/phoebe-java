@@ -2,7 +2,9 @@
 
 package com.phoebe.api.services.blocking.data.observations
 
+import com.phoebe.api.core.ClientOptions
 import com.phoebe.api.services.blocking.data.observations.nearest.GeoSpecieService
+import java.util.function.Consumer
 
 interface NearestService {
 
@@ -11,10 +13,24 @@ interface NearestService {
      */
     fun withRawResponse(): WithRawResponse
 
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): NearestService
+
     fun geoSpecies(): GeoSpecieService
 
     /** A view of [NearestService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(modifier: Consumer<ClientOptions.Builder>): NearestService.WithRawResponse
 
         fun geoSpecies(): GeoSpecieService.WithRawResponse
     }

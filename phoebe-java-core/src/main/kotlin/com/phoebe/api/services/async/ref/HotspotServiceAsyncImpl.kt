@@ -22,6 +22,7 @@ import com.phoebe.api.services.async.ref.hotspot.GeoServiceAsyncImpl
 import com.phoebe.api.services.async.ref.hotspot.InfoServiceAsync
 import com.phoebe.api.services.async.ref.hotspot.InfoServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class HotspotServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -36,6 +37,9 @@ class HotspotServiceAsyncImpl internal constructor(private val clientOptions: Cl
     private val info: InfoServiceAsync by lazy { InfoServiceAsyncImpl(clientOptions) }
 
     override fun withRawResponse(): HotspotServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): HotspotServiceAsync =
+        HotspotServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun geo(): GeoServiceAsync = geo
 
@@ -60,6 +64,13 @@ class HotspotServiceAsyncImpl internal constructor(private val clientOptions: Cl
         private val info: InfoServiceAsync.WithRawResponse by lazy {
             InfoServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): HotspotServiceAsync.WithRawResponse =
+            HotspotServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         override fun geo(): GeoServiceAsync.WithRawResponse = geo
 

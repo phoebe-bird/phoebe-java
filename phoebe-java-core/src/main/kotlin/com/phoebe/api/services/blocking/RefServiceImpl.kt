@@ -9,6 +9,7 @@ import com.phoebe.api.services.blocking.ref.RegionService
 import com.phoebe.api.services.blocking.ref.RegionServiceImpl
 import com.phoebe.api.services.blocking.ref.TaxonomyService
 import com.phoebe.api.services.blocking.ref.TaxonomyServiceImpl
+import java.util.function.Consumer
 
 class RefServiceImpl internal constructor(private val clientOptions: ClientOptions) : RefService {
 
@@ -23,6 +24,9 @@ class RefServiceImpl internal constructor(private val clientOptions: ClientOptio
     private val taxonomy: TaxonomyService by lazy { TaxonomyServiceImpl(clientOptions) }
 
     override fun withRawResponse(): RefService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): RefService =
+        RefServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun region(): RegionService = region
 
@@ -44,6 +48,13 @@ class RefServiceImpl internal constructor(private val clientOptions: ClientOptio
         private val taxonomy: TaxonomyService.WithRawResponse by lazy {
             TaxonomyServiceImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): RefService.WithRawResponse =
+            RefServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         override fun region(): RegionService.WithRawResponse = region
 

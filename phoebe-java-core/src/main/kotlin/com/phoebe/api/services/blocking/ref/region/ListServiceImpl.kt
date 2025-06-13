@@ -17,6 +17,7 @@ import com.phoebe.api.core.http.parseable
 import com.phoebe.api.core.prepare
 import com.phoebe.api.models.ref.region.list.ListListParams
 import com.phoebe.api.models.ref.region.list.ListListResponse
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class ListServiceImpl internal constructor(private val clientOptions: ClientOptions) : ListService {
@@ -26,6 +27,9 @@ class ListServiceImpl internal constructor(private val clientOptions: ClientOpti
     }
 
     override fun withRawResponse(): ListService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ListService =
+        ListServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun list(
         params: ListListParams,
@@ -38,6 +42,13 @@ class ListServiceImpl internal constructor(private val clientOptions: ClientOpti
         ListService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): ListService.WithRawResponse =
+            ListServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val listHandler: Handler<List<ListListResponse>> =
             jsonHandler<List<ListListResponse>>(clientOptions.jsonMapper)

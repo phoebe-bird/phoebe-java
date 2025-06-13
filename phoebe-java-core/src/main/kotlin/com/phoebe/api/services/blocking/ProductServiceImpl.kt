@@ -13,6 +13,7 @@ import com.phoebe.api.services.blocking.product.StatService
 import com.phoebe.api.services.blocking.product.StatServiceImpl
 import com.phoebe.api.services.blocking.product.Top100Service
 import com.phoebe.api.services.blocking.product.Top100ServiceImpl
+import java.util.function.Consumer
 
 class ProductServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ProductService {
@@ -32,6 +33,9 @@ class ProductServiceImpl internal constructor(private val clientOptions: ClientO
     private val checklist: ChecklistService by lazy { ChecklistServiceImpl(clientOptions) }
 
     override fun withRawResponse(): ProductService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ProductService =
+        ProductServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun lists(): ListService = lists
 
@@ -65,6 +69,13 @@ class ProductServiceImpl internal constructor(private val clientOptions: ClientO
         private val checklist: ChecklistService.WithRawResponse by lazy {
             ChecklistServiceImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): ProductService.WithRawResponse =
+            ProductServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         override fun lists(): ListService.WithRawResponse = lists
 

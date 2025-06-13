@@ -17,6 +17,7 @@ import com.phoebe.api.core.http.parseable
 import com.phoebe.api.core.prepare
 import com.phoebe.api.models.product.lists.historical.HistoricalRetrieveParams
 import com.phoebe.api.models.product.lists.historical.HistoricalRetrieveResponse
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class HistoricalServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -27,6 +28,9 @@ class HistoricalServiceImpl internal constructor(private val clientOptions: Clie
     }
 
     override fun withRawResponse(): HistoricalService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): HistoricalService =
+        HistoricalServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun retrieve(
         params: HistoricalRetrieveParams,
@@ -39,6 +43,13 @@ class HistoricalServiceImpl internal constructor(private val clientOptions: Clie
         HistoricalService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): HistoricalService.WithRawResponse =
+            HistoricalServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<List<HistoricalRetrieveResponse>> =
             jsonHandler<List<HistoricalRetrieveResponse>>(clientOptions.jsonMapper)

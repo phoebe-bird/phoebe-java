@@ -19,6 +19,7 @@ import com.phoebe.api.models.product.lists.ListRetrieveParams
 import com.phoebe.api.models.product.lists.ListRetrieveResponse
 import com.phoebe.api.services.blocking.product.lists.HistoricalService
 import com.phoebe.api.services.blocking.product.lists.HistoricalServiceImpl
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class ListServiceImpl internal constructor(private val clientOptions: ClientOptions) : ListService {
@@ -30,6 +31,9 @@ class ListServiceImpl internal constructor(private val clientOptions: ClientOpti
     private val historical: HistoricalService by lazy { HistoricalServiceImpl(clientOptions) }
 
     override fun withRawResponse(): ListService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ListService =
+        ListServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun historical(): HistoricalService = historical
 
@@ -48,6 +52,13 @@ class ListServiceImpl internal constructor(private val clientOptions: ClientOpti
         private val historical: HistoricalService.WithRawResponse by lazy {
             HistoricalServiceImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): ListService.WithRawResponse =
+            ListServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         override fun historical(): HistoricalService.WithRawResponse = historical
 

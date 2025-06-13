@@ -5,6 +5,7 @@ package com.phoebe.api.services.async.data.observations
 import com.phoebe.api.core.ClientOptions
 import com.phoebe.api.services.async.data.observations.nearest.GeoSpecieServiceAsync
 import com.phoebe.api.services.async.data.observations.nearest.GeoSpecieServiceAsyncImpl
+import java.util.function.Consumer
 
 class NearestServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     NearestServiceAsync {
@@ -19,6 +20,9 @@ class NearestServiceAsyncImpl internal constructor(private val clientOptions: Cl
 
     override fun withRawResponse(): NearestServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): NearestServiceAsync =
+        NearestServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
     override fun geoSpecies(): GeoSpecieServiceAsync = geoSpecies
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -27,6 +31,13 @@ class NearestServiceAsyncImpl internal constructor(private val clientOptions: Cl
         private val geoSpecies: GeoSpecieServiceAsync.WithRawResponse by lazy {
             GeoSpecieServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): NearestServiceAsync.WithRawResponse =
+            NearestServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         override fun geoSpecies(): GeoSpecieServiceAsync.WithRawResponse = geoSpecies
     }

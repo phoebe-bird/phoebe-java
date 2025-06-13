@@ -16,6 +16,7 @@ import com.phoebe.api.core.http.parseable
 import com.phoebe.api.core.prepare
 import com.phoebe.api.models.ref.taxonomy.ebird.EbirdRetrieveParams
 import com.phoebe.api.models.ref.taxonomy.ebird.EbirdRetrieveResponse
+import java.util.function.Consumer
 
 class EbirdServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     EbirdService {
@@ -25,6 +26,9 @@ class EbirdServiceImpl internal constructor(private val clientOptions: ClientOpt
     }
 
     override fun withRawResponse(): EbirdService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): EbirdService =
+        EbirdServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun retrieve(
         params: EbirdRetrieveParams,
@@ -37,6 +41,13 @@ class EbirdServiceImpl internal constructor(private val clientOptions: ClientOpt
         EbirdService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): EbirdService.WithRawResponse =
+            EbirdServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<List<EbirdRetrieveResponse>> =
             jsonHandler<List<EbirdRetrieveResponse>>(clientOptions.jsonMapper)

@@ -17,6 +17,7 @@ import com.phoebe.api.core.http.parseable
 import com.phoebe.api.core.prepare
 import com.phoebe.api.models.ref.region.adjacent.AdjacentListParams
 import com.phoebe.api.models.ref.region.adjacent.AdjacentListResponse
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class AdjacentServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -27,6 +28,9 @@ class AdjacentServiceImpl internal constructor(private val clientOptions: Client
     }
 
     override fun withRawResponse(): AdjacentService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AdjacentService =
+        AdjacentServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun list(
         params: AdjacentListParams,
@@ -39,6 +43,13 @@ class AdjacentServiceImpl internal constructor(private val clientOptions: Client
         AdjacentService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): AdjacentService.WithRawResponse =
+            AdjacentServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val listHandler: Handler<List<AdjacentListResponse>> =
             jsonHandler<List<AdjacentListResponse>>(clientOptions.jsonMapper)
