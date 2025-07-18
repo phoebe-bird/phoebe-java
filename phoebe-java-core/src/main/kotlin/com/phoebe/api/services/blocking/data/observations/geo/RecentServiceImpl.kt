@@ -3,13 +3,13 @@
 package com.phoebe.api.services.blocking.data.observations.geo
 
 import com.phoebe.api.core.ClientOptions
-import com.phoebe.api.core.JsonValue
 import com.phoebe.api.core.RequestOptions
+import com.phoebe.api.core.handlers.errorBodyHandler
 import com.phoebe.api.core.handlers.errorHandler
 import com.phoebe.api.core.handlers.jsonHandler
-import com.phoebe.api.core.handlers.withErrorHandler
 import com.phoebe.api.core.http.HttpMethod
 import com.phoebe.api.core.http.HttpRequest
+import com.phoebe.api.core.http.HttpResponse
 import com.phoebe.api.core.http.HttpResponse.Handler
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.core.http.parseable
@@ -49,7 +49,8 @@ class RecentServiceImpl internal constructor(private val clientOptions: ClientOp
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         RecentService.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         private val species: SpecieService.WithRawResponse by lazy {
             SpecieServiceImpl.WithRawResponseImpl(clientOptions)
@@ -71,7 +72,7 @@ class RecentServiceImpl internal constructor(private val clientOptions: ClientOp
         override fun notable(): NotableService.WithRawResponse = notable
 
         private val listHandler: Handler<List<Observation>> =
-            jsonHandler<List<Observation>>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<List<Observation>>(clientOptions.jsonMapper)
 
         override fun list(
             params: RecentListParams,
@@ -86,7 +87,7 @@ class RecentServiceImpl internal constructor(private val clientOptions: ClientOp
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { listHandler.handle(it) }
                     .also {

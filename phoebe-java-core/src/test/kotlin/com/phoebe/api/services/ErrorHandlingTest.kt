@@ -75,8 +75,42 @@ internal class ErrorHandlingTest {
     }
 
     @Test
+    fun infoRetrieve400WithRawResponse() {
+        val infoService = client.ref().hotspot().info().withRawResponse()
+        stubFor(
+            get(anyUrl())
+                .willReturn(
+                    status(400).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
+                )
+        )
+
+        val e = assertThrows<BadRequestException> { infoService.retrieve("locId") }
+
+        assertThat(e.statusCode()).isEqualTo(400)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
+        assertThat(e.body()).isEqualTo(ERROR_JSON)
+    }
+
+    @Test
     fun infoRetrieve401() {
         val infoService = client.ref().hotspot().info()
+        stubFor(
+            get(anyUrl())
+                .willReturn(
+                    status(401).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
+                )
+        )
+
+        val e = assertThrows<UnauthorizedException> { infoService.retrieve("locId") }
+
+        assertThat(e.statusCode()).isEqualTo(401)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
+        assertThat(e.body()).isEqualTo(ERROR_JSON)
+    }
+
+    @Test
+    fun infoRetrieve401WithRawResponse() {
+        val infoService = client.ref().hotspot().info().withRawResponse()
         stubFor(
             get(anyUrl())
                 .willReturn(
@@ -109,8 +143,42 @@ internal class ErrorHandlingTest {
     }
 
     @Test
+    fun infoRetrieve403WithRawResponse() {
+        val infoService = client.ref().hotspot().info().withRawResponse()
+        stubFor(
+            get(anyUrl())
+                .willReturn(
+                    status(403).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
+                )
+        )
+
+        val e = assertThrows<PermissionDeniedException> { infoService.retrieve("locId") }
+
+        assertThat(e.statusCode()).isEqualTo(403)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
+        assertThat(e.body()).isEqualTo(ERROR_JSON)
+    }
+
+    @Test
     fun infoRetrieve404() {
         val infoService = client.ref().hotspot().info()
+        stubFor(
+            get(anyUrl())
+                .willReturn(
+                    status(404).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
+                )
+        )
+
+        val e = assertThrows<NotFoundException> { infoService.retrieve("locId") }
+
+        assertThat(e.statusCode()).isEqualTo(404)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
+        assertThat(e.body()).isEqualTo(ERROR_JSON)
+    }
+
+    @Test
+    fun infoRetrieve404WithRawResponse() {
+        val infoService = client.ref().hotspot().info().withRawResponse()
         stubFor(
             get(anyUrl())
                 .willReturn(
@@ -143,8 +211,42 @@ internal class ErrorHandlingTest {
     }
 
     @Test
+    fun infoRetrieve422WithRawResponse() {
+        val infoService = client.ref().hotspot().info().withRawResponse()
+        stubFor(
+            get(anyUrl())
+                .willReturn(
+                    status(422).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
+                )
+        )
+
+        val e = assertThrows<UnprocessableEntityException> { infoService.retrieve("locId") }
+
+        assertThat(e.statusCode()).isEqualTo(422)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
+        assertThat(e.body()).isEqualTo(ERROR_JSON)
+    }
+
+    @Test
     fun infoRetrieve429() {
         val infoService = client.ref().hotspot().info()
+        stubFor(
+            get(anyUrl())
+                .willReturn(
+                    status(429).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
+                )
+        )
+
+        val e = assertThrows<RateLimitException> { infoService.retrieve("locId") }
+
+        assertThat(e.statusCode()).isEqualTo(429)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
+        assertThat(e.body()).isEqualTo(ERROR_JSON)
+    }
+
+    @Test
+    fun infoRetrieve429WithRawResponse() {
+        val infoService = client.ref().hotspot().info().withRawResponse()
         stubFor(
             get(anyUrl())
                 .willReturn(
@@ -177,8 +279,42 @@ internal class ErrorHandlingTest {
     }
 
     @Test
+    fun infoRetrieve500WithRawResponse() {
+        val infoService = client.ref().hotspot().info().withRawResponse()
+        stubFor(
+            get(anyUrl())
+                .willReturn(
+                    status(500).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
+                )
+        )
+
+        val e = assertThrows<InternalServerException> { infoService.retrieve("locId") }
+
+        assertThat(e.statusCode()).isEqualTo(500)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
+        assertThat(e.body()).isEqualTo(ERROR_JSON)
+    }
+
+    @Test
     fun infoRetrieve999() {
         val infoService = client.ref().hotspot().info()
+        stubFor(
+            get(anyUrl())
+                .willReturn(
+                    status(999).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
+                )
+        )
+
+        val e = assertThrows<UnexpectedStatusCodeException> { infoService.retrieve("locId") }
+
+        assertThat(e.statusCode()).isEqualTo(999)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
+        assertThat(e.body()).isEqualTo(ERROR_JSON)
+    }
+
+    @Test
+    fun infoRetrieve999WithRawResponse() {
+        val infoService = client.ref().hotspot().info().withRawResponse()
         stubFor(
             get(anyUrl())
                 .willReturn(

@@ -3,14 +3,14 @@
 package com.phoebe.api.services.blocking.product
 
 import com.phoebe.api.core.ClientOptions
-import com.phoebe.api.core.JsonValue
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.checkRequired
+import com.phoebe.api.core.handlers.errorBodyHandler
 import com.phoebe.api.core.handlers.errorHandler
 import com.phoebe.api.core.handlers.jsonHandler
-import com.phoebe.api.core.handlers.withErrorHandler
 import com.phoebe.api.core.http.HttpMethod
 import com.phoebe.api.core.http.HttpRequest
+import com.phoebe.api.core.http.HttpResponse
 import com.phoebe.api.core.http.HttpResponse.Handler
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.core.http.parseable
@@ -38,7 +38,8 @@ class SpeciesListServiceImpl internal constructor(private val clientOptions: Cli
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         SpeciesListService.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
@@ -48,7 +49,7 @@ class SpeciesListServiceImpl internal constructor(private val clientOptions: Cli
             )
 
         private val listHandler: Handler<List<String>> =
-            jsonHandler<List<String>>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<List<String>>(clientOptions.jsonMapper)
 
         override fun list(
             params: SpeciesListListParams,
@@ -66,7 +67,9 @@ class SpeciesListServiceImpl internal constructor(private val clientOptions: Cli
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable { response.use { listHandler.handle(it) } }
+            return errorHandler.handle(response).parseable {
+                response.use { listHandler.handle(it) }
+            }
         }
     }
 }

@@ -3,14 +3,14 @@
 package com.phoebe.api.services.async.data.observations.recent
 
 import com.phoebe.api.core.ClientOptions
-import com.phoebe.api.core.JsonValue
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.checkRequired
+import com.phoebe.api.core.handlers.errorBodyHandler
 import com.phoebe.api.core.handlers.errorHandler
 import com.phoebe.api.core.handlers.jsonHandler
-import com.phoebe.api.core.handlers.withErrorHandler
 import com.phoebe.api.core.http.HttpMethod
 import com.phoebe.api.core.http.HttpRequest
+import com.phoebe.api.core.http.HttpResponse
 import com.phoebe.api.core.http.HttpResponse.Handler
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.core.http.parseable
@@ -43,7 +43,8 @@ class NotableServiceAsyncImpl internal constructor(private val clientOptions: Cl
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         NotableServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
@@ -53,7 +54,7 @@ class NotableServiceAsyncImpl internal constructor(private val clientOptions: Cl
             )
 
         private val listHandler: Handler<List<Observation>> =
-            jsonHandler<List<Observation>>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<List<Observation>>(clientOptions.jsonMapper)
 
         override fun list(
             params: NotableListParams,
@@ -73,7 +74,7 @@ class NotableServiceAsyncImpl internal constructor(private val clientOptions: Cl
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
                             .also {

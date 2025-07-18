@@ -3,14 +3,14 @@
 package com.phoebe.api.services.async.ref
 
 import com.phoebe.api.core.ClientOptions
-import com.phoebe.api.core.JsonValue
 import com.phoebe.api.core.RequestOptions
 import com.phoebe.api.core.checkRequired
+import com.phoebe.api.core.handlers.errorBodyHandler
 import com.phoebe.api.core.handlers.errorHandler
 import com.phoebe.api.core.handlers.jsonHandler
-import com.phoebe.api.core.handlers.withErrorHandler
 import com.phoebe.api.core.http.HttpMethod
 import com.phoebe.api.core.http.HttpRequest
+import com.phoebe.api.core.http.HttpResponse
 import com.phoebe.api.core.http.HttpResponse.Handler
 import com.phoebe.api.core.http.HttpResponseFor
 import com.phoebe.api.core.http.parseable
@@ -55,7 +55,8 @@ class HotspotServiceAsyncImpl internal constructor(private val clientOptions: Cl
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         HotspotServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         private val geo: GeoServiceAsync.WithRawResponse by lazy {
             GeoServiceAsyncImpl.WithRawResponseImpl(clientOptions)
@@ -78,7 +79,6 @@ class HotspotServiceAsyncImpl internal constructor(private val clientOptions: Cl
 
         private val listHandler: Handler<List<HotspotListResponse>> =
             jsonHandler<List<HotspotListResponse>>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun list(
             params: HotspotListParams,
@@ -98,7 +98,7 @@ class HotspotServiceAsyncImpl internal constructor(private val clientOptions: Cl
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
                             .also {
