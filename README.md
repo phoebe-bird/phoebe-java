@@ -39,7 +39,8 @@ import com.phoebe.api.client.okhttp.PhoebeOkHttpClient;
 import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveParams;
 import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveResponse;
 
-// Configures using the `EBIRD_API_KEY` and `PHOEBE_BASE_URL` environment variables
+// Configures using the `phoebe.ebirdApiKey` and `phoebe.baseUrl` system properties
+// Or configures using the `EBIRD_API_KEY` and `PHOEBE_BASE_URL` environment variables
 PhoebeClient client = PhoebeOkHttpClient.fromEnv();
 
 InfoRetrieveResponse info = client.ref().hotspot().info().retrieve("L99381");
@@ -47,13 +48,14 @@ InfoRetrieveResponse info = client.ref().hotspot().info().retrieve("L99381");
 
 ## Client configuration
 
-Configure the client using environment variables:
+Configure the client using system properties or environment variables:
 
 ```java
 import com.phoebe.api.client.PhoebeClient;
 import com.phoebe.api.client.okhttp.PhoebeOkHttpClient;
 
-// Configures using the `EBIRD_API_KEY` and `PHOEBE_BASE_URL` environment variables
+// Configures using the `phoebe.ebirdApiKey` and `phoebe.baseUrl` system properties
+// Or configures using the `EBIRD_API_KEY` and `PHOEBE_BASE_URL` environment variables
 PhoebeClient client = PhoebeOkHttpClient.fromEnv();
 ```
 
@@ -75,7 +77,8 @@ import com.phoebe.api.client.PhoebeClient;
 import com.phoebe.api.client.okhttp.PhoebeOkHttpClient;
 
 PhoebeClient client = PhoebeOkHttpClient.builder()
-    // Configures using the `EBIRD_API_KEY` and `PHOEBE_BASE_URL` environment variables
+    // Configures using the `phoebe.ebirdApiKey` and `phoebe.baseUrl` system properties
+    Or configures using the `EBIRD_API_KEY` and `PHOEBE_BASE_URL` environment variables
     .fromEnv()
     .apiKey("My API Key")
     .build();
@@ -83,10 +86,12 @@ PhoebeClient client = PhoebeOkHttpClient.builder()
 
 See this table for the available options:
 
-| Setter    | Environment variable | Required | Default value                |
-| --------- | -------------------- | -------- | ---------------------------- |
-| `apiKey`  | `EBIRD_API_KEY`      | true     | -                            |
-| `baseUrl` | `PHOEBE_BASE_URL`    | true     | `"https://api.ebird.org/v2"` |
+| Setter    | System property      | Environment variable | Required | Default value                |
+| --------- | -------------------- | -------------------- | -------- | ---------------------------- |
+| `apiKey`  | `phoebe.ebirdApiKey` | `EBIRD_API_KEY`      | true     | -                            |
+| `baseUrl` | `phoebe.baseUrl`     | `PHOEBE_BASE_URL`    | true     | `"https://api.ebird.org/v2"` |
+
+System properties take precedence over environment variables.
 
 > [!TIP]
 > Don't create more than one client in the same application. Each client has a connection pool and
@@ -132,7 +137,8 @@ import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveParams;
 import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveResponse;
 import java.util.concurrent.CompletableFuture;
 
-// Configures using the `EBIRD_API_KEY` and `PHOEBE_BASE_URL` environment variables
+// Configures using the `phoebe.ebirdApiKey` and `phoebe.baseUrl` system properties
+// Or configures using the `EBIRD_API_KEY` and `PHOEBE_BASE_URL` environment variables
 PhoebeClient client = PhoebeOkHttpClient.fromEnv();
 
 CompletableFuture<InfoRetrieveResponse> info = client.async().ref().hotspot().info().retrieve("L99381");
@@ -147,7 +153,8 @@ import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveParams;
 import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveResponse;
 import java.util.concurrent.CompletableFuture;
 
-// Configures using the `EBIRD_API_KEY` and `PHOEBE_BASE_URL` environment variables
+// Configures using the `phoebe.ebirdApiKey` and `phoebe.baseUrl` system properties
+// Or configures using the `EBIRD_API_KEY` and `PHOEBE_BASE_URL` environment variables
 PhoebeClientAsync client = PhoebeOkHttpClientAsync.fromEnv();
 
 CompletableFuture<InfoRetrieveResponse> info = client.ref().hotspot().info().retrieve("L99381");

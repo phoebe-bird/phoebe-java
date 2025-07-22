@@ -220,8 +220,12 @@ private constructor(
         fun timeout(): Timeout = timeout
 
         fun fromEnv() = apply {
-            System.getenv("PHOEBE_BASE_URL")?.let { baseUrl(it) }
-            System.getenv("EBIRD_API_KEY")?.let { apiKey(it) }
+            (System.getProperty("phoebe.baseUrl") ?: System.getenv("PHOEBE_BASE_URL"))?.let {
+                baseUrl(it)
+            }
+            (System.getProperty("phoebe.ebirdApiKey") ?: System.getenv("EBIRD_API_KEY"))?.let {
+                apiKey(it)
+            }
         }
 
         /**
