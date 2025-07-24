@@ -78,7 +78,7 @@ import com.phoebe.api.client.okhttp.PhoebeOkHttpClient;
 
 PhoebeClient client = PhoebeOkHttpClient.builder()
     // Configures using the `phoebe.ebirdApiKey` and `phoebe.baseUrl` system properties
-    Or configures using the `EBIRD_API_KEY` and `PHOEBE_BASE_URL` environment variables
+    // Or configures using the `EBIRD_API_KEY` and `PHOEBE_BASE_URL` environment variables
     .fromEnv()
     .apiKey("My API Key")
     .build();
