@@ -47,8 +47,10 @@ private constructor(
     /** Control how the name is displayed. */
     fun regionNameFormat(): Optional<RegionNameFormat> = Optional.ofNullable(regionNameFormat)
 
+    /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
 
+    /** Additional query param to send with the request. */
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
     fun toBuilder() = Builder().from(this)

@@ -45,8 +45,10 @@ private constructor(
     /** Fetch a specific version of the taxonomy. */
     fun version(): Optional<String> = Optional.ofNullable(version)
 
+    /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
 
+    /** Additional query param to send with the request. */
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
     fun toBuilder() = Builder().from(this)
