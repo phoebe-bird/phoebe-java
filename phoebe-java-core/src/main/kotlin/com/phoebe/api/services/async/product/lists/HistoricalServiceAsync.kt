@@ -31,7 +31,7 @@ interface HistoricalServiceAsync {
     ): CompletableFuture<List<HistoricalRetrieveResponse>> =
         retrieve(d, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         d: Long,
         params: HistoricalRetrieveParams,
@@ -39,12 +39,12 @@ interface HistoricalServiceAsync {
     ): CompletableFuture<List<HistoricalRetrieveResponse>> =
         retrieve(params.toBuilder().d(d).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: HistoricalRetrieveParams
     ): CompletableFuture<List<HistoricalRetrieveResponse>> = retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: HistoricalRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -75,7 +75,7 @@ interface HistoricalServiceAsync {
         ): CompletableFuture<HttpResponseFor<List<HistoricalRetrieveResponse>>> =
             retrieve(d, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             d: Long,
             params: HistoricalRetrieveParams,
@@ -83,13 +83,13 @@ interface HistoricalServiceAsync {
         ): CompletableFuture<HttpResponseFor<List<HistoricalRetrieveResponse>>> =
             retrieve(params.toBuilder().d(d).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: HistoricalRetrieveParams
         ): CompletableFuture<HttpResponseFor<List<HistoricalRetrieveResponse>>> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: HistoricalRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),

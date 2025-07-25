@@ -36,7 +36,7 @@ interface ListServiceAsync {
     ): CompletableFuture<List<ListListResponse>> =
         list(parentRegionCode, params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         parentRegionCode: String,
         params: ListListParams,
@@ -44,11 +44,11 @@ interface ListServiceAsync {
     ): CompletableFuture<List<ListListResponse>> =
         list(params.toBuilder().parentRegionCode(parentRegionCode).build(), requestOptions)
 
-    /** @see [list] */
+    /** @see list */
     fun list(params: ListListParams): CompletableFuture<List<ListListResponse>> =
         list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: ListListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -74,7 +74,7 @@ interface ListServiceAsync {
         ): CompletableFuture<HttpResponseFor<List<ListListResponse>>> =
             list(parentRegionCode, params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             parentRegionCode: String,
             params: ListListParams,
@@ -82,13 +82,13 @@ interface ListServiceAsync {
         ): CompletableFuture<HttpResponseFor<List<ListListResponse>>> =
             list(params.toBuilder().parentRegionCode(parentRegionCode).build(), requestOptions)
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: ListListParams
         ): CompletableFuture<HttpResponseFor<List<ListListResponse>>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: ListListParams,
             requestOptions: RequestOptions = RequestOptions.none(),

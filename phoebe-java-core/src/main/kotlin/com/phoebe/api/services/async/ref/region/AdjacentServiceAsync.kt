@@ -31,7 +31,7 @@ interface AdjacentServiceAsync {
     fun list(regionCode: String): CompletableFuture<List<AdjacentListResponse>> =
         list(regionCode, AdjacentListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         regionCode: String,
         params: AdjacentListParams = AdjacentListParams.none(),
@@ -39,24 +39,24 @@ interface AdjacentServiceAsync {
     ): CompletableFuture<List<AdjacentListResponse>> =
         list(params.toBuilder().regionCode(regionCode).build(), requestOptions)
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         regionCode: String,
         params: AdjacentListParams = AdjacentListParams.none(),
     ): CompletableFuture<List<AdjacentListResponse>> =
         list(regionCode, params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: AdjacentListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<List<AdjacentListResponse>>
 
-    /** @see [list] */
+    /** @see list */
     fun list(params: AdjacentListParams): CompletableFuture<List<AdjacentListResponse>> =
         list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         regionCode: String,
         requestOptions: RequestOptions,
@@ -86,7 +86,7 @@ interface AdjacentServiceAsync {
         ): CompletableFuture<HttpResponseFor<List<AdjacentListResponse>>> =
             list(regionCode, AdjacentListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             regionCode: String,
             params: AdjacentListParams = AdjacentListParams.none(),
@@ -94,26 +94,26 @@ interface AdjacentServiceAsync {
         ): CompletableFuture<HttpResponseFor<List<AdjacentListResponse>>> =
             list(params.toBuilder().regionCode(regionCode).build(), requestOptions)
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             regionCode: String,
             params: AdjacentListParams = AdjacentListParams.none(),
         ): CompletableFuture<HttpResponseFor<List<AdjacentListResponse>>> =
             list(regionCode, params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: AdjacentListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<List<AdjacentListResponse>>>
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: AdjacentListParams
         ): CompletableFuture<HttpResponseFor<List<AdjacentListResponse>>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             regionCode: String,
             requestOptions: RequestOptions,

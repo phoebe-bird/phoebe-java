@@ -33,7 +33,7 @@ interface NotableServiceAsync {
     fun list(params: NotableListParams): CompletableFuture<List<Observation>> =
         list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: NotableListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -60,7 +60,7 @@ interface NotableServiceAsync {
         fun list(params: NotableListParams): CompletableFuture<HttpResponseFor<List<Observation>>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: NotableListParams,
             requestOptions: RequestOptions = RequestOptions.none(),

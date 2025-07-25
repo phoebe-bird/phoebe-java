@@ -31,29 +31,29 @@ interface SpeciesListService {
      */
     fun list(regionCode: String): List<String> = list(regionCode, SpeciesListListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         regionCode: String,
         params: SpeciesListListParams = SpeciesListListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): List<String> = list(params.toBuilder().regionCode(regionCode).build(), requestOptions)
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         regionCode: String,
         params: SpeciesListListParams = SpeciesListListParams.none(),
     ): List<String> = list(regionCode, params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: SpeciesListListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): List<String>
 
-    /** @see [list] */
+    /** @see list */
     fun list(params: SpeciesListListParams): List<String> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(regionCode: String, requestOptions: RequestOptions): List<String> =
         list(regionCode, SpeciesListListParams.none(), requestOptions)
 
@@ -79,7 +79,7 @@ interface SpeciesListService {
         fun list(regionCode: String): HttpResponseFor<List<String>> =
             list(regionCode, SpeciesListListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             regionCode: String,
@@ -88,26 +88,26 @@ interface SpeciesListService {
         ): HttpResponseFor<List<String>> =
             list(params.toBuilder().regionCode(regionCode).build(), requestOptions)
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             regionCode: String,
             params: SpeciesListListParams = SpeciesListListParams.none(),
         ): HttpResponseFor<List<String>> = list(regionCode, params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: SpeciesListListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<List<String>>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(params: SpeciesListListParams): HttpResponseFor<List<String>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             regionCode: String,

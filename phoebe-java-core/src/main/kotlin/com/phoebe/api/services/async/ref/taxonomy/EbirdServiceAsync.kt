@@ -33,18 +33,18 @@ interface EbirdServiceAsync {
     fun retrieve(): CompletableFuture<List<EbirdRetrieveResponse>> =
         retrieve(EbirdRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: EbirdRetrieveParams = EbirdRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<List<EbirdRetrieveResponse>>
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: EbirdRetrieveParams = EbirdRetrieveParams.none()
     ): CompletableFuture<List<EbirdRetrieveResponse>> = retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(requestOptions: RequestOptions): CompletableFuture<List<EbirdRetrieveResponse>> =
         retrieve(EbirdRetrieveParams.none(), requestOptions)
 
@@ -67,19 +67,19 @@ interface EbirdServiceAsync {
         fun retrieve(): CompletableFuture<HttpResponseFor<List<EbirdRetrieveResponse>>> =
             retrieve(EbirdRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: EbirdRetrieveParams = EbirdRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<List<EbirdRetrieveResponse>>>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: EbirdRetrieveParams = EbirdRetrieveParams.none()
         ): CompletableFuture<HttpResponseFor<List<EbirdRetrieveResponse>>> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<List<EbirdRetrieveResponse>>> =

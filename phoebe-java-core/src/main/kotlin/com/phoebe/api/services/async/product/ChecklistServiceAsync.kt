@@ -35,7 +35,7 @@ interface ChecklistServiceAsync {
     fun view(subId: String): CompletableFuture<ChecklistViewResponse> =
         view(subId, ChecklistViewParams.none())
 
-    /** @see [view] */
+    /** @see view */
     fun view(
         subId: String,
         params: ChecklistViewParams = ChecklistViewParams.none(),
@@ -43,23 +43,23 @@ interface ChecklistServiceAsync {
     ): CompletableFuture<ChecklistViewResponse> =
         view(params.toBuilder().subId(subId).build(), requestOptions)
 
-    /** @see [view] */
+    /** @see view */
     fun view(
         subId: String,
         params: ChecklistViewParams = ChecklistViewParams.none(),
     ): CompletableFuture<ChecklistViewResponse> = view(subId, params, RequestOptions.none())
 
-    /** @see [view] */
+    /** @see view */
     fun view(
         params: ChecklistViewParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ChecklistViewResponse>
 
-    /** @see [view] */
+    /** @see view */
     fun view(params: ChecklistViewParams): CompletableFuture<ChecklistViewResponse> =
         view(params, RequestOptions.none())
 
-    /** @see [view] */
+    /** @see view */
     fun view(
         subId: String,
         requestOptions: RequestOptions,
@@ -87,7 +87,7 @@ interface ChecklistServiceAsync {
         fun view(subId: String): CompletableFuture<HttpResponseFor<ChecklistViewResponse>> =
             view(subId, ChecklistViewParams.none())
 
-        /** @see [view] */
+        /** @see view */
         fun view(
             subId: String,
             params: ChecklistViewParams = ChecklistViewParams.none(),
@@ -95,26 +95,26 @@ interface ChecklistServiceAsync {
         ): CompletableFuture<HttpResponseFor<ChecklistViewResponse>> =
             view(params.toBuilder().subId(subId).build(), requestOptions)
 
-        /** @see [view] */
+        /** @see view */
         fun view(
             subId: String,
             params: ChecklistViewParams = ChecklistViewParams.none(),
         ): CompletableFuture<HttpResponseFor<ChecklistViewResponse>> =
             view(subId, params, RequestOptions.none())
 
-        /** @see [view] */
+        /** @see view */
         fun view(
             params: ChecklistViewParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<ChecklistViewResponse>>
 
-        /** @see [view] */
+        /** @see view */
         fun view(
             params: ChecklistViewParams
         ): CompletableFuture<HttpResponseFor<ChecklistViewResponse>> =
             view(params, RequestOptions.none())
 
-        /** @see [view] */
+        /** @see view */
         fun view(
             subId: String,
             requestOptions: RequestOptions,

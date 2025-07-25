@@ -31,7 +31,7 @@ interface ListServiceAsync {
     fun retrieve(regionCode: String): CompletableFuture<List<ListRetrieveResponse>> =
         retrieve(regionCode, ListRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         regionCode: String,
         params: ListRetrieveParams = ListRetrieveParams.none(),
@@ -39,24 +39,24 @@ interface ListServiceAsync {
     ): CompletableFuture<List<ListRetrieveResponse>> =
         retrieve(params.toBuilder().regionCode(regionCode).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         regionCode: String,
         params: ListRetrieveParams = ListRetrieveParams.none(),
     ): CompletableFuture<List<ListRetrieveResponse>> =
         retrieve(regionCode, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: ListRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<List<ListRetrieveResponse>>
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: ListRetrieveParams): CompletableFuture<List<ListRetrieveResponse>> =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         regionCode: String,
         requestOptions: RequestOptions,
@@ -84,7 +84,7 @@ interface ListServiceAsync {
         ): CompletableFuture<HttpResponseFor<List<ListRetrieveResponse>>> =
             retrieve(regionCode, ListRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             regionCode: String,
             params: ListRetrieveParams = ListRetrieveParams.none(),
@@ -92,26 +92,26 @@ interface ListServiceAsync {
         ): CompletableFuture<HttpResponseFor<List<ListRetrieveResponse>>> =
             retrieve(params.toBuilder().regionCode(regionCode).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             regionCode: String,
             params: ListRetrieveParams = ListRetrieveParams.none(),
         ): CompletableFuture<HttpResponseFor<List<ListRetrieveResponse>>> =
             retrieve(regionCode, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: ListRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<List<ListRetrieveResponse>>>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: ListRetrieveParams
         ): CompletableFuture<HttpResponseFor<List<ListRetrieveResponse>>> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             regionCode: String,
             requestOptions: RequestOptions,

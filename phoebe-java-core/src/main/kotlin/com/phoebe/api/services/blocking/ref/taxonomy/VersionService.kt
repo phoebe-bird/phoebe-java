@@ -29,17 +29,17 @@ interface VersionService {
      */
     fun list(): List<VersionListResponse> = list(VersionListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: VersionListParams = VersionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): List<VersionListResponse>
 
-    /** @see [list] */
+    /** @see list */
     fun list(params: VersionListParams = VersionListParams.none()): List<VersionListResponse> =
         list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): List<VersionListResponse> =
         list(VersionListParams.none(), requestOptions)
 
@@ -60,20 +60,20 @@ interface VersionService {
         @MustBeClosed
         fun list(): HttpResponseFor<List<VersionListResponse>> = list(VersionListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: VersionListParams = VersionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<List<VersionListResponse>>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: VersionListParams = VersionListParams.none()
         ): HttpResponseFor<List<VersionListResponse>> = list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<List<VersionListResponse>> =
             list(VersionListParams.none(), requestOptions)

@@ -40,29 +40,29 @@ interface RecentService {
      */
     fun list(regionCode: String): List<Observation> = list(regionCode, RecentListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         regionCode: String,
         params: RecentListParams = RecentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): List<Observation> = list(params.toBuilder().regionCode(regionCode).build(), requestOptions)
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         regionCode: String,
         params: RecentListParams = RecentListParams.none(),
     ): List<Observation> = list(regionCode, params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: RecentListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): List<Observation>
 
-    /** @see [list] */
+    /** @see list */
     fun list(params: RecentListParams): List<Observation> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(regionCode: String, requestOptions: RequestOptions): List<Observation> =
         list(regionCode, RecentListParams.none(), requestOptions)
 
@@ -90,7 +90,7 @@ interface RecentService {
         fun list(regionCode: String): HttpResponseFor<List<Observation>> =
             list(regionCode, RecentListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             regionCode: String,
@@ -99,26 +99,26 @@ interface RecentService {
         ): HttpResponseFor<List<Observation>> =
             list(params.toBuilder().regionCode(regionCode).build(), requestOptions)
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             regionCode: String,
             params: RecentListParams = RecentListParams.none(),
         ): HttpResponseFor<List<Observation>> = list(regionCode, params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: RecentListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<List<Observation>>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(params: RecentListParams): HttpResponseFor<List<Observation>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             regionCode: String,

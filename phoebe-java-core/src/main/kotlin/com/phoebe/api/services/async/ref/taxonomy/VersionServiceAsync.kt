@@ -29,18 +29,18 @@ interface VersionServiceAsync {
      */
     fun list(): CompletableFuture<List<VersionListResponse>> = list(VersionListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: VersionListParams = VersionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<List<VersionListResponse>>
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: VersionListParams = VersionListParams.none()
     ): CompletableFuture<List<VersionListResponse>> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): CompletableFuture<List<VersionListResponse>> =
         list(VersionListParams.none(), requestOptions)
 
@@ -65,19 +65,19 @@ interface VersionServiceAsync {
         fun list(): CompletableFuture<HttpResponseFor<List<VersionListResponse>>> =
             list(VersionListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: VersionListParams = VersionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<List<VersionListResponse>>>
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: VersionListParams = VersionListParams.none()
         ): CompletableFuture<HttpResponseFor<List<VersionListResponse>>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<List<VersionListResponse>>> =

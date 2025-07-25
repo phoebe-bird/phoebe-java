@@ -31,30 +31,30 @@ interface InfoService {
      */
     fun retrieve(locId: String): InfoRetrieveResponse = retrieve(locId, InfoRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         locId: String,
         params: InfoRetrieveParams = InfoRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InfoRetrieveResponse = retrieve(params.toBuilder().locId(locId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         locId: String,
         params: InfoRetrieveParams = InfoRetrieveParams.none(),
     ): InfoRetrieveResponse = retrieve(locId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: InfoRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InfoRetrieveResponse
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: InfoRetrieveParams): InfoRetrieveResponse =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(locId: String, requestOptions: RequestOptions): InfoRetrieveResponse =
         retrieve(locId, InfoRetrieveParams.none(), requestOptions)
 
@@ -76,7 +76,7 @@ interface InfoService {
         fun retrieve(locId: String): HttpResponseFor<InfoRetrieveResponse> =
             retrieve(locId, InfoRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             locId: String,
@@ -85,26 +85,26 @@ interface InfoService {
         ): HttpResponseFor<InfoRetrieveResponse> =
             retrieve(params.toBuilder().locId(locId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             locId: String,
             params: InfoRetrieveParams = InfoRetrieveParams.none(),
         ): HttpResponseFor<InfoRetrieveResponse> = retrieve(locId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: InfoRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InfoRetrieveResponse>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(params: InfoRetrieveParams): HttpResponseFor<InfoRetrieveResponse> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             locId: String,

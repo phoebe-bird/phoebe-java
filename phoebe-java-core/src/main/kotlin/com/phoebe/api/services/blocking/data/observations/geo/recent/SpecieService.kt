@@ -42,17 +42,17 @@ interface SpecieService {
     fun list(speciesCode: String, params: SpecieListParams): List<Observation> =
         list(speciesCode, params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         speciesCode: String,
         params: SpecieListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): List<Observation> = list(params.toBuilder().speciesCode(speciesCode).build(), requestOptions)
 
-    /** @see [list] */
+    /** @see list */
     fun list(params: SpecieListParams): List<Observation> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: SpecieListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -78,7 +78,7 @@ interface SpecieService {
             params: SpecieListParams,
         ): HttpResponseFor<List<Observation>> = list(speciesCode, params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             speciesCode: String,
@@ -87,12 +87,12 @@ interface SpecieService {
         ): HttpResponseFor<List<Observation>> =
             list(params.toBuilder().speciesCode(speciesCode).build(), requestOptions)
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(params: SpecieListParams): HttpResponseFor<List<Observation>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: SpecieListParams,

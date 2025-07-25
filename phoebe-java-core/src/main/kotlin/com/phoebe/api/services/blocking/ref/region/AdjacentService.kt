@@ -31,7 +31,7 @@ interface AdjacentService {
     fun list(regionCode: String): List<AdjacentListResponse> =
         list(regionCode, AdjacentListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         regionCode: String,
         params: AdjacentListParams = AdjacentListParams.none(),
@@ -39,23 +39,23 @@ interface AdjacentService {
     ): List<AdjacentListResponse> =
         list(params.toBuilder().regionCode(regionCode).build(), requestOptions)
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         regionCode: String,
         params: AdjacentListParams = AdjacentListParams.none(),
     ): List<AdjacentListResponse> = list(regionCode, params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: AdjacentListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): List<AdjacentListResponse>
 
-    /** @see [list] */
+    /** @see list */
     fun list(params: AdjacentListParams): List<AdjacentListResponse> =
         list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(regionCode: String, requestOptions: RequestOptions): List<AdjacentListResponse> =
         list(regionCode, AdjacentListParams.none(), requestOptions)
 
@@ -77,7 +77,7 @@ interface AdjacentService {
         fun list(regionCode: String): HttpResponseFor<List<AdjacentListResponse>> =
             list(regionCode, AdjacentListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             regionCode: String,
@@ -86,7 +86,7 @@ interface AdjacentService {
         ): HttpResponseFor<List<AdjacentListResponse>> =
             list(params.toBuilder().regionCode(regionCode).build(), requestOptions)
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             regionCode: String,
@@ -94,19 +94,19 @@ interface AdjacentService {
         ): HttpResponseFor<List<AdjacentListResponse>> =
             list(regionCode, params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: AdjacentListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<List<AdjacentListResponse>>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(params: AdjacentListParams): HttpResponseFor<List<AdjacentListResponse>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             regionCode: String,

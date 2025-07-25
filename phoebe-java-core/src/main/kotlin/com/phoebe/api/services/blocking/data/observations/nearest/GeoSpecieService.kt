@@ -32,17 +32,17 @@ interface GeoSpecieService {
     fun list(speciesCode: String, params: GeoSpecieListParams): List<Observation> =
         list(speciesCode, params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         speciesCode: String,
         params: GeoSpecieListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): List<Observation> = list(params.toBuilder().speciesCode(speciesCode).build(), requestOptions)
 
-    /** @see [list] */
+    /** @see list */
     fun list(params: GeoSpecieListParams): List<Observation> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: GeoSpecieListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -68,7 +68,7 @@ interface GeoSpecieService {
             params: GeoSpecieListParams,
         ): HttpResponseFor<List<Observation>> = list(speciesCode, params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             speciesCode: String,
@@ -77,12 +77,12 @@ interface GeoSpecieService {
         ): HttpResponseFor<List<Observation>> =
             list(params.toBuilder().speciesCode(speciesCode).build(), requestOptions)
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(params: GeoSpecieListParams): HttpResponseFor<List<Observation>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: GeoSpecieListParams,

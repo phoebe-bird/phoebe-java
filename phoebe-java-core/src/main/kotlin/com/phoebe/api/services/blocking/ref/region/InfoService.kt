@@ -44,7 +44,7 @@ interface InfoService {
     fun retrieve(regionCode: String): InfoRetrieveResponse =
         retrieve(regionCode, InfoRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         regionCode: String,
         params: InfoRetrieveParams = InfoRetrieveParams.none(),
@@ -52,23 +52,23 @@ interface InfoService {
     ): InfoRetrieveResponse =
         retrieve(params.toBuilder().regionCode(regionCode).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         regionCode: String,
         params: InfoRetrieveParams = InfoRetrieveParams.none(),
     ): InfoRetrieveResponse = retrieve(regionCode, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: InfoRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InfoRetrieveResponse
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: InfoRetrieveParams): InfoRetrieveResponse =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(regionCode: String, requestOptions: RequestOptions): InfoRetrieveResponse =
         retrieve(regionCode, InfoRetrieveParams.none(), requestOptions)
 
@@ -90,7 +90,7 @@ interface InfoService {
         fun retrieve(regionCode: String): HttpResponseFor<InfoRetrieveResponse> =
             retrieve(regionCode, InfoRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             regionCode: String,
@@ -99,7 +99,7 @@ interface InfoService {
         ): HttpResponseFor<InfoRetrieveResponse> =
             retrieve(params.toBuilder().regionCode(regionCode).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             regionCode: String,
@@ -107,19 +107,19 @@ interface InfoService {
         ): HttpResponseFor<InfoRetrieveResponse> =
             retrieve(regionCode, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: InfoRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InfoRetrieveResponse>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(params: InfoRetrieveParams): HttpResponseFor<InfoRetrieveResponse> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             regionCode: String,

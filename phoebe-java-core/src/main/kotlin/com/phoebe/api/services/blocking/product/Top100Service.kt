@@ -45,18 +45,18 @@ interface Top100Service {
     fun retrieve(d: Long, params: Top100RetrieveParams): List<Top100RetrieveResponse> =
         retrieve(d, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         d: Long,
         params: Top100RetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): List<Top100RetrieveResponse> = retrieve(params.toBuilder().d(d).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: Top100RetrieveParams): List<Top100RetrieveResponse> =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: Top100RetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -83,7 +83,7 @@ interface Top100Service {
         ): HttpResponseFor<List<Top100RetrieveResponse>> =
             retrieve(d, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             d: Long,
@@ -92,12 +92,12 @@ interface Top100Service {
         ): HttpResponseFor<List<Top100RetrieveResponse>> =
             retrieve(params.toBuilder().d(d).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(params: Top100RetrieveParams): HttpResponseFor<List<Top100RetrieveResponse>> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: Top100RetrieveParams,

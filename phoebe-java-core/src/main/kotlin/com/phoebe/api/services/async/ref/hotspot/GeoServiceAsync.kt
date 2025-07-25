@@ -31,7 +31,7 @@ interface GeoServiceAsync {
     fun retrieve(params: GeoRetrieveParams): CompletableFuture<List<GeoRetrieveResponse>> =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: GeoRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -56,7 +56,7 @@ interface GeoServiceAsync {
         ): CompletableFuture<HttpResponseFor<List<GeoRetrieveResponse>>> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: GeoRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),

@@ -32,7 +32,7 @@ interface SpeciesListServiceAsync {
     fun list(regionCode: String): CompletableFuture<List<String>> =
         list(regionCode, SpeciesListListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         regionCode: String,
         params: SpeciesListListParams = SpeciesListListParams.none(),
@@ -40,23 +40,23 @@ interface SpeciesListServiceAsync {
     ): CompletableFuture<List<String>> =
         list(params.toBuilder().regionCode(regionCode).build(), requestOptions)
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         regionCode: String,
         params: SpeciesListListParams = SpeciesListListParams.none(),
     ): CompletableFuture<List<String>> = list(regionCode, params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: SpeciesListListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<List<String>>
 
-    /** @see [list] */
+    /** @see list */
     fun list(params: SpeciesListListParams): CompletableFuture<List<String>> =
         list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(regionCode: String, requestOptions: RequestOptions): CompletableFuture<List<String>> =
         list(regionCode, SpeciesListListParams.none(), requestOptions)
 
@@ -82,7 +82,7 @@ interface SpeciesListServiceAsync {
         fun list(regionCode: String): CompletableFuture<HttpResponseFor<List<String>>> =
             list(regionCode, SpeciesListListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             regionCode: String,
             params: SpeciesListListParams = SpeciesListListParams.none(),
@@ -90,24 +90,24 @@ interface SpeciesListServiceAsync {
         ): CompletableFuture<HttpResponseFor<List<String>>> =
             list(params.toBuilder().regionCode(regionCode).build(), requestOptions)
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             regionCode: String,
             params: SpeciesListListParams = SpeciesListListParams.none(),
         ): CompletableFuture<HttpResponseFor<List<String>>> =
             list(regionCode, params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: SpeciesListListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<List<String>>>
 
-        /** @see [list] */
+        /** @see list */
         fun list(params: SpeciesListListParams): CompletableFuture<HttpResponseFor<List<String>>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             regionCode: String,
             requestOptions: RequestOptions,
