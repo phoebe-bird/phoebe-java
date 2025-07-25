@@ -53,8 +53,10 @@ private constructor(
     /** Use this language for species common names */
     fun sppLocale(): Optional<String> = Optional.ofNullable(sppLocale)
 
+    /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
 
+    /** Additional query param to send with the request. */
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
     fun toBuilder() = Builder().from(this)

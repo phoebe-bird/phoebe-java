@@ -42,8 +42,10 @@ private constructor(
     /** Fetch the records in CSV or JSON format. */
     fun fmt(): Optional<Fmt> = Optional.ofNullable(fmt)
 
+    /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
 
+    /** Additional query param to send with the request. */
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
     fun toBuilder() = Builder().from(this)
