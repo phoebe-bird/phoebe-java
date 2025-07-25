@@ -47,7 +47,7 @@ interface Top100ServiceAsync {
         params: Top100RetrieveParams,
     ): CompletableFuture<List<Top100RetrieveResponse>> = retrieve(d, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         d: Long,
         params: Top100RetrieveParams,
@@ -55,11 +55,11 @@ interface Top100ServiceAsync {
     ): CompletableFuture<List<Top100RetrieveResponse>> =
         retrieve(params.toBuilder().d(d).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: Top100RetrieveParams): CompletableFuture<List<Top100RetrieveResponse>> =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: Top100RetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -89,7 +89,7 @@ interface Top100ServiceAsync {
         ): CompletableFuture<HttpResponseFor<List<Top100RetrieveResponse>>> =
             retrieve(d, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             d: Long,
             params: Top100RetrieveParams,
@@ -97,13 +97,13 @@ interface Top100ServiceAsync {
         ): CompletableFuture<HttpResponseFor<List<Top100RetrieveResponse>>> =
             retrieve(params.toBuilder().d(d).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: Top100RetrieveParams
         ): CompletableFuture<HttpResponseFor<List<Top100RetrieveResponse>>> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: Top100RetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),

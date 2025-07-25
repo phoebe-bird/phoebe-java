@@ -31,7 +31,7 @@ interface GeoService {
     fun retrieve(params: GeoRetrieveParams): List<GeoRetrieveResponse> =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: GeoRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -55,7 +55,7 @@ interface GeoService {
         fun retrieve(params: GeoRetrieveParams): HttpResponseFor<List<GeoRetrieveResponse>> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: GeoRetrieveParams,

@@ -34,17 +34,17 @@ interface HistoricService {
     fun list(d: Long, params: HistoricListParams): List<Observation> =
         list(d, params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         d: Long,
         params: HistoricListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): List<Observation> = list(params.toBuilder().d(d).build(), requestOptions)
 
-    /** @see [list] */
+    /** @see list */
     fun list(params: HistoricListParams): List<Observation> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: HistoricListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -68,7 +68,7 @@ interface HistoricService {
         fun list(d: Long, params: HistoricListParams): HttpResponseFor<List<Observation>> =
             list(d, params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             d: Long,
@@ -77,12 +77,12 @@ interface HistoricService {
         ): HttpResponseFor<List<Observation>> =
             list(params.toBuilder().d(d).build(), requestOptions)
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(params: HistoricListParams): HttpResponseFor<List<Observation>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: HistoricListParams,

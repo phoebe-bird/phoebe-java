@@ -32,7 +32,7 @@ interface InfoServiceAsync {
     fun retrieve(locId: String): CompletableFuture<InfoRetrieveResponse> =
         retrieve(locId, InfoRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         locId: String,
         params: InfoRetrieveParams = InfoRetrieveParams.none(),
@@ -40,23 +40,23 @@ interface InfoServiceAsync {
     ): CompletableFuture<InfoRetrieveResponse> =
         retrieve(params.toBuilder().locId(locId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         locId: String,
         params: InfoRetrieveParams = InfoRetrieveParams.none(),
     ): CompletableFuture<InfoRetrieveResponse> = retrieve(locId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: InfoRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InfoRetrieveResponse>
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: InfoRetrieveParams): CompletableFuture<InfoRetrieveResponse> =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         locId: String,
         requestOptions: RequestOptions,
@@ -80,7 +80,7 @@ interface InfoServiceAsync {
         fun retrieve(locId: String): CompletableFuture<HttpResponseFor<InfoRetrieveResponse>> =
             retrieve(locId, InfoRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             locId: String,
             params: InfoRetrieveParams = InfoRetrieveParams.none(),
@@ -88,26 +88,26 @@ interface InfoServiceAsync {
         ): CompletableFuture<HttpResponseFor<InfoRetrieveResponse>> =
             retrieve(params.toBuilder().locId(locId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             locId: String,
             params: InfoRetrieveParams = InfoRetrieveParams.none(),
         ): CompletableFuture<HttpResponseFor<InfoRetrieveResponse>> =
             retrieve(locId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: InfoRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InfoRetrieveResponse>>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: InfoRetrieveParams
         ): CompletableFuture<HttpResponseFor<InfoRetrieveResponse>> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             locId: String,
             requestOptions: RequestOptions,

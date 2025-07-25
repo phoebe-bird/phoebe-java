@@ -38,7 +38,7 @@ interface RecentServiceAsync {
     fun list(params: RecentListParams): CompletableFuture<List<Observation>> =
         list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: RecentListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -69,7 +69,7 @@ interface RecentServiceAsync {
         fun list(params: RecentListParams): CompletableFuture<HttpResponseFor<List<Observation>>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: RecentListParams,
             requestOptions: RequestOptions = RequestOptions.none(),

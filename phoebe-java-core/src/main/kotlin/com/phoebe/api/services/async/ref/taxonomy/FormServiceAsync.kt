@@ -30,7 +30,7 @@ interface FormServiceAsync {
     fun list(speciesCode: String): CompletableFuture<List<String>> =
         list(speciesCode, FormListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         speciesCode: String,
         params: FormListParams = FormListParams.none(),
@@ -38,23 +38,23 @@ interface FormServiceAsync {
     ): CompletableFuture<List<String>> =
         list(params.toBuilder().speciesCode(speciesCode).build(), requestOptions)
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         speciesCode: String,
         params: FormListParams = FormListParams.none(),
     ): CompletableFuture<List<String>> = list(speciesCode, params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: FormListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<List<String>>
 
-    /** @see [list] */
+    /** @see list */
     fun list(params: FormListParams): CompletableFuture<List<String>> =
         list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(speciesCode: String, requestOptions: RequestOptions): CompletableFuture<List<String>> =
         list(speciesCode, FormListParams.none(), requestOptions)
 
@@ -75,7 +75,7 @@ interface FormServiceAsync {
         fun list(speciesCode: String): CompletableFuture<HttpResponseFor<List<String>>> =
             list(speciesCode, FormListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             speciesCode: String,
             params: FormListParams = FormListParams.none(),
@@ -83,24 +83,24 @@ interface FormServiceAsync {
         ): CompletableFuture<HttpResponseFor<List<String>>> =
             list(params.toBuilder().speciesCode(speciesCode).build(), requestOptions)
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             speciesCode: String,
             params: FormListParams = FormListParams.none(),
         ): CompletableFuture<HttpResponseFor<List<String>>> =
             list(speciesCode, params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: FormListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<List<String>>>
 
-        /** @see [list] */
+        /** @see list */
         fun list(params: FormListParams): CompletableFuture<HttpResponseFor<List<String>>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             speciesCode: String,
             requestOptions: RequestOptions,

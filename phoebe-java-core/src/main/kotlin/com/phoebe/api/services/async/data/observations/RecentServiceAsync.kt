@@ -41,7 +41,7 @@ interface RecentServiceAsync {
     fun list(regionCode: String): CompletableFuture<List<Observation>> =
         list(regionCode, RecentListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         regionCode: String,
         params: RecentListParams = RecentListParams.none(),
@@ -49,23 +49,23 @@ interface RecentServiceAsync {
     ): CompletableFuture<List<Observation>> =
         list(params.toBuilder().regionCode(regionCode).build(), requestOptions)
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         regionCode: String,
         params: RecentListParams = RecentListParams.none(),
     ): CompletableFuture<List<Observation>> = list(regionCode, params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: RecentListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<List<Observation>>
 
-    /** @see [list] */
+    /** @see list */
     fun list(params: RecentListParams): CompletableFuture<List<Observation>> =
         list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         regionCode: String,
         requestOptions: RequestOptions,
@@ -99,7 +99,7 @@ interface RecentServiceAsync {
         fun list(regionCode: String): CompletableFuture<HttpResponseFor<List<Observation>>> =
             list(regionCode, RecentListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             regionCode: String,
             params: RecentListParams = RecentListParams.none(),
@@ -107,24 +107,24 @@ interface RecentServiceAsync {
         ): CompletableFuture<HttpResponseFor<List<Observation>>> =
             list(params.toBuilder().regionCode(regionCode).build(), requestOptions)
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             regionCode: String,
             params: RecentListParams = RecentListParams.none(),
         ): CompletableFuture<HttpResponseFor<List<Observation>>> =
             list(regionCode, params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: RecentListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<List<Observation>>>
 
-        /** @see [list] */
+        /** @see list */
         fun list(params: RecentListParams): CompletableFuture<HttpResponseFor<List<Observation>>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             regionCode: String,
             requestOptions: RequestOptions,

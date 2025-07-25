@@ -34,7 +34,7 @@ interface HotspotService {
     fun list(regionCode: String): List<HotspotListResponse> =
         list(regionCode, HotspotListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         regionCode: String,
         params: HotspotListParams = HotspotListParams.none(),
@@ -42,23 +42,23 @@ interface HotspotService {
     ): List<HotspotListResponse> =
         list(params.toBuilder().regionCode(regionCode).build(), requestOptions)
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         regionCode: String,
         params: HotspotListParams = HotspotListParams.none(),
     ): List<HotspotListResponse> = list(regionCode, params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: HotspotListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): List<HotspotListResponse>
 
-    /** @see [list] */
+    /** @see list */
     fun list(params: HotspotListParams): List<HotspotListResponse> =
         list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(regionCode: String, requestOptions: RequestOptions): List<HotspotListResponse> =
         list(regionCode, HotspotListParams.none(), requestOptions)
 
@@ -84,7 +84,7 @@ interface HotspotService {
         fun list(regionCode: String): HttpResponseFor<List<HotspotListResponse>> =
             list(regionCode, HotspotListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             regionCode: String,
@@ -93,7 +93,7 @@ interface HotspotService {
         ): HttpResponseFor<List<HotspotListResponse>> =
             list(params.toBuilder().regionCode(regionCode).build(), requestOptions)
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             regionCode: String,
@@ -101,19 +101,19 @@ interface HotspotService {
         ): HttpResponseFor<List<HotspotListResponse>> =
             list(regionCode, params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: HotspotListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<List<HotspotListResponse>>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(params: HotspotListParams): HttpResponseFor<List<HotspotListResponse>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             regionCode: String,

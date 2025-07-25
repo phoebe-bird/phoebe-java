@@ -39,7 +39,7 @@ interface SpecieService {
     fun retrieve(speciesCode: String, params: SpecieRetrieveParams): List<Observation> =
         retrieve(speciesCode, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         speciesCode: String,
         params: SpecieRetrieveParams,
@@ -47,11 +47,11 @@ interface SpecieService {
     ): List<Observation> =
         retrieve(params.toBuilder().speciesCode(speciesCode).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: SpecieRetrieveParams): List<Observation> =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: SpecieRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -77,7 +77,7 @@ interface SpecieService {
             params: SpecieRetrieveParams,
         ): HttpResponseFor<List<Observation>> = retrieve(speciesCode, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             speciesCode: String,
@@ -86,12 +86,12 @@ interface SpecieService {
         ): HttpResponseFor<List<Observation>> =
             retrieve(params.toBuilder().speciesCode(speciesCode).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(params: SpecieRetrieveParams): HttpResponseFor<List<Observation>> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: SpecieRetrieveParams,

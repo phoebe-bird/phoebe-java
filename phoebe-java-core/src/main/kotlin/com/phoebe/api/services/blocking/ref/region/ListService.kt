@@ -33,7 +33,7 @@ interface ListService {
     fun list(parentRegionCode: String, params: ListListParams): List<ListListResponse> =
         list(parentRegionCode, params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         parentRegionCode: String,
         params: ListListParams,
@@ -41,10 +41,10 @@ interface ListService {
     ): List<ListListResponse> =
         list(params.toBuilder().parentRegionCode(parentRegionCode).build(), requestOptions)
 
-    /** @see [list] */
+    /** @see list */
     fun list(params: ListListParams): List<ListListResponse> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: ListListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -71,7 +71,7 @@ interface ListService {
         ): HttpResponseFor<List<ListListResponse>> =
             list(parentRegionCode, params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             parentRegionCode: String,
@@ -80,12 +80,12 @@ interface ListService {
         ): HttpResponseFor<List<ListListResponse>> =
             list(params.toBuilder().parentRegionCode(parentRegionCode).build(), requestOptions)
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(params: ListListParams): HttpResponseFor<List<ListListResponse>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: ListListParams,

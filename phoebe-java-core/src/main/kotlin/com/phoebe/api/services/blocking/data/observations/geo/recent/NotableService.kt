@@ -32,7 +32,7 @@ interface NotableService {
      */
     fun list(params: NotableListParams): List<Observation> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: NotableListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -56,7 +56,7 @@ interface NotableService {
         fun list(params: NotableListParams): HttpResponseFor<List<Observation>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: NotableListParams,

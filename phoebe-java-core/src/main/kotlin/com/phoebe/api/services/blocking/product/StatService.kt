@@ -33,18 +33,18 @@ interface StatService {
     fun retrieve(d: Long, params: StatRetrieveParams): StatRetrieveResponse =
         retrieve(d, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         d: Long,
         params: StatRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): StatRetrieveResponse = retrieve(params.toBuilder().d(d).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: StatRetrieveParams): StatRetrieveResponse =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: StatRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -68,7 +68,7 @@ interface StatService {
         fun retrieve(d: Long, params: StatRetrieveParams): HttpResponseFor<StatRetrieveResponse> =
             retrieve(d, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             d: Long,
@@ -77,12 +77,12 @@ interface StatService {
         ): HttpResponseFor<StatRetrieveResponse> =
             retrieve(params.toBuilder().d(d).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(params: StatRetrieveParams): HttpResponseFor<StatRetrieveResponse> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: StatRetrieveParams,

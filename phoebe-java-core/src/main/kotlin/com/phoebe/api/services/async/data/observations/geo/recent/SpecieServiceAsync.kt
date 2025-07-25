@@ -42,7 +42,7 @@ interface SpecieServiceAsync {
     fun list(speciesCode: String, params: SpecieListParams): CompletableFuture<List<Observation>> =
         list(speciesCode, params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         speciesCode: String,
         params: SpecieListParams,
@@ -50,11 +50,11 @@ interface SpecieServiceAsync {
     ): CompletableFuture<List<Observation>> =
         list(params.toBuilder().speciesCode(speciesCode).build(), requestOptions)
 
-    /** @see [list] */
+    /** @see list */
     fun list(params: SpecieListParams): CompletableFuture<List<Observation>> =
         list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: SpecieListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -84,7 +84,7 @@ interface SpecieServiceAsync {
         ): CompletableFuture<HttpResponseFor<List<Observation>>> =
             list(speciesCode, params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             speciesCode: String,
             params: SpecieListParams,
@@ -92,11 +92,11 @@ interface SpecieServiceAsync {
         ): CompletableFuture<HttpResponseFor<List<Observation>>> =
             list(params.toBuilder().speciesCode(speciesCode).build(), requestOptions)
 
-        /** @see [list] */
+        /** @see list */
         fun list(params: SpecieListParams): CompletableFuture<HttpResponseFor<List<Observation>>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: SpecieListParams,
             requestOptions: RequestOptions = RequestOptions.none(),

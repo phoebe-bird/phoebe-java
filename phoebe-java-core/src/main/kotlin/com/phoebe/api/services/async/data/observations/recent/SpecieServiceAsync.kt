@@ -41,7 +41,7 @@ interface SpecieServiceAsync {
         params: SpecieRetrieveParams,
     ): CompletableFuture<List<Observation>> = retrieve(speciesCode, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         speciesCode: String,
         params: SpecieRetrieveParams,
@@ -49,11 +49,11 @@ interface SpecieServiceAsync {
     ): CompletableFuture<List<Observation>> =
         retrieve(params.toBuilder().speciesCode(speciesCode).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: SpecieRetrieveParams): CompletableFuture<List<Observation>> =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: SpecieRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -83,7 +83,7 @@ interface SpecieServiceAsync {
         ): CompletableFuture<HttpResponseFor<List<Observation>>> =
             retrieve(speciesCode, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             speciesCode: String,
             params: SpecieRetrieveParams,
@@ -91,13 +91,13 @@ interface SpecieServiceAsync {
         ): CompletableFuture<HttpResponseFor<List<Observation>>> =
             retrieve(params.toBuilder().speciesCode(speciesCode).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: SpecieRetrieveParams
         ): CompletableFuture<HttpResponseFor<List<Observation>>> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: SpecieRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),

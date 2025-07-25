@@ -34,7 +34,7 @@ interface GeoSpecieServiceAsync {
         params: GeoSpecieListParams,
     ): CompletableFuture<List<Observation>> = list(speciesCode, params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         speciesCode: String,
         params: GeoSpecieListParams,
@@ -42,11 +42,11 @@ interface GeoSpecieServiceAsync {
     ): CompletableFuture<List<Observation>> =
         list(params.toBuilder().speciesCode(speciesCode).build(), requestOptions)
 
-    /** @see [list] */
+    /** @see list */
     fun list(params: GeoSpecieListParams): CompletableFuture<List<Observation>> =
         list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: GeoSpecieListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -76,7 +76,7 @@ interface GeoSpecieServiceAsync {
         ): CompletableFuture<HttpResponseFor<List<Observation>>> =
             list(speciesCode, params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             speciesCode: String,
             params: GeoSpecieListParams,
@@ -84,13 +84,13 @@ interface GeoSpecieServiceAsync {
         ): CompletableFuture<HttpResponseFor<List<Observation>>> =
             list(params.toBuilder().speciesCode(speciesCode).build(), requestOptions)
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: GeoSpecieListParams
         ): CompletableFuture<HttpResponseFor<List<Observation>>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: GeoSpecieListParams,
             requestOptions: RequestOptions = RequestOptions.none(),

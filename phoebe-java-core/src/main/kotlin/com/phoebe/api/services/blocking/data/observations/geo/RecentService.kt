@@ -37,7 +37,7 @@ interface RecentService {
      */
     fun list(params: RecentListParams): List<Observation> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: RecentListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -65,7 +65,7 @@ interface RecentService {
         fun list(params: RecentListParams): HttpResponseFor<List<Observation>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: RecentListParams,

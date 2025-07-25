@@ -34,18 +34,18 @@ interface HistoricServiceAsync {
     fun list(d: Long, params: HistoricListParams): CompletableFuture<List<Observation>> =
         list(d, params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         d: Long,
         params: HistoricListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<List<Observation>> = list(params.toBuilder().d(d).build(), requestOptions)
 
-    /** @see [list] */
+    /** @see list */
     fun list(params: HistoricListParams): CompletableFuture<List<Observation>> =
         list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: HistoricListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -75,7 +75,7 @@ interface HistoricServiceAsync {
         ): CompletableFuture<HttpResponseFor<List<Observation>>> =
             list(d, params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             d: Long,
             params: HistoricListParams,
@@ -83,13 +83,13 @@ interface HistoricServiceAsync {
         ): CompletableFuture<HttpResponseFor<List<Observation>>> =
             list(params.toBuilder().d(d).build(), requestOptions)
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: HistoricListParams
         ): CompletableFuture<HttpResponseFor<List<Observation>>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: HistoricListParams,
             requestOptions: RequestOptions = RequestOptions.none(),

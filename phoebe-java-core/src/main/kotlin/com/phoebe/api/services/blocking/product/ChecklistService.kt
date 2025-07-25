@@ -34,30 +34,30 @@ interface ChecklistService {
      */
     fun view(subId: String): ChecklistViewResponse = view(subId, ChecklistViewParams.none())
 
-    /** @see [view] */
+    /** @see view */
     fun view(
         subId: String,
         params: ChecklistViewParams = ChecklistViewParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ChecklistViewResponse = view(params.toBuilder().subId(subId).build(), requestOptions)
 
-    /** @see [view] */
+    /** @see view */
     fun view(
         subId: String,
         params: ChecklistViewParams = ChecklistViewParams.none(),
     ): ChecklistViewResponse = view(subId, params, RequestOptions.none())
 
-    /** @see [view] */
+    /** @see view */
     fun view(
         params: ChecklistViewParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ChecklistViewResponse
 
-    /** @see [view] */
+    /** @see view */
     fun view(params: ChecklistViewParams): ChecklistViewResponse =
         view(params, RequestOptions.none())
 
-    /** @see [view] */
+    /** @see view */
     fun view(subId: String, requestOptions: RequestOptions): ChecklistViewResponse =
         view(subId, ChecklistViewParams.none(), requestOptions)
 
@@ -79,7 +79,7 @@ interface ChecklistService {
         fun view(subId: String): HttpResponseFor<ChecklistViewResponse> =
             view(subId, ChecklistViewParams.none())
 
-        /** @see [view] */
+        /** @see view */
         @MustBeClosed
         fun view(
             subId: String,
@@ -88,26 +88,26 @@ interface ChecklistService {
         ): HttpResponseFor<ChecklistViewResponse> =
             view(params.toBuilder().subId(subId).build(), requestOptions)
 
-        /** @see [view] */
+        /** @see view */
         @MustBeClosed
         fun view(
             subId: String,
             params: ChecklistViewParams = ChecklistViewParams.none(),
         ): HttpResponseFor<ChecklistViewResponse> = view(subId, params, RequestOptions.none())
 
-        /** @see [view] */
+        /** @see view */
         @MustBeClosed
         fun view(
             params: ChecklistViewParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ChecklistViewResponse>
 
-        /** @see [view] */
+        /** @see view */
         @MustBeClosed
         fun view(params: ChecklistViewParams): HttpResponseFor<ChecklistViewResponse> =
             view(params, RequestOptions.none())
 
-        /** @see [view] */
+        /** @see view */
         @MustBeClosed
         fun view(
             subId: String,

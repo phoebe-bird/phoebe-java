@@ -28,18 +28,18 @@ interface HistoricalService {
     fun retrieve(d: Long, params: HistoricalRetrieveParams): List<HistoricalRetrieveResponse> =
         retrieve(d, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         d: Long,
         params: HistoricalRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): List<HistoricalRetrieveResponse> = retrieve(params.toBuilder().d(d).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: HistoricalRetrieveParams): List<HistoricalRetrieveResponse> =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: HistoricalRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -68,7 +68,7 @@ interface HistoricalService {
         ): HttpResponseFor<List<HistoricalRetrieveResponse>> =
             retrieve(d, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             d: Long,
@@ -77,14 +77,14 @@ interface HistoricalService {
         ): HttpResponseFor<List<HistoricalRetrieveResponse>> =
             retrieve(params.toBuilder().d(d).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: HistoricalRetrieveParams
         ): HttpResponseFor<List<HistoricalRetrieveResponse>> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: HistoricalRetrieveParams,

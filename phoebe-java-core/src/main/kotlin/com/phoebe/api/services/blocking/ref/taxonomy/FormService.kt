@@ -29,27 +29,27 @@ interface FormService {
      */
     fun list(speciesCode: String): List<String> = list(speciesCode, FormListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         speciesCode: String,
         params: FormListParams = FormListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): List<String> = list(params.toBuilder().speciesCode(speciesCode).build(), requestOptions)
 
-    /** @see [list] */
+    /** @see list */
     fun list(speciesCode: String, params: FormListParams = FormListParams.none()): List<String> =
         list(speciesCode, params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: FormListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): List<String>
 
-    /** @see [list] */
+    /** @see list */
     fun list(params: FormListParams): List<String> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(speciesCode: String, requestOptions: RequestOptions): List<String> =
         list(speciesCode, FormListParams.none(), requestOptions)
 
@@ -71,7 +71,7 @@ interface FormService {
         fun list(speciesCode: String): HttpResponseFor<List<String>> =
             list(speciesCode, FormListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             speciesCode: String,
@@ -80,26 +80,26 @@ interface FormService {
         ): HttpResponseFor<List<String>> =
             list(params.toBuilder().speciesCode(speciesCode).build(), requestOptions)
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             speciesCode: String,
             params: FormListParams = FormListParams.none(),
         ): HttpResponseFor<List<String>> = list(speciesCode, params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: FormListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<List<String>>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(params: FormListParams): HttpResponseFor<List<String>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             speciesCode: String,

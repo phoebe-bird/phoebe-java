@@ -34,18 +34,18 @@ interface LocaleServiceAsync {
      */
     fun list(): CompletableFuture<List<LocaleListResponse>> = list(LocaleListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: LocaleListParams = LocaleListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<List<LocaleListResponse>>
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: LocaleListParams = LocaleListParams.none()
     ): CompletableFuture<List<LocaleListResponse>> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): CompletableFuture<List<LocaleListResponse>> =
         list(LocaleListParams.none(), requestOptions)
 
@@ -70,19 +70,19 @@ interface LocaleServiceAsync {
         fun list(): CompletableFuture<HttpResponseFor<List<LocaleListResponse>>> =
             list(LocaleListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: LocaleListParams = LocaleListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<List<LocaleListResponse>>>
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: LocaleListParams = LocaleListParams.none()
         ): CompletableFuture<HttpResponseFor<List<LocaleListResponse>>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<List<LocaleListResponse>>> =

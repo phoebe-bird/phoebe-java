@@ -34,7 +34,7 @@ interface HotspotServiceAsync {
     fun list(regionCode: String): CompletableFuture<List<HotspotListResponse>> =
         list(regionCode, HotspotListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         regionCode: String,
         params: HotspotListParams = HotspotListParams.none(),
@@ -42,24 +42,24 @@ interface HotspotServiceAsync {
     ): CompletableFuture<List<HotspotListResponse>> =
         list(params.toBuilder().regionCode(regionCode).build(), requestOptions)
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         regionCode: String,
         params: HotspotListParams = HotspotListParams.none(),
     ): CompletableFuture<List<HotspotListResponse>> =
         list(regionCode, params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: HotspotListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<List<HotspotListResponse>>
 
-    /** @see [list] */
+    /** @see list */
     fun list(params: HotspotListParams): CompletableFuture<List<HotspotListResponse>> =
         list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         regionCode: String,
         requestOptions: RequestOptions,
@@ -93,7 +93,7 @@ interface HotspotServiceAsync {
         ): CompletableFuture<HttpResponseFor<List<HotspotListResponse>>> =
             list(regionCode, HotspotListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             regionCode: String,
             params: HotspotListParams = HotspotListParams.none(),
@@ -101,26 +101,26 @@ interface HotspotServiceAsync {
         ): CompletableFuture<HttpResponseFor<List<HotspotListResponse>>> =
             list(params.toBuilder().regionCode(regionCode).build(), requestOptions)
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             regionCode: String,
             params: HotspotListParams = HotspotListParams.none(),
         ): CompletableFuture<HttpResponseFor<List<HotspotListResponse>>> =
             list(regionCode, params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: HotspotListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<List<HotspotListResponse>>>
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: HotspotListParams
         ): CompletableFuture<HttpResponseFor<List<HotspotListResponse>>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             regionCode: String,
             requestOptions: RequestOptions,

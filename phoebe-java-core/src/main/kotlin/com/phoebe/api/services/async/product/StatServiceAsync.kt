@@ -33,7 +33,7 @@ interface StatServiceAsync {
     fun retrieve(d: Long, params: StatRetrieveParams): CompletableFuture<StatRetrieveResponse> =
         retrieve(d, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         d: Long,
         params: StatRetrieveParams,
@@ -41,11 +41,11 @@ interface StatServiceAsync {
     ): CompletableFuture<StatRetrieveResponse> =
         retrieve(params.toBuilder().d(d).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: StatRetrieveParams): CompletableFuture<StatRetrieveResponse> =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: StatRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -71,7 +71,7 @@ interface StatServiceAsync {
         ): CompletableFuture<HttpResponseFor<StatRetrieveResponse>> =
             retrieve(d, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             d: Long,
             params: StatRetrieveParams,
@@ -79,13 +79,13 @@ interface StatServiceAsync {
         ): CompletableFuture<HttpResponseFor<StatRetrieveResponse>> =
             retrieve(params.toBuilder().d(d).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: StatRetrieveParams
         ): CompletableFuture<HttpResponseFor<StatRetrieveResponse>> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: StatRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
