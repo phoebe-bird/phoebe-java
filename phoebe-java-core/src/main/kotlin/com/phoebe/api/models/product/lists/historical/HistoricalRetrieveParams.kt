@@ -388,7 +388,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is SortKey && value == other.value /* spotless:on */
+            return other is SortKey && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -401,10 +401,28 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is HistoricalRetrieveParams && regionCode == other.regionCode && y == other.y && m == other.m && d == other.d && maxResults == other.maxResults && sortKey == other.sortKey && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is HistoricalRetrieveParams &&
+            regionCode == other.regionCode &&
+            y == other.y &&
+            m == other.m &&
+            d == other.d &&
+            maxResults == other.maxResults &&
+            sortKey == other.sortKey &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(regionCode, y, m, d, maxResults, sortKey, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            regionCode,
+            y,
+            m,
+            d,
+            maxResults,
+            sortKey,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "HistoricalRetrieveParams{regionCode=$regionCode, y=$y, m=$m, d=$d, maxResults=$maxResults, sortKey=$sortKey, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

@@ -180,10 +180,13 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InfoRetrieveParams && locId == other.locId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is InfoRetrieveParams &&
+            locId == other.locId &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(locId, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = Objects.hash(locId, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "InfoRetrieveParams{locId=$locId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

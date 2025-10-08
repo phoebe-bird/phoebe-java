@@ -377,7 +377,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Fmt && value == other.value /* spotless:on */
+            return other is Fmt && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -390,10 +390,18 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is GeoRetrieveParams && lat == other.lat && lng == other.lng && back == other.back && dist == other.dist && fmt == other.fmt && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is GeoRetrieveParams &&
+            lat == other.lat &&
+            lng == other.lng &&
+            back == other.back &&
+            dist == other.dist &&
+            fmt == other.fmt &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(lat, lng, back, dist, fmt, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(lat, lng, back, dist, fmt, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "GeoRetrieveParams{lat=$lat, lng=$lng, back=$back, dist=$dist, fmt=$fmt, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

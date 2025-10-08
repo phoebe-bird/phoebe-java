@@ -19,6 +19,7 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 class SpeciesGroupListResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val groupName: JsonField<String>,
     private val groupOrder: JsonField<Long>,
@@ -229,12 +230,16 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is SpeciesGroupListResponse && groupName == other.groupName && groupOrder == other.groupOrder && taxonOrderBounds == other.taxonOrderBounds && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is SpeciesGroupListResponse &&
+            groupName == other.groupName &&
+            groupOrder == other.groupOrder &&
+            taxonOrderBounds == other.taxonOrderBounds &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(groupName, groupOrder, taxonOrderBounds, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(groupName, groupOrder, taxonOrderBounds, additionalProperties)
+    }
 
     override fun hashCode(): Int = hashCode
 

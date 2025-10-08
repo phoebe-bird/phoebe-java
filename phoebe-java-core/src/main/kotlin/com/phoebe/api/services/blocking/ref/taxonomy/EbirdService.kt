@@ -27,7 +27,7 @@ interface EbirdService {
     /**
      * Get the taxonomy used by eBird. #### Notes Each entry in the taxonomy contains a species code
      * for example, barswa for Barn Swallow. You can download the taxonomy for selected species
-     * using the _species_ query parameter with a comma separating each code. Otherwise the full
+     * using the *species* query parameter with a comma separating each code. Otherwise the full
      * taxonomy is downloaded.
      */
     fun retrieve(): List<EbirdRetrieveResponse> = retrieve(EbirdRetrieveParams.none())

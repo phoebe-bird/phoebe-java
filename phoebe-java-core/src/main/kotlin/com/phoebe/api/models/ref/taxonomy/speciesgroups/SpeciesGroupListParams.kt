@@ -337,7 +337,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is SpeciesGrouping && value == other.value /* spotless:on */
+            return other is SpeciesGrouping && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -350,10 +350,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is SpeciesGroupListParams && speciesGrouping == other.speciesGrouping && groupNameLocale == other.groupNameLocale && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is SpeciesGroupListParams &&
+            speciesGrouping == other.speciesGrouping &&
+            groupNameLocale == other.groupNameLocale &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(speciesGrouping, groupNameLocale, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(speciesGrouping, groupNameLocale, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "SpeciesGroupListParams{speciesGrouping=$speciesGrouping, groupNameLocale=$groupNameLocale, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

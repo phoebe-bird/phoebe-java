@@ -16,6 +16,7 @@ import java.util.Objects
 import java.util.Optional
 
 class InfoRetrieveResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val countryCode: JsonField<String>,
     private val countryName: JsonField<String>,
@@ -553,12 +554,41 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InfoRetrieveResponse && countryCode == other.countryCode && countryName == other.countryName && hierarchicalName == other.hierarchicalName && isHotspot == other.isHotspot && lat == other.lat && latitude == other.latitude && lng == other.lng && locId == other.locId && locName == other.locName && longitude == other.longitude && name == other.name && subnational1Code == other.subnational1Code && subnational1Name == other.subnational1Name && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is InfoRetrieveResponse &&
+            countryCode == other.countryCode &&
+            countryName == other.countryName &&
+            hierarchicalName == other.hierarchicalName &&
+            isHotspot == other.isHotspot &&
+            lat == other.lat &&
+            latitude == other.latitude &&
+            lng == other.lng &&
+            locId == other.locId &&
+            locName == other.locName &&
+            longitude == other.longitude &&
+            name == other.name &&
+            subnational1Code == other.subnational1Code &&
+            subnational1Name == other.subnational1Name &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(countryCode, countryName, hierarchicalName, isHotspot, lat, latitude, lng, locId, locName, longitude, name, subnational1Code, subnational1Name, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            countryCode,
+            countryName,
+            hierarchicalName,
+            isHotspot,
+            lat,
+            latitude,
+            lng,
+            locId,
+            locName,
+            longitude,
+            name,
+            subnational1Code,
+            subnational1Name,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

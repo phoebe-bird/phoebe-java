@@ -207,6 +207,8 @@ The SDK throws custom unchecked exception types:
 
 - [`PhoebeIoException`](phoebe-java-core/src/main/kotlin/com/phoebe/api/errors/PhoebeIoException.kt): I/O networking errors.
 
+- [`PhoebeRetryableException`](phoebe-java-core/src/main/kotlin/com/phoebe/api/errors/PhoebeRetryableException.kt): Generic error indicating a failure that could be retried by the client.
+
 - [`PhoebeInvalidDataException`](phoebe-java-core/src/main/kotlin/com/phoebe/api/errors/PhoebeInvalidDataException.kt): Failure to interpret successfully parsed data. For example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it from the response.
 
 - [`PhoebeException`](phoebe-java-core/src/main/kotlin/com/phoebe/api/errors/PhoebeException.kt): Base class for all exceptions. Most errors will result in one of the previously mentioned ones, but completely generic errors may be thrown using the base class.
@@ -226,6 +228,12 @@ Or to `debug` for more verbose logging:
 ```sh
 $ export PHOEBE_LOG=debug
 ```
+
+## ProGuard and R8
+
+Although the SDK uses reflection, it is still usable with [ProGuard](https://github.com/Guardsquare/proguard) and [R8](https://developer.android.com/topic/performance/app-optimization/enable-app-optimization) because `phoebe-java-core` is published with a [configuration file](phoebe-java-core/src/main/resources/META-INF/proguard/phoebe-java-core.pro) containing [keep rules](https://www.guardsquare.com/manual/configuration/usage).
+
+ProGuard and R8 should automatically detect and use the published rules, but you can also manually copy the keep rules if necessary.
 
 ## Jackson
 

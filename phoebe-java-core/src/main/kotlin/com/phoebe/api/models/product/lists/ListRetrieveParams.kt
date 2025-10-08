@@ -206,10 +206,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ListRetrieveParams && regionCode == other.regionCode && maxResults == other.maxResults && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is ListRetrieveParams &&
+            regionCode == other.regionCode &&
+            maxResults == other.maxResults &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(regionCode, maxResults, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(regionCode, maxResults, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "ListRetrieveParams{regionCode=$regionCode, maxResults=$maxResults, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

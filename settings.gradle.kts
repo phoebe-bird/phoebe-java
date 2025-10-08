@@ -1,6 +1,14 @@
 rootProject.name = "phoebe-java-root"
 
-include("phoebe-java")
-include("phoebe-java-client-okhttp")
-include("phoebe-java-core")
-include("phoebe-java-example")
+val projectNames = rootDir.listFiles()
+    ?.asSequence()
+    .orEmpty()
+    .filter { file ->
+        file.isDirectory &&
+        file.name.startsWith("phoebe-java") &&
+        file.listFiles()?.asSequence().orEmpty().any { it.name == "build.gradle.kts" }
+    }
+    .map { it.name }
+    .toList()
+println("projects: $projectNames")
+projectNames.forEach { include(it) }

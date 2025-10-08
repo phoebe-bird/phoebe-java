@@ -21,7 +21,6 @@ import kotlin.jvm.optionals.getOrNull
  * | speciesCode | The eBird species code. |
  *
  * #### Notes
- *
  * The species code is typically a 6-letter code, e.g. horlar for Horned Lark. You can get complete
  * set of species code from the GET eBird Taxonomy end-point.
  */
@@ -357,10 +356,34 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is SpecieListParams && speciesCode == other.speciesCode && lat == other.lat && lng == other.lng && back == other.back && dist == other.dist && hotspot == other.hotspot && includeProvisional == other.includeProvisional && maxResults == other.maxResults && sppLocale == other.sppLocale && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is SpecieListParams &&
+            speciesCode == other.speciesCode &&
+            lat == other.lat &&
+            lng == other.lng &&
+            back == other.back &&
+            dist == other.dist &&
+            hotspot == other.hotspot &&
+            includeProvisional == other.includeProvisional &&
+            maxResults == other.maxResults &&
+            sppLocale == other.sppLocale &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(speciesCode, lat, lng, back, dist, hotspot, includeProvisional, maxResults, sppLocale, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            speciesCode,
+            lat,
+            lng,
+            back,
+            dist,
+            hotspot,
+            includeProvisional,
+            maxResults,
+            sppLocale,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "SpecieListParams{speciesCode=$speciesCode, lat=$lat, lng=$lng, back=$back, dist=$dist, hotspot=$hotspot, includeProvisional=$includeProvisional, maxResults=$maxResults, sppLocale=$sppLocale, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

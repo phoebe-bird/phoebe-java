@@ -21,7 +21,7 @@ import kotlin.jvm.optionals.getOrNull
  * The species code is typically a 6-letter code, e.g. cangoo for Canada Goose. You can get complete
  * set of species code from the GET eBird Taxonomy end-point.
  *
- * When using the _r_ query parameter set the _regionCode_ URL parameter to an empty string.
+ * When using the *r* query parameter set the *regionCode* URL parameter to an empty string.
  */
 class SpecieRetrieveParams
 private constructor(
@@ -344,10 +344,32 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is SpecieRetrieveParams && regionCode == other.regionCode && speciesCode == other.speciesCode && back == other.back && hotspot == other.hotspot && includeProvisional == other.includeProvisional && maxResults == other.maxResults && r == other.r && sppLocale == other.sppLocale && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is SpecieRetrieveParams &&
+            regionCode == other.regionCode &&
+            speciesCode == other.speciesCode &&
+            back == other.back &&
+            hotspot == other.hotspot &&
+            includeProvisional == other.includeProvisional &&
+            maxResults == other.maxResults &&
+            r == other.r &&
+            sppLocale == other.sppLocale &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(regionCode, speciesCode, back, hotspot, includeProvisional, maxResults, r, sppLocale, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            regionCode,
+            speciesCode,
+            back,
+            hotspot,
+            includeProvisional,
+            maxResults,
+            r,
+            sppLocale,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "SpecieRetrieveParams{regionCode=$regionCode, speciesCode=$speciesCode, back=$back, hotspot=$hotspot, includeProvisional=$includeProvisional, maxResults=$maxResults, r=$r, sppLocale=$sppLocale, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

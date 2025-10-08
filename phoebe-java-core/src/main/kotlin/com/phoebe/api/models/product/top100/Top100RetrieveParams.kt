@@ -404,7 +404,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is RankedBy && value == other.value /* spotless:on */
+            return other is RankedBy && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -417,10 +417,28 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Top100RetrieveParams && regionCode == other.regionCode && y == other.y && m == other.m && d == other.d && maxResults == other.maxResults && rankedBy == other.rankedBy && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is Top100RetrieveParams &&
+            regionCode == other.regionCode &&
+            y == other.y &&
+            m == other.m &&
+            d == other.d &&
+            maxResults == other.maxResults &&
+            rankedBy == other.rankedBy &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(regionCode, y, m, d, maxResults, rankedBy, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            regionCode,
+            y,
+            m,
+            d,
+            maxResults,
+            rankedBy,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "Top100RetrieveParams{regionCode=$regionCode, y=$y, m=$m, d=$d, maxResults=$maxResults, rankedBy=$rankedBy, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
