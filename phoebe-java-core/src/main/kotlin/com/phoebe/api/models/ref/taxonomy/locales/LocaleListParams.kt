@@ -188,10 +188,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is LocaleListParams && acceptLanguage == other.acceptLanguage && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is LocaleListParams &&
+            acceptLanguage == other.acceptLanguage &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(acceptLanguage, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(acceptLanguage, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "LocaleListParams{acceptLanguage=$acceptLanguage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

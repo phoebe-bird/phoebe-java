@@ -482,7 +482,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Cat && value == other.value /* spotless:on */
+            return other is Cat && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -495,10 +495,32 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is RecentListParams && regionCode == other.regionCode && back == other.back && cat == other.cat && hotspot == other.hotspot && includeProvisional == other.includeProvisional && maxResults == other.maxResults && r == other.r && sppLocale == other.sppLocale && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is RecentListParams &&
+            regionCode == other.regionCode &&
+            back == other.back &&
+            cat == other.cat &&
+            hotspot == other.hotspot &&
+            includeProvisional == other.includeProvisional &&
+            maxResults == other.maxResults &&
+            r == other.r &&
+            sppLocale == other.sppLocale &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(regionCode, back, cat, hotspot, includeProvisional, maxResults, r, sppLocale, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            regionCode,
+            back,
+            cat,
+            hotspot,
+            includeProvisional,
+            maxResults,
+            r,
+            sppLocale,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "RecentListParams{regionCode=$regionCode, back=$back, cat=$cat, hotspot=$hotspot, includeProvisional=$includeProvisional, maxResults=$maxResults, r=$r, sppLocale=$sppLocale, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

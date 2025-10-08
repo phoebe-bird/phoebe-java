@@ -179,10 +179,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is FormListParams && speciesCode == other.speciesCode && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is FormListParams &&
+            speciesCode == other.speciesCode &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(speciesCode, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(speciesCode, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "FormListParams{speciesCode=$speciesCode, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

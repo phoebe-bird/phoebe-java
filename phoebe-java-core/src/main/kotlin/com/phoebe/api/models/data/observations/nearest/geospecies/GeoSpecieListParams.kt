@@ -347,10 +347,34 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is GeoSpecieListParams && speciesCode == other.speciesCode && lat == other.lat && lng == other.lng && back == other.back && dist == other.dist && hotspot == other.hotspot && includeProvisional == other.includeProvisional && maxResults == other.maxResults && sppLocale == other.sppLocale && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is GeoSpecieListParams &&
+            speciesCode == other.speciesCode &&
+            lat == other.lat &&
+            lng == other.lng &&
+            back == other.back &&
+            dist == other.dist &&
+            hotspot == other.hotspot &&
+            includeProvisional == other.includeProvisional &&
+            maxResults == other.maxResults &&
+            sppLocale == other.sppLocale &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(speciesCode, lat, lng, back, dist, hotspot, includeProvisional, maxResults, sppLocale, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            speciesCode,
+            lat,
+            lng,
+            back,
+            dist,
+            hotspot,
+            includeProvisional,
+            maxResults,
+            sppLocale,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "GeoSpecieListParams{speciesCode=$speciesCode, lat=$lat, lng=$lng, back=$back, dist=$dist, hotspot=$hotspot, includeProvisional=$includeProvisional, maxResults=$maxResults, sppLocale=$sppLocale, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

@@ -420,7 +420,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Detail && value == other.value /* spotless:on */
+            return other is Detail && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -433,10 +433,30 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is NotableListParams && regionCode == other.regionCode && back == other.back && detail == other.detail && hotspot == other.hotspot && maxResults == other.maxResults && r == other.r && sppLocale == other.sppLocale && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is NotableListParams &&
+            regionCode == other.regionCode &&
+            back == other.back &&
+            detail == other.detail &&
+            hotspot == other.hotspot &&
+            maxResults == other.maxResults &&
+            r == other.r &&
+            sppLocale == other.sppLocale &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(regionCode, back, detail, hotspot, maxResults, r, sppLocale, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            regionCode,
+            back,
+            detail,
+            hotspot,
+            maxResults,
+            r,
+            sppLocale,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "NotableListParams{regionCode=$regionCode, back=$back, detail=$detail, hotspot=$hotspot, maxResults=$maxResults, r=$r, sppLocale=$sppLocale, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

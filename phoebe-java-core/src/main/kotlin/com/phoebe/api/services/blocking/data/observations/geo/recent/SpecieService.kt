@@ -35,7 +35,6 @@ interface SpecieService {
      * | speciesCode | The eBird species code. |
      *
      * #### Notes
-     *
      * The species code is typically a 6-letter code, e.g. horlar for Horned Lark. You can get
      * complete set of species code from the GET eBird Taxonomy end-point.
      */

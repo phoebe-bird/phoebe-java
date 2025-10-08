@@ -48,7 +48,7 @@ class PhoebeClientImpl(private val clientOptions: ClientOptions) : PhoebeClient 
 
     override fun ref(): RefService = ref
 
-    override fun close() = clientOptions.httpClient.close()
+    override fun close() = clientOptions.close()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         PhoebeClient.WithRawResponse {

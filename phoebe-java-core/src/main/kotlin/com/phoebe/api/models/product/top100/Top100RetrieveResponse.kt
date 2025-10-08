@@ -16,6 +16,7 @@ import java.util.Objects
 import java.util.Optional
 
 class Top100RetrieveResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val numCompleteChecklists: JsonField<Int>,
     private val numSpecies: JsonField<Int>,
@@ -326,12 +327,27 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Top100RetrieveResponse && numCompleteChecklists == other.numCompleteChecklists && numSpecies == other.numSpecies && profileHandle == other.profileHandle && rowNum == other.rowNum && userDisplayName == other.userDisplayName && userId == other.userId && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is Top100RetrieveResponse &&
+            numCompleteChecklists == other.numCompleteChecklists &&
+            numSpecies == other.numSpecies &&
+            profileHandle == other.profileHandle &&
+            rowNum == other.rowNum &&
+            userDisplayName == other.userDisplayName &&
+            userId == other.userId &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(numCompleteChecklists, numSpecies, profileHandle, rowNum, userDisplayName, userId, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            numCompleteChecklists,
+            numSpecies,
+            profileHandle,
+            rowNum,
+            userDisplayName,
+            userId,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

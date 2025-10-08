@@ -34,7 +34,7 @@ interface SpecieService {
      * The species code is typically a 6-letter code, e.g. cangoo for Canada Goose. You can get
      * complete set of species code from the GET eBird Taxonomy end-point.
      *
-     * When using the _r_ query parameter set the _regionCode_ URL parameter to an empty string.
+     * When using the *r* query parameter set the *regionCode* URL parameter to an empty string.
      */
     fun retrieve(speciesCode: String, params: SpecieRetrieveParams): List<Observation> =
         retrieve(speciesCode, params, RequestOptions.none())

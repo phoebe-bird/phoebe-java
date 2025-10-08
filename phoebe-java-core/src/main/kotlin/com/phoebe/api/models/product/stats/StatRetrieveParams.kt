@@ -236,10 +236,17 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is StatRetrieveParams && regionCode == other.regionCode && y == other.y && m == other.m && d == other.d && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is StatRetrieveParams &&
+            regionCode == other.regionCode &&
+            y == other.y &&
+            m == other.m &&
+            d == other.d &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(regionCode, y, m, d, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(regionCode, y, m, d, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "StatRetrieveParams{regionCode=$regionCode, y=$y, m=$m, d=$d, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

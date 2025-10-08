@@ -19,6 +19,7 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 class HistoricalRetrieveResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val allObsReported: JsonField<Boolean>,
     private val checklistId: JsonField<String>,
@@ -813,6 +814,7 @@ private constructor(
             (if (userDisplayName.asKnown().isPresent) 1 else 0)
 
     class Loc
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val countryCode: JsonField<String>,
         private val countryName: JsonField<String>,
@@ -1371,12 +1373,41 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Loc && countryCode == other.countryCode && countryName == other.countryName && hierarchicalName == other.hierarchicalName && isHotspot == other.isHotspot && lat == other.lat && latitude == other.latitude && lng == other.lng && locId == other.locId && locName == other.locName && longitude == other.longitude && name == other.name && subnational1Code == other.subnational1Code && subnational1Name == other.subnational1Name && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Loc &&
+                countryCode == other.countryCode &&
+                countryName == other.countryName &&
+                hierarchicalName == other.hierarchicalName &&
+                isHotspot == other.isHotspot &&
+                lat == other.lat &&
+                latitude == other.latitude &&
+                lng == other.lng &&
+                locId == other.locId &&
+                locName == other.locName &&
+                longitude == other.longitude &&
+                name == other.name &&
+                subnational1Code == other.subnational1Code &&
+                subnational1Name == other.subnational1Name &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(countryCode, countryName, hierarchicalName, isHotspot, lat, latitude, lng, locId, locName, longitude, name, subnational1Code, subnational1Name, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                countryCode,
+                countryName,
+                hierarchicalName,
+                isHotspot,
+                lat,
+                latitude,
+                lng,
+                locId,
+                locName,
+                longitude,
+                name,
+                subnational1Code,
+                subnational1Name,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1385,6 +1416,7 @@ private constructor(
     }
 
     class Ob
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val obsAux: JsonField<List<ObsAux>>,
         private val obsDt: JsonField<String>,
@@ -1625,6 +1657,7 @@ private constructor(
                 (if (speciesCode.asKnown().isPresent) 1 else 0)
 
         class ObsAux
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val auxCode: JsonField<String>,
             private val entryMethodCode: JsonField<String>,
@@ -1974,12 +2007,29 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is ObsAux && auxCode == other.auxCode && entryMethodCode == other.entryMethodCode && fieldName == other.fieldName && obsId == other.obsId && speciesCode == other.speciesCode && subId == other.subId && value == other.value && additionalProperties == other.additionalProperties /* spotless:on */
+                return other is ObsAux &&
+                    auxCode == other.auxCode &&
+                    entryMethodCode == other.entryMethodCode &&
+                    fieldName == other.fieldName &&
+                    obsId == other.obsId &&
+                    speciesCode == other.speciesCode &&
+                    subId == other.subId &&
+                    value == other.value &&
+                    additionalProperties == other.additionalProperties
             }
 
-            /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(auxCode, entryMethodCode, fieldName, obsId, speciesCode, subId, value, additionalProperties) }
-            /* spotless:on */
+            private val hashCode: Int by lazy {
+                Objects.hash(
+                    auxCode,
+                    entryMethodCode,
+                    fieldName,
+                    obsId,
+                    speciesCode,
+                    subId,
+                    value,
+                    additionalProperties,
+                )
+            }
 
             override fun hashCode(): Int = hashCode
 
@@ -1992,12 +2042,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Ob && obsAux == other.obsAux && obsDt == other.obsDt && obsId == other.obsId && speciesCode == other.speciesCode && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Ob &&
+                obsAux == other.obsAux &&
+                obsDt == other.obsDt &&
+                obsId == other.obsId &&
+                speciesCode == other.speciesCode &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(obsAux, obsDt, obsId, speciesCode, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(obsAux, obsDt, obsId, speciesCode, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -2010,12 +2065,55 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is HistoricalRetrieveResponse && allObsReported == other.allObsReported && checklistId == other.checklistId && creationDt == other.creationDt && durationHrs == other.durationHrs && isoObsDate == other.isoObsDate && lastEditedDt == other.lastEditedDt && loc == other.loc && locId == other.locId && numObservers == other.numObservers && numSpecies == other.numSpecies && obs == other.obs && obsDt == other.obsDt && obsTime == other.obsTime && obsTimeValid == other.obsTimeValid && projId == other.projId && protocolId == other.protocolId && subId == other.subId && submissionMethodCode == other.submissionMethodCode && subnational1Code == other.subnational1Code && userDisplayName == other.userDisplayName && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is HistoricalRetrieveResponse &&
+            allObsReported == other.allObsReported &&
+            checklistId == other.checklistId &&
+            creationDt == other.creationDt &&
+            durationHrs == other.durationHrs &&
+            isoObsDate == other.isoObsDate &&
+            lastEditedDt == other.lastEditedDt &&
+            loc == other.loc &&
+            locId == other.locId &&
+            numObservers == other.numObservers &&
+            numSpecies == other.numSpecies &&
+            obs == other.obs &&
+            obsDt == other.obsDt &&
+            obsTime == other.obsTime &&
+            obsTimeValid == other.obsTimeValid &&
+            projId == other.projId &&
+            protocolId == other.protocolId &&
+            subId == other.subId &&
+            submissionMethodCode == other.submissionMethodCode &&
+            subnational1Code == other.subnational1Code &&
+            userDisplayName == other.userDisplayName &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(allObsReported, checklistId, creationDt, durationHrs, isoObsDate, lastEditedDt, loc, locId, numObservers, numSpecies, obs, obsDt, obsTime, obsTimeValid, projId, protocolId, subId, submissionMethodCode, subnational1Code, userDisplayName, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            allObsReported,
+            checklistId,
+            creationDt,
+            durationHrs,
+            isoObsDate,
+            lastEditedDt,
+            loc,
+            locId,
+            numObservers,
+            numSpecies,
+            obs,
+            obsDt,
+            obsTime,
+            obsTimeValid,
+            projId,
+            protocolId,
+            subId,
+            submissionMethodCode,
+            subnational1Code,
+            userDisplayName,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

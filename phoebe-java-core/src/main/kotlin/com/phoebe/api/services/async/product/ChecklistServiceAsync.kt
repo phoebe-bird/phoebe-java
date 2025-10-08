@@ -29,8 +29,8 @@ interface ChecklistServiceAsync {
      *
      * #### Notes Do NOT use this to download large amounts of data. You will be banned if you do.
      * In the fields for each observation, the following fields are duplicates or obsolete and will
-     * be removed at a future date: _howManyAtleast_, _howManyAtmost_, _hideFlags_, _projId_,
-     * _subId_, _subnational1Code_ and _present_.
+     * be removed at a future date: *howManyAtleast*, *howManyAtmost*, *hideFlags*, *projId*,
+     * *subId*, *subnational1Code* and *present*.
      */
     fun view(subId: String): CompletableFuture<ChecklistViewResponse> =
         view(subId, ChecklistViewParams.none())

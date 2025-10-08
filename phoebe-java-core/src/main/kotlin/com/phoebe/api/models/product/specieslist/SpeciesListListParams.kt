@@ -185,10 +185,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is SpeciesListListParams && regionCode == other.regionCode && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is SpeciesListListParams &&
+            regionCode == other.regionCode &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(regionCode, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(regionCode, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "SpeciesListListParams{regionCode=$regionCode, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

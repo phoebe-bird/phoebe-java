@@ -377,7 +377,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is RegionNameFormat && value == other.value /* spotless:on */
+            return other is RegionNameFormat && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -390,10 +390,16 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InfoRetrieveParams && regionCode == other.regionCode && delim == other.delim && regionNameFormat == other.regionNameFormat && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is InfoRetrieveParams &&
+            regionCode == other.regionCode &&
+            delim == other.delim &&
+            regionNameFormat == other.regionNameFormat &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(regionCode, delim, regionNameFormat, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(regionCode, delim, regionNameFormat, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "InfoRetrieveParams{regionCode=$regionCode, delim=$delim, regionNameFormat=$regionNameFormat, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

@@ -14,8 +14,8 @@ import kotlin.jvm.optionals.getOrNull
  *
  * #### Notes Do NOT use this to download large amounts of data. You will be banned if you do. In
  * the fields for each observation, the following fields are duplicates or obsolete and will be
- * removed at a future date: _howManyAtleast_, _howManyAtmost_, _hideFlags_, _projId_, _subId_,
- * _subnational1Code_ and _present_.
+ * removed at a future date: *howManyAtleast*, *howManyAtmost*, *hideFlags*, *projId*, *subId*,
+ * *subnational1Code* and *present*.
  */
 class ChecklistViewParams
 private constructor(
@@ -183,10 +183,13 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ChecklistViewParams && subId == other.subId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is ChecklistViewParams &&
+            subId == other.subId &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(subId, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = Objects.hash(subId, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "ChecklistViewParams{subId=$subId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

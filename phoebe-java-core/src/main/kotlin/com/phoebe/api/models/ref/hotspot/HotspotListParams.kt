@@ -337,7 +337,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Fmt && value == other.value /* spotless:on */
+            return other is Fmt && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -350,10 +350,16 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is HotspotListParams && regionCode == other.regionCode && back == other.back && fmt == other.fmt && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is HotspotListParams &&
+            regionCode == other.regionCode &&
+            back == other.back &&
+            fmt == other.fmt &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(regionCode, back, fmt, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(regionCode, back, fmt, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "HotspotListParams{regionCode=$regionCode, back=$back, fmt=$fmt, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

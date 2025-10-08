@@ -16,6 +16,7 @@ import java.util.Objects
 import java.util.Optional
 
 class HotspotListResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val countryCode: JsonField<String>,
     private val lat: JsonField<Double>,
@@ -427,12 +428,33 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is HotspotListResponse && countryCode == other.countryCode && lat == other.lat && latestObsDt == other.latestObsDt && lng == other.lng && locId == other.locId && locName == other.locName && numSpeciesAllTime == other.numSpeciesAllTime && subnational1Code == other.subnational1Code && subnational2Code == other.subnational2Code && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is HotspotListResponse &&
+            countryCode == other.countryCode &&
+            lat == other.lat &&
+            latestObsDt == other.latestObsDt &&
+            lng == other.lng &&
+            locId == other.locId &&
+            locName == other.locName &&
+            numSpeciesAllTime == other.numSpeciesAllTime &&
+            subnational1Code == other.subnational1Code &&
+            subnational2Code == other.subnational2Code &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(countryCode, lat, latestObsDt, lng, locId, locName, numSpeciesAllTime, subnational1Code, subnational2Code, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            countryCode,
+            lat,
+            latestObsDt,
+            lng,
+            locId,
+            locName,
+            numSpeciesAllTime,
+            subnational1Code,
+            subnational2Code,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

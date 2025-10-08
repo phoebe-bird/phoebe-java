@@ -511,7 +511,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Cat && value == other.value /* spotless:on */
+            return other is Cat && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -637,7 +637,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Sort && value == other.value /* spotless:on */
+            return other is Sort && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -650,10 +650,36 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is RecentListParams && lat == other.lat && lng == other.lng && back == other.back && cat == other.cat && dist == other.dist && hotspot == other.hotspot && includeProvisional == other.includeProvisional && maxResults == other.maxResults && sort == other.sort && sppLocale == other.sppLocale && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is RecentListParams &&
+            lat == other.lat &&
+            lng == other.lng &&
+            back == other.back &&
+            cat == other.cat &&
+            dist == other.dist &&
+            hotspot == other.hotspot &&
+            includeProvisional == other.includeProvisional &&
+            maxResults == other.maxResults &&
+            sort == other.sort &&
+            sppLocale == other.sppLocale &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(lat, lng, back, cat, dist, hotspot, includeProvisional, maxResults, sort, sppLocale, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            lat,
+            lng,
+            back,
+            cat,
+            dist,
+            hotspot,
+            includeProvisional,
+            maxResults,
+            sort,
+            sppLocale,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "RecentListParams{lat=$lat, lng=$lng, back=$back, cat=$cat, dist=$dist, hotspot=$hotspot, includeProvisional=$includeProvisional, maxResults=$maxResults, sort=$sort, sppLocale=$sppLocale, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

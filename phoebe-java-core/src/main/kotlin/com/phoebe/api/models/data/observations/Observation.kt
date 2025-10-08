@@ -16,6 +16,7 @@ import java.util.Objects
 import java.util.Optional
 
 class Observation
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<Long>,
     private val comName: JsonField<String>,
@@ -629,12 +630,47 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Observation && id == other.id && comName == other.comName && firstname == other.firstname && howMany == other.howMany && lastname == other.lastname && lat == other.lat && lng == other.lng && locationPrivate == other.locationPrivate && locId == other.locId && locName == other.locName && obsDt == other.obsDt && obsReviewed == other.obsReviewed && obsValid == other.obsValid && sciName == other.sciName && speciesCode == other.speciesCode && subId == other.subId && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is Observation &&
+            id == other.id &&
+            comName == other.comName &&
+            firstname == other.firstname &&
+            howMany == other.howMany &&
+            lastname == other.lastname &&
+            lat == other.lat &&
+            lng == other.lng &&
+            locationPrivate == other.locationPrivate &&
+            locId == other.locId &&
+            locName == other.locName &&
+            obsDt == other.obsDt &&
+            obsReviewed == other.obsReviewed &&
+            obsValid == other.obsValid &&
+            sciName == other.sciName &&
+            speciesCode == other.speciesCode &&
+            subId == other.subId &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, comName, firstname, howMany, lastname, lat, lng, locationPrivate, locId, locName, obsDt, obsReviewed, obsValid, sciName, speciesCode, subId, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            comName,
+            firstname,
+            howMany,
+            lastname,
+            lat,
+            lng,
+            locationPrivate,
+            locId,
+            locName,
+            obsDt,
+            obsReviewed,
+            obsValid,
+            sciName,
+            speciesCode,
+            subId,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 
