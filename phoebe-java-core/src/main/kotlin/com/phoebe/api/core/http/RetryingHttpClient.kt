@@ -1,3 +1,5 @@
+// File generated from our OpenAPI spec by Stainless.
+
 package com.phoebe.api.core.http
 
 import com.phoebe.api.core.DefaultSleeper
