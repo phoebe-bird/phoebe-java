@@ -25,6 +25,10 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * With the ref/hotspot end-points you can find the hotspots for a given country or region or nearby
+ * hotspots
+ */
 class HotspotServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     HotspotServiceAsync {
 
@@ -41,8 +45,16 @@ class HotspotServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): HotspotServiceAsync =
         HotspotServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /**
+     * With the ref/hotspot end-points you can find the hotspots for a given country or region or
+     * nearby hotspots
+     */
     override fun geo(): GeoServiceAsync = geo
 
+    /**
+     * With the ref/hotspot end-points you can find the hotspots for a given country or region or
+     * nearby hotspots
+     */
     override fun info(): InfoServiceAsync = info
 
     override fun list(
@@ -73,8 +85,16 @@ class HotspotServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /**
+         * With the ref/hotspot end-points you can find the hotspots for a given country or region
+         * or nearby hotspots
+         */
         override fun geo(): GeoServiceAsync.WithRawResponse = geo
 
+        /**
+         * With the ref/hotspot end-points you can find the hotspots for a given country or region
+         * or nearby hotspots
+         */
         override fun info(): InfoServiceAsync.WithRawResponse = info
 
         private val listHandler: Handler<List<HotspotListResponse>> =

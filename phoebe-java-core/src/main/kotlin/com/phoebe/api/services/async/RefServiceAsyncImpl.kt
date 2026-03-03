@@ -31,6 +31,10 @@ class RefServiceAsyncImpl internal constructor(private val clientOptions: Client
 
     override fun region(): RegionServiceAsync = region
 
+    /**
+     * With the ref/hotspot end-points you can find the hotspots for a given country or region or
+     * nearby hotspots
+     */
     override fun hotspot(): HotspotServiceAsync = hotspot
 
     override fun taxonomy(): TaxonomyServiceAsync = taxonomy
@@ -59,6 +63,10 @@ class RefServiceAsyncImpl internal constructor(private val clientOptions: Client
 
         override fun region(): RegionServiceAsync.WithRawResponse = region
 
+        /**
+         * With the ref/hotspot end-points you can find the hotspots for a given country or region
+         * or nearby hotspots
+         */
         override fun hotspot(): HotspotServiceAsync.WithRawResponse = hotspot
 
         override fun taxonomy(): TaxonomyServiceAsync.WithRawResponse = taxonomy

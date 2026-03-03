@@ -20,6 +20,10 @@ import com.phoebe.api.models.ref.hotspot.info.InfoRetrieveResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * With the ref/hotspot end-points you can find the hotspots for a given country or region or nearby
+ * hotspots
+ */
 class InfoServiceImpl internal constructor(private val clientOptions: ClientOptions) : InfoService {
 
     private val withRawResponse: InfoService.WithRawResponse by lazy {

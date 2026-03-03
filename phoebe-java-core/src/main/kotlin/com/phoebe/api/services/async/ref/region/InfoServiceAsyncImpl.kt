@@ -21,6 +21,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** The ref/region end-points return information on regions. */
 class InfoServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     InfoServiceAsync {
 

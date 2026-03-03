@@ -10,6 +10,7 @@ import com.phoebe.api.models.ref.region.adjacent.AdjacentListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** With the ref/geo end-point you can find a country's or region's neighbours. */
 interface AdjacentServiceAsync {
 
     /**

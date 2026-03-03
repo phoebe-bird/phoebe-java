@@ -22,10 +22,13 @@ interface RegionServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): RegionServiceAsync
 
+    /** With the ref/geo end-point you can find a country's or region's neighbours. */
     fun adjacent(): AdjacentServiceAsync
 
+    /** The ref/region end-points return information on regions. */
     fun info(): InfoServiceAsync
 
+    /** The ref/region end-points return information on regions. */
     fun list(): ListServiceAsync
 
     /**
@@ -42,10 +45,13 @@ interface RegionServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): RegionServiceAsync.WithRawResponse
 
+        /** With the ref/geo end-point you can find a country's or region's neighbours. */
         fun adjacent(): AdjacentServiceAsync.WithRawResponse
 
+        /** The ref/region end-points return information on regions. */
         fun info(): InfoServiceAsync.WithRawResponse
 
+        /** The ref/region end-points return information on regions. */
         fun list(): ListServiceAsync.WithRawResponse
     }
 }

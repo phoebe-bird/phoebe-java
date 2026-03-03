@@ -20,6 +20,7 @@ import com.phoebe.api.models.ref.region.info.InfoRetrieveResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** The ref/region end-points return information on regions. */
 class InfoServiceImpl internal constructor(private val clientOptions: ClientOptions) : InfoService {
 
     private val withRawResponse: InfoService.WithRawResponse by lazy {

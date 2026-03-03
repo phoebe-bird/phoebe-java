@@ -21,6 +21,10 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * With the ref/hotspot end-points you can find the hotspots for a given country or region or nearby
+ * hotspots
+ */
 class InfoServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     InfoServiceAsync {
 

@@ -20,6 +20,7 @@ import com.phoebe.api.models.ref.region.list.ListListResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** The ref/region end-points return information on regions. */
 class ListServiceImpl internal constructor(private val clientOptions: ClientOptions) : ListService {
 
     private val withRawResponse: ListService.WithRawResponse by lazy {

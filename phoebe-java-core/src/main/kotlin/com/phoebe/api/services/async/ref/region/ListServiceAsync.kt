@@ -10,6 +10,7 @@ import com.phoebe.api.models.ref.region.list.ListListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** The ref/region end-points return information on regions. */
 interface ListServiceAsync {
 
     /**
