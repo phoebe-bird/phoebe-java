@@ -20,6 +20,7 @@ import com.phoebe.api.models.ref.region.adjacent.AdjacentListResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** With the ref/geo end-point you can find a country's or region's neighbours. */
 class AdjacentServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     AdjacentService {
 

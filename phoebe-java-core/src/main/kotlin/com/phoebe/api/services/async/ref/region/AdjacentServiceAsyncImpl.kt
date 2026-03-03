@@ -21,6 +21,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** With the ref/geo end-point you can find a country's or region's neighbours. */
 class AdjacentServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     AdjacentServiceAsync {
 

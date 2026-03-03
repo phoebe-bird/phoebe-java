@@ -10,6 +10,7 @@ import com.phoebe.api.models.ref.region.info.InfoRetrieveParams
 import com.phoebe.api.models.ref.region.info.InfoRetrieveResponse
 import java.util.function.Consumer
 
+/** The ref/region end-points return information on regions. */
 interface InfoService {
 
     /**
