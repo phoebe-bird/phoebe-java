@@ -5,6 +5,7 @@ package com.phoebe.api.errors
 import com.phoebe.api.core.JsonValue
 import com.phoebe.api.core.checkRequired
 import com.phoebe.api.core.http.Headers
+import com.phoebe.api.core.jsonMapper
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
@@ -14,7 +15,11 @@ private constructor(
     private val headers: Headers,
     private val body: JsonValue,
     cause: Throwable?,
-) : PhoebeServiceException("$statusCode: $body", cause) {
+) :
+    PhoebeServiceException(
+        "$statusCode: ${if (body.isMissing()) "Unknown" else jsonMapper().writeValueAsString(body)}",
+        cause,
+    ) {
 
     override fun statusCode(): Int = statusCode
 
