@@ -2,8 +2,8 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.phoebe.api/phoebe-java)](https://central.sonatype.com/artifact/com.phoebe.api/phoebe-java/0.1.0-alpha.1)
-[![javadoc](https://javadoc.io/badge2/com.phoebe.api/phoebe-java/0.1.0-alpha.1/javadoc.svg)](https://javadoc.io/doc/com.phoebe.api/phoebe-java/0.1.0-alpha.1)
+[![Maven Central](https://img.shields.io/maven-central/v/com.phoebe.api/phoebe-java)](https://central.sonatype.com/artifact/com.phoebe.api/phoebe-java/0.1.0-alpha.2)
+[![javadoc](https://javadoc.io/badge2/com.phoebe.api/phoebe-java/0.1.0-alpha.2/javadoc.svg)](https://javadoc.io/doc/com.phoebe.api/phoebe-java/0.1.0-alpha.1)
 
 <!-- x-release-please-end -->
 
@@ -22,7 +22,7 @@ Use the Phoebe MCP Server to enable AI assistants to interact with this API, all
 
 <!-- x-release-please-start-version -->
 
-The REST API documentation can be found on [science.ebird.org](https://science.ebird.org/en/use-ebird-data/download-ebird-data-products). Javadocs are available on [javadoc.io](https://javadoc.io/doc/com.phoebe.api/phoebe-java/0.1.0-alpha.1).
+The REST API documentation can be found on [science.ebird.org](https://science.ebird.org/en/use-ebird-data/download-ebird-data-products). Javadocs are available on [javadoc.io](https://javadoc.io/doc/com.phoebe.api/phoebe-java/0.1.0-alpha.2).
 
 <!-- x-release-please-end -->
 
@@ -33,7 +33,7 @@ The REST API documentation can be found on [science.ebird.org](https://science.e
 ### Gradle
 
 ```kotlin
-implementation("com.phoebe.api:phoebe-java:0.1.0-alpha.1")
+implementation("com.phoebe.api:phoebe-java:0.1.0-alpha.2")
 ```
 
 ### Maven
@@ -42,7 +42,7 @@ implementation("com.phoebe.api:phoebe-java:0.1.0-alpha.1")
 <dependency>
   <groupId>com.phoebe.api</groupId>
   <artifactId>phoebe-java</artifactId>
-  <version>0.1.0-alpha.1</version>
+  <version>0.1.0-alpha.2</version>
 </dependency>
 ```
 
