@@ -12,6 +12,12 @@ import com.phoebe.api.services.async.data.observations.geo.recent.SpecieServiceA
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/**
+ * The data/obs end-points are used to fetch observations submitted to eBird in checklists. There
+ * are two categories of end-point: 1. Fetch observations for a specific country, region or
+ * location. 2. Fetch observations for nearby locations - up to a distance of 50km. Each end-point
+ * supports optional query parameters which allow you to filter the list of observations returned.
+ */
 interface RecentServiceAsync {
 
     /**
@@ -26,8 +32,22 @@ interface RecentServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): RecentServiceAsync
 
+    /**
+     * The data/obs end-points are used to fetch observations submitted to eBird in checklists.
+     * There are two categories of end-point: 1. Fetch observations for a specific country, region
+     * or location. 2. Fetch observations for nearby locations - up to a distance of 50km. Each
+     * end-point supports optional query parameters which allow you to filter the list of
+     * observations returned.
+     */
     fun species(): SpecieServiceAsync
 
+    /**
+     * The data/obs end-points are used to fetch observations submitted to eBird in checklists.
+     * There are two categories of end-point: 1. Fetch observations for a specific country, region
+     * or location. 2. Fetch observations for nearby locations - up to a distance of 50km. Each
+     * end-point supports optional query parameters which allow you to filter the list of
+     * observations returned.
+     */
     fun notable(): NotableServiceAsync
 
     /**
@@ -58,8 +78,22 @@ interface RecentServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): RecentServiceAsync.WithRawResponse
 
+        /**
+         * The data/obs end-points are used to fetch observations submitted to eBird in checklists.
+         * There are two categories of end-point: 1. Fetch observations for a specific country,
+         * region or location. 2. Fetch observations for nearby locations - up to a distance of
+         * 50km. Each end-point supports optional query parameters which allow you to filter the
+         * list of observations returned.
+         */
         fun species(): SpecieServiceAsync.WithRawResponse
 
+        /**
+         * The data/obs end-points are used to fetch observations submitted to eBird in checklists.
+         * There are two categories of end-point: 1. Fetch observations for a specific country,
+         * region or location. 2. Fetch observations for nearby locations - up to a distance of
+         * 50km. Each end-point supports optional query parameters which allow you to filter the
+         * list of observations returned.
+         */
         fun notable(): NotableServiceAsync.WithRawResponse
 
         /**

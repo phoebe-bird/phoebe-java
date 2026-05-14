@@ -30,6 +30,10 @@ class RefServiceImpl internal constructor(private val clientOptions: ClientOptio
 
     override fun region(): RegionService = region
 
+    /**
+     * With the ref/hotspot end-points you can find the hotspots for a given country or region or
+     * nearby hotspots
+     */
     override fun hotspot(): HotspotService = hotspot
 
     override fun taxonomy(): TaxonomyService = taxonomy
@@ -58,6 +62,10 @@ class RefServiceImpl internal constructor(private val clientOptions: ClientOptio
 
         override fun region(): RegionService.WithRawResponse = region
 
+        /**
+         * With the ref/hotspot end-points you can find the hotspots for a given country or region
+         * or nearby hotspots
+         */
         override fun hotspot(): HotspotService.WithRawResponse = hotspot
 
         override fun taxonomy(): TaxonomyService.WithRawResponse = taxonomy

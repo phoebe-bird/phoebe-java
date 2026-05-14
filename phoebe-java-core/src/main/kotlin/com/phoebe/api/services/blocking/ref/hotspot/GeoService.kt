@@ -10,6 +10,10 @@ import com.phoebe.api.models.ref.hotspot.geo.GeoRetrieveParams
 import com.phoebe.api.models.ref.hotspot.geo.GeoRetrieveResponse
 import java.util.function.Consumer
 
+/**
+ * With the ref/hotspot end-points you can find the hotspots for a given country or region or nearby
+ * hotspots
+ */
 interface GeoService {
 
     /**

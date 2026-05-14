@@ -24,6 +24,10 @@ interface RefService {
 
     fun region(): RegionService
 
+    /**
+     * With the ref/hotspot end-points you can find the hotspots for a given country or region or
+     * nearby hotspots
+     */
     fun hotspot(): HotspotService
 
     fun taxonomy(): TaxonomyService
@@ -40,6 +44,10 @@ interface RefService {
 
         fun region(): RegionService.WithRawResponse
 
+        /**
+         * With the ref/hotspot end-points you can find the hotspots for a given country or region
+         * or nearby hotspots
+         */
         fun hotspot(): HotspotService.WithRawResponse
 
         fun taxonomy(): TaxonomyService.WithRawResponse

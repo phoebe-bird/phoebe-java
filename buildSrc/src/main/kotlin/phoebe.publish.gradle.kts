@@ -27,9 +27,9 @@ configure<PublishingExtension> {
                 }
 
                 scm {
-                    connection.set("scm:git:git://github.com/stainless-sdks/phoebe-java.git")
-                    developerConnection.set("scm:git:git://github.com/stainless-sdks/phoebe-java.git")
-                    url.set("https://github.com/stainless-sdks/phoebe-java")
+                    connection.set("scm:git:git://github.com/phoebe-bird/phoebe-java.git")
+                    developerConnection.set("scm:git:git://github.com/phoebe-bird/phoebe-java.git")
+                    url.set("https://github.com/phoebe-bird/phoebe-java")
                 }
 
                 versionMapping {
@@ -37,6 +37,14 @@ configure<PublishingExtension> {
                         fromResolutionResult()
                     }
                 }
+            }
+        }
+    }
+    repositories {
+        if (project.hasProperty("publishLocal")) {
+            maven {
+                name = "LocalFileSystem"
+                url = uri("${rootProject.layout.buildDirectory.get()}/local-maven-repo")
             }
         }
     }

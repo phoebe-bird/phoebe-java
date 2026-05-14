@@ -5,12 +5,16 @@ package com.phoebe.api.errors
 import com.phoebe.api.core.JsonValue
 import com.phoebe.api.core.checkRequired
 import com.phoebe.api.core.http.Headers
+import com.phoebe.api.core.jsonMapper
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 class RateLimitException
 private constructor(private val headers: Headers, private val body: JsonValue, cause: Throwable?) :
-    PhoebeServiceException("429: $body", cause) {
+    PhoebeServiceException(
+        "429: ${if (body.isMissing()) "Unknown" else jsonMapper().writeValueAsString(body)}",
+        cause,
+    ) {
 
     override fun statusCode(): Int = 429
 
