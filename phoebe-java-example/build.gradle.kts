@@ -8,7 +8,8 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":phoebe-java"))
+    implementation(project(":phoebe-java-core"))
+    implementation(project(":phoebe-java-client-okhttp"))
 }
 
 tasks.withType<JavaCompile>().configureEach {
