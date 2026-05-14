@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.0-alpha.2 (2026-05-14)
+
+Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/phoebe-bird/phoebe-java/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
+
+### Features
+
+* initial stlc build ([b5e4f77](https://github.com/phoebe-bird/phoebe-java/commit/b5e4f77aa349a477ae0cf8f39b5cbcbe7246a45a))
+
+
+### Chores
+
+* enable release-please ([f0b387e](https://github.com/phoebe-bird/phoebe-java/commit/f0b387e63bc01c4d5f7849316c5940c2a316d06e))
+* regenerate from phoebe-config[#2](https://github.com/phoebe-bird/phoebe-java/issues/2) ([86dd78f](https://github.com/phoebe-bird/phoebe-java/commit/86dd78f445423d767fb269c6b0098ceab6c1057e))
+
 ## 0.1.0-alpha.1 (2026-05-13)
 
 Full Changelog: [v0.0.1-alpha.0...v0.1.0-alpha.1](https://github.com/phoebe-bird/phoebe-java/compare/v0.0.1-alpha.0...v0.1.0-alpha.1)
